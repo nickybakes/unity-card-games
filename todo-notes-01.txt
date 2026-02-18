@@ -1,0 +1,66 @@
+hand recognition
+returns handtype, value, and suit, if applicable
+for instance, pair of queens, doesnt care about suit.
+flush of diamonds, cares about suit but not value.
+HandType enum
+CardValue enum
+CardSuit enum
+
+AppManager:
+HandlesSceneLoading
+
+UserProfileManager:
+StartingCredits
+
+MenuManager:
+
+
+GamePlayManager:
+Give it the type of game (class)
+List of Game Modes to choose from
+
+GameModeBase:
+HandSize
+NumberOfDraws
+GameName
+gives you a hand
+are cards selectable?
+StartRound
+AfterDealt triggered after hand dealt
+Draw triggered when player presses button, decrement availableDraws
+
+GameModePoker:
+PayTable
+MinScoringHand (type, value, and suit)
+AfterDealt: hand recognition which enables the text and highlights paytable
+Draw: Discard selected cards and deal replacements
+
+GameModeJacksOrBetter:
+extends Poker
+variant on poker, make minscoringhand be Pair of Jacks
+
+GameModeBlackJack:
+AfterDealt: determine current score and
+Draw: Hit, draw an extra card into the hand, if the player busts gameover
+
+CardManager:
+CardHandReferences
+CardDeckPosition
+CardDiscardPosition
+AddCard
+TravelTime
+
+CardGameObject:
+SetupCard(value, suit, startFlippedOver = false)
+HoldCard
+UnholdCard
+Flip
+
+CardHand:
+DrawFromPosition
+IsHandViewable
+like the CharacterActionMenu
+has spline to place cards
+
+scriptable objects:
+pay table for each hand (multiply of your bet)
