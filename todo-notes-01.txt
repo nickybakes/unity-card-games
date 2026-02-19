@@ -6,42 +6,73 @@ HandType enum
 CardValue enum
 CardSuit enum
 
-AppManager:
-HandlesSceneLoading
+SCE_AppInit_01 will have:
 
-UserProfileManager:
-StartingCredits
+AppManager (dont destroy):
+HandlesSceneSwitching
 
-MenuManager:
+UserManager (dont destroy):
+Stores player's current credits and bets
 
+GameCollectionManager (dont destroy):
+enum of GamesInCollection
+GameType enum (Poker, Blackjack)
+enum to scene array or switch statement?
+PlayGameMode
+QuitGameMode (return to menu)
 
-GamePlayManager:
-Give it the type of game (class)
-List of Game Modes to choose from
+SCE_GameMenu_01:
+Buttons for selecting different modes
+Maybe a button to deposit credits?
 
-GameModeBase:
-HandSize
-NumberOfDraws
-GameName
+SCE_Poker_01
+SCE_BlackJack_01
+
+GameManager should already be in the scene as a GameObject
+
+GameManagerBase:
 gives you a hand
 are cards selectable?
+StartGame
 StartRound
 AfterDealt triggered after hand dealt
 Draw triggered when player presses button, decrement availableDraws
 
-GameModePoker:
-PayTable
-MinScoringHand (type, value, and suit)
+GameManagerPoker:
 AfterDealt: hand recognition which enables the text and highlights paytable
 Draw: Discard selected cards and deal replacements
 
-GameModeJacksOrBetter:
-extends Poker
-variant on poker, make minscoringhand be Pair of Jacks
-
-GameModeBlackJack:
+GameManagerBlackJack:
 AfterDealt: determine current score and
 Draw: Hit, draw an extra card into the hand, if the player busts gameover
+
+------
+
+ScriptableObjects:
+
+GameRules:
+GameName
+HandSize
+NumberOfDraws
+GameType (Poker or Blackjack)
+
+GameRulesPoker:
+extends GameRules
+PayTable
+MinScoringHand (type, value, and suit)
+
+GameRulesJacksOrBetter (is type GameRulesPoker):
+make minscoringhand be Pair of Jacks
+
+GameRulesBlackJack:
+extends GameRules
+maxScoreBeforeBust
+
+pay table for each hand (multiply of your bet)
+
+------
+
+GameObjects:
 
 CardManager:
 CardHandReferences
@@ -50,7 +81,7 @@ CardDiscardPosition
 AddCard
 TravelTime
 
-CardGameObject:
+CardDisplay:
 SetupCard(value, suit, startFlippedOver = false)
 HoldCard
 UnholdCard
@@ -62,5 +93,10 @@ IsHandViewable
 like the CharacterActionMenu
 has spline to place cards
 
-scriptable objects:
-pay table for each hand (multiply of your bet)
+------
+
+Serialized Classes:
+Card:
+Value
+Suit
+

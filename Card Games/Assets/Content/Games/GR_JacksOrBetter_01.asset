@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 952eaf90c309eee4b9f5c8ea47e8ca68, type: 3}
+  m_Name: GR_JacksOrBetter_01
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Jacks Or Better
+  <Description>k__BackingField: Standard Poker but the minimum scoring hand is a
+    Pair of Jacks.
+  <HandSize>k__BackingField: 5
+  <NumberOfDraws>k__BackingField: 1
+  <deckData>k__BackingField: {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
+  <SceneToLoad>k__BackingField:
+    m_Handle: 0
