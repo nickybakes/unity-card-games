@@ -16,6 +16,6 @@ public class DeckSpecialData
 
 public enum SpecialDeckDataType
 {
-    RANDOM_BASIC,
-    BOMB
+    RandomBasicCards,
+    Bomb
 }

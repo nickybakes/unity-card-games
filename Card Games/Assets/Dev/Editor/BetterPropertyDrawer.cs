@@ -13,6 +13,9 @@ public class BetterPropertyDrawer : PropertyDrawer
 
     protected float currentSameLineHeight;
 
+    protected float normalizedWidthOverride = -1;
+    protected float normalizedXPositionOverride = -1;
+
     protected int sameLineCurrentIndex = 0;
 
     protected int sameLineAmount = 1;
@@ -76,6 +79,21 @@ public class BetterPropertyDrawer : PropertyDrawer
         return EditorGUI.IntSlider(position, value, leftValue, rightValue);
     }
 
+    protected int AddIntField(int value)
+    {
+        Rect position = Position();
+        NextLine();
+        return EditorGUI.IntField(position, value);
+    }
+
+    protected bool AddCheckbox(bool value)
+    {
+        Rect position = Position();
+        NextLine();
+        return EditorGUI.Toggle(position, value);
+    }
+
+
     protected bool Button(string text)
     {
         Rect position = Position();
@@ -137,6 +155,10 @@ public class BetterPropertyDrawer : PropertyDrawer
 
     protected Rect Position()
     {
+        if (normalizedWidthOverride != -1 && normalizedXPositionOverride != -1)
+        {
+            return new Rect(position.x + (position.width * normalizedXPositionOverride), position.y + childrenHeight, position.width * normalizedWidthOverride, EditorGUIUtility.singleLineHeight);
+        }
         float width = position.width / sameLineAmount;
         return new Rect(position.x + (width * sameLineCurrentIndex), position.y + childrenHeight, width, EditorGUIUtility.singleLineHeight);
     }

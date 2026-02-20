@@ -4,110 +4,98 @@ using UnityEngine;
 public class HandAnalysis
 {
 
-    public static List<Card> TrimHand(List<Card> hand, List<CardValue> allowedValues, List<CardSuit> allowedSuits)
+    public static bool AnalizeForPokerHand(List<Card> hand, PokerHand pokerHand)
+    {
+        List<Card> trimmedHand = new List<Card>(hand);
+
+        foreach (PokerHandRule rule in pokerHand.Rules)
+        {
+            List<Card> allowedHand = TrimHandToAllowedCards(trimmedHand, rule.AllowedValues, rule.AllowedSuits);
+            Debug.Log(allowedHand.Count);
+        }
+
+        return true;
+    }
+
+    public static List<Card> TrimHandToAllowedCards(List<Card> hand, bool[] allowedValues, bool[] allowedSuits)
     {
         List<Card> trimmedHand = new List<Card>(hand);
 
         for (int i = 0; i < hand.Count; i++)
         {
-            if (!allowedValues.Contains(trimmedHand[i].Value))
+            for (int j = 0; j < allowedValues.Length; j++)
             {
-                trimmedHand.RemoveAt(i);
-                i--;
+                if (!allowedValues[j] && (int)trimmedHand[i].Value == j)
+                {
+                    trimmedHand.RemoveAt(i);
+                    i--;
+                    break;
+                }
             }
-            else if (!allowedSuits.Contains(trimmedHand[i].Suit))
+
+            for (int j = 0; j < allowedSuits.Length; j++)
             {
-                trimmedHand.RemoveAt(i);
-                i--;
+                if (!allowedSuits[j] && (int)trimmedHand[i].Suit == j)
+                {
+                    trimmedHand.RemoveAt(i);
+                    i--;
+                    break;
+                }
             }
         }
 
         return trimmedHand;
     }
 
-    public static bool HasValueCollection(List<Card> hand, CardValue value, int amountNeeded, bool exactAmount)
+    public static List<Card> GetCardsThatPassCondition(List<Card> hand, HandComponent conditionToCheck, int amountNeeded, bool stopCountingAtAmount)
     {
-        int numMatchingCards = 0;
+        List<Card> mostPassingCards = new List<Card>();
 
         for (int i = 0; i < hand.Count; i++)
         {
-            if (hand[i].Value == value)
-            {
-                numMatchingCards++;
-                if (numMatchingCards == amountNeeded && !exactAmount)
-                {
-                    return true;
-                }
-            }
-        }
+            Card currentCard = hand[i];
+            List<Card> currentPassingCards = new List<Card> { currentCard };
 
-        return numMatchingCards == amountNeeded;
-    }
-
-    public static bool HasSuitCollection(List<Card> hand, CardSuit suit, int amountNeeded, bool exactAmount)
-    {
-        int numMatchingCards = 0;
-
-        for (int i = 0; i < hand.Count; i++)
-        {
-            if (hand[i].Suit == suit)
-            {
-                numMatchingCards++;
-                if (numMatchingCards == amountNeeded && !exactAmount)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return numMatchingCards == amountNeeded;
-    }
-
-    public static bool HasConsecutiveValues(List<Card> hand, int amountNeeded, bool exactAmount, bool sameSuit)
-    {
-        int lengthOfConsecutiveCards = 0;
-
-        for (int i = 0; i < hand.Count; i++)
-        {
             List<Card> remainingCards = new List<Card>(hand);
             remainingCards.RemoveAt(i);
-            int newLength = GetLengthOfConsecutiveCards(hand[i], remainingCards, sameSuit);
 
-            if (newLength >= amountNeeded && !exactAmount)
+            for (int j = 0; j < remainingCards.Count; j++)
             {
-                return true;
-            }
-
-            if (newLength >= lengthOfConsecutiveCards)
-            {
-                lengthOfConsecutiveCards = newLength;
-            }
-        }
-
-        return lengthOfConsecutiveCards == amountNeeded;
-    }
-
-    private static int GetLengthOfConsecutiveCards(Card currentCard, List<Card> remainingCards, bool sameSuit)
-    {
-        if (remainingCards.Count == 0)
-        {
-            return 1;
-        }
-
-        for (int i = 0; i < remainingCards.Count; i++)
-        {
-            Card nextCard = remainingCards[i];
-            if ((int)nextCard.Value - (int)currentCard.Value == 1 || (currentCard.Value == CardValue.ACE && nextCard.Value == CardValue.TWO))
-            {
-                if (!sameSuit || currentCard.Suit == nextCard.Suit)
+                Card nextCard = remainingCards[j];
+                if (DoCardsPassCondition(currentCard, nextCard, conditionToCheck))
                 {
-                    List<Card> remainingCardsWithoutNextCard = new List<Card>(remainingCards);
-                    remainingCardsWithoutNextCard.RemoveAt(i);
-                    return 1 + GetLengthOfConsecutiveCards(nextCard, remainingCardsWithoutNextCard, sameSuit);
+                    currentPassingCards.Add(nextCard);
+                    remainingCards.RemoveAt(j);
+                    j = 0;
+
+                    if (stopCountingAtAmount && currentPassingCards.Count == amountNeeded)
+                    {
+                        return currentPassingCards;
+                    }
                 }
             }
+
+            if (currentPassingCards.Count > mostPassingCards.Count)
+            {
+                mostPassingCards = currentPassingCards;
+            }
         }
-        return 0;
+
+        return mostPassingCards;
     }
 
+    private static bool DoCardsPassCondition(Card a, Card b, HandComponent conditionToCheck)
+    {
+        switch (conditionToCheck)
+        {
+            case HandComponent.ValueCollection:
+                return a.Value == b.Value;
+            case HandComponent.SuitCollection:
+                return a.Suit == b.Suit;
+            case HandComponent.ConsecutiveValues:
+                return (int)b.Value - (int)a.Value == 1 || (a.Value == CardValue.Ace && b.Value == CardValue.Two);
+        }
+
+        return false;
+    }
 }

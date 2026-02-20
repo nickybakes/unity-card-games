@@ -14,7 +14,7 @@ public class Deck
             for (int j = 0; j < deckData.DeckSuits[i].Values.Length; j++)
             {
                 if (deckData.DeckSuits[i].Values[j])
-                    cards.Add(new Card((CardValue)j, deckData.DeckSuits[i].Suit, CardSpecial.NONE));
+                    cards.Add(new Card((CardValue)j, deckData.DeckSuits[i].Suit, CardSpecial.None));
             }
         }
 
@@ -24,8 +24,8 @@ public class Deck
             {
                 switch (deckData.DeckSpecials[i].Type)
                 {
-                    case SpecialDeckDataType.RANDOM_BASIC:
-                        cards.Add(new Card((CardValue)Random.Range(0, 13), (CardSuit)Random.Range(0, 4), CardSpecial.NONE));
+                    case SpecialDeckDataType.RandomBasicCards:
+                        cards.Add(new Card((CardValue)Random.Range(0, 13), (CardSuit)Random.Range(0, 4), CardSpecial.None));
                         break;
                 }
             }

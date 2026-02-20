@@ -17,6 +17,7 @@ MonoBehaviour:
   <Rules>k__BackingField:
   - type: 0
     amountNeeded: 2
-    exactAmount: 0
+    stopCountingAtAmount: 1
+    afterRuleOperation: 0
     allowedValues: 00000000000000000001010101
     allowedSuits: 01010101

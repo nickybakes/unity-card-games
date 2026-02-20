@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a7cf7a39694094a889e718623f5ffb, type: 3}
-  m_Name: FullHouse
+  m_Name: FiveOfKind_Flush
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Full House
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Flush Five
+  <Description>k__BackingField: Five of a Kind and Flush
   <Rules>k__BackingField:
-  - type: 0
-    amountNeeded: 3
+  - type: 1
+    amountNeeded: 5
     stopCountingAtAmount: 1
-    afterRuleOperation: 1
+    afterRuleOperation: 2
     allowedValues: 01010101010101010101010101
     allowedSuits: 01010101
   - type: 0
-    amountNeeded: 2
+    amountNeeded: 5
     stopCountingAtAmount: 1
-    afterRuleOperation: 0
+    afterRuleOperation: 2
     allowedValues: 01010101010101010101010101
     allowedSuits: 01010101

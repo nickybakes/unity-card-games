@@ -15,12 +15,36 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
 
         AddQuarterBlankLine();
 
-        StartSameLine(2);
+        StartSameLine(4);
 
-        AddProperty("amountNeeded");
-        AddProperty("exactAmount");
+        normalizedXPositionOverride = 0;
+        normalizedWidthOverride = .33f;
+
+        AddLabel("Amount Needed");
+
+        normalizedXPositionOverride += normalizedWidthOverride + .01f;
+        normalizedWidthOverride = .09f;
+
+        SerializedProperty amountNeededProperty = property.FindPropertyRelative("amountNeeded");
+        amountNeededProperty.intValue = AddIntField(amountNeededProperty.intValue);
+
+        normalizedXPositionOverride += normalizedWidthOverride + .01f;
+        normalizedWidthOverride = .94f - normalizedXPositionOverride;
+
+        AddLabel("Stop Counting At Amount");
+
+        normalizedXPositionOverride = .94f;
+        normalizedWidthOverride = .06f;
+
+        SerializedProperty stopCountingAtAmountProperty = property.FindPropertyRelative("stopCountingAtAmount");
+        stopCountingAtAmountProperty.boolValue = AddCheckbox(amountNeededProperty.boolValue);
+
+        normalizedXPositionOverride = -1;
+        normalizedWidthOverride = -1;
 
         AddQuarterBlankLine();
+
+        AddProperty("afterRuleOperation");
 
         AddLabel("Allowed Values");
         StartSameLine(26);

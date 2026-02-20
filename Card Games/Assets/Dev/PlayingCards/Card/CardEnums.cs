@@ -1,37 +1,44 @@
 public enum CardValue
 {
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING,
-    ACE
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten,
+    Jack,
+    Queen,
+    King,
+    Ace
 }
 
 public enum CardSuit
 {
-    SPADE,
-    HEART,
-    CLUB,
-    DIAMOND
+    Spade,
+    Heart,
+    Club,
+    Diamond
 }
 
 public enum HandComponent
 {
-    VALUE_COLLECTION,
-    SUIT_COLLECTION,
-    CONSECUTIVE_VALUES,
+    ValueCollection,
+    SuitCollection,
+    ConsecutiveValues,
+}
+
+public enum HandAfterRuleOperation
+{
+    None,
+    TrimScoringCards,
+    TrimNonscoringCards
 }
 
 public enum CardSpecial
 {
-    NONE,
-    WILD,
+    None,
+    Wild,
 }
