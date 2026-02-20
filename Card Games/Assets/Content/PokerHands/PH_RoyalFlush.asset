@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a7cf7a39694094a889e718623f5ffb, type: 3}
-  m_Name: FullHouse
+  m_Name: PH_RoyalFlush
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Full House
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Royal Flush
+  <Description>k__BackingField: A straight made up of values 10, Jack, Queen, King,
+    and Ace and are all the same suit.
   <Rules>k__BackingField:
-  - type: 0
-    amountNeeded: 3
-    stopCountingAtAmount: 1
-    afterRuleOperation: 1
-    allowedValues: 01010101010101010101010101
+  - type: 1
+    amountNeeded: 5
+    stopCountingAtAmount: 0
+    afterRuleOperation: 2
+    allowedValues: 00000000000000000101010101
     allowedSuits: 01010101
-  - type: 0
-    amountNeeded: 2
+  - type: 2
+    amountNeeded: 5
     stopCountingAtAmount: 1
-    afterRuleOperation: 0
-    allowedValues: 01010101010101010101010101
+    afterRuleOperation: 2
+    allowedValues: 00000000000000000101010101
     allowedSuits: 01010101

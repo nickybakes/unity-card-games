@@ -10,8 +10,31 @@ public class HandAnalysis
 
         foreach (PokerHandRule rule in pokerHand.Rules)
         {
-            List<Card> allowedHand = TrimHandToAllowedCards(trimmedHand, rule.AllowedValues, rule.AllowedSuits);
-            Debug.Log(allowedHand.Count);
+            List<Card> allowedCards = TrimHandToAllowedCards(trimmedHand, rule.AllowedValues, rule.AllowedSuits);
+            List<Card> scoringCards = GetCardsThatPassCondition(allowedCards, rule.Type, rule.AmountNeeded, rule.StopCountingAtAmount);
+
+            if (scoringCards.Count == 0)
+                return false;
+
+            switch (rule.AfterRuleOperation)
+            {
+                case HandAfterRuleOperation.TrimScoringCards:
+                    foreach (Card scoringCard in scoringCards)
+                    {
+                        trimmedHand.Remove(scoringCard);
+                    }
+                    break;
+                case HandAfterRuleOperation.TrimNonscoringCards:
+                    for (int i = 0; i < trimmedHand.Count; i++)
+                    {
+                        if (!scoringCards.Contains(trimmedHand[i]))
+                        {
+                            trimmedHand.Remove(trimmedHand[i]);
+                            i--;
+                        }
+                    }
+                    break;
+            }
         }
 
         return true;
@@ -21,7 +44,7 @@ public class HandAnalysis
     {
         List<Card> trimmedHand = new List<Card>(hand);
 
-        for (int i = 0; i < hand.Count; i++)
+        for (int i = 0; i < trimmedHand.Count; i++)
         {
             for (int j = 0; j < allowedValues.Length; j++)
             {
@@ -32,7 +55,10 @@ public class HandAnalysis
                     break;
                 }
             }
+        }
 
+        for (int i = 0; i < trimmedHand.Count; i++)
+        {
             for (int j = 0; j < allowedSuits.Length; j++)
             {
                 if (!allowedSuits[j] && (int)trimmedHand[i].Suit == j)
@@ -65,8 +91,9 @@ public class HandAnalysis
                 if (DoCardsPassCondition(currentCard, nextCard, conditionToCheck))
                 {
                     currentPassingCards.Add(nextCard);
+                    currentCard = nextCard;
                     remainingCards.RemoveAt(j);
-                    j = 0;
+                    j = -1;
 
                     if (stopCountingAtAmount && currentPassingCards.Count == amountNeeded)
                     {
@@ -75,7 +102,7 @@ public class HandAnalysis
                 }
             }
 
-            if (currentPassingCards.Count > mostPassingCards.Count)
+            if (currentPassingCards.Count > mostPassingCards.Count && currentPassingCards.Count >= amountNeeded)
             {
                 mostPassingCards = currentPassingCards;
             }

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a7cf7a39694094a889e718623f5ffb, type: 3}
-  m_Name: Straight Flush
+  m_Name: PH_FullHouse
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Straight Flush
-  <Description>k__BackingField: Flush that has a Straight.
+  <Name>k__BackingField: Full House
+  <Description>k__BackingField: Three of a kind and a pair.
   <Rules>k__BackingField:
-  - type: 1
-    amountNeeded: 5
+  - type: 0
+    amountNeeded: 3
     stopCountingAtAmount: 1
-    afterRuleOperation: 2
+    afterRuleOperation: 1
     allowedValues: 01010101010101010101010101
     allowedSuits: 01010101
-  - type: 2
-    amountNeeded: 5
+  - type: 0
+    amountNeeded: 2
     stopCountingAtAmount: 1
-    afterRuleOperation: 2
+    afterRuleOperation: 0
     allowedValues: 01010101010101010101010101
     allowedSuits: 01010101

@@ -18,5 +18,5 @@ MonoBehaviour:
   <HandSize>k__BackingField: 5
   <NumberOfDraws>k__BackingField: 1
   <deckData>k__BackingField: {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
-  <SceneToLoad>k__BackingField:
-    m_Handle: 0
+  <SceneToLoad>k__BackingField: {}
+  <paytableData>k__BackingField: {fileID: 11400000, guid: a754588144d88e0419610eb6a376a1ea, type: 2}

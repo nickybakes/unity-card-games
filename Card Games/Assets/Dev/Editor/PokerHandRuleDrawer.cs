@@ -37,7 +37,7 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
         normalizedWidthOverride = .06f;
 
         SerializedProperty stopCountingAtAmountProperty = property.FindPropertyRelative("stopCountingAtAmount");
-        stopCountingAtAmountProperty.boolValue = AddCheckbox(amountNeededProperty.boolValue);
+        stopCountingAtAmountProperty.boolValue = AddCheckbox(stopCountingAtAmountProperty.boolValue);
 
         normalizedXPositionOverride = -1;
         normalizedWidthOverride = -1;

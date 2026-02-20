@@ -10,21 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a7cf7a39694094a889e718623f5ffb, type: 3}
-  m_Name: RoyalFlush
+  m_Name: PH_4OfAKind
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Royal Flush
-  <Description>k__BackingField: Flush that has a Straight from 10, Jack, Queen, King,
-    Ace.
+  <Name>k__BackingField: Four of a Kind
+  <Description>k__BackingField: Four cards that match in value.
   <Rules>k__BackingField:
-  - type: 1
-    amountNeeded: 5
+  - type: 0
+    amountNeeded: 4
     stopCountingAtAmount: 1
-    afterRuleOperation: 2
-    allowedValues: 00000000000000000101010101
-    allowedSuits: 01010101
-  - type: 2
-    amountNeeded: 5
-    stopCountingAtAmount: 1
-    afterRuleOperation: 2
-    allowedValues: 00000000000000000101010101
+    afterRuleOperation: 0
+    allowedValues: 01010101010101010101010101
     allowedSuits: 01010101

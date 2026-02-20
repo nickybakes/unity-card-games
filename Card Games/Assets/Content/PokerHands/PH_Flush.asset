@@ -10,20 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a7cf7a39694094a889e718623f5ffb, type: 3}
-  m_Name: FiveOfKind_Flush
+  m_Name: PH_Flush
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Flush Five
-  <Description>k__BackingField: Five of a Kind and Flush
+  <Name>k__BackingField: Flush
+  <Description>k__BackingField: All cards are the same suit.
   <Rules>k__BackingField:
   - type: 1
     amountNeeded: 5
     stopCountingAtAmount: 1
-    afterRuleOperation: 2
-    allowedValues: 01010101010101010101010101
-    allowedSuits: 01010101
-  - type: 0
-    amountNeeded: 5
-    stopCountingAtAmount: 1
-    afterRuleOperation: 2
+    afterRuleOperation: 0
     allowedValues: 01010101010101010101010101
     allowedSuits: 01010101

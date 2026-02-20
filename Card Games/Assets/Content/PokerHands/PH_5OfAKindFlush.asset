@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55a7cf7a39694094a889e718623f5ffb, type: 3}
-  m_Name: PokerHandTest_01
+  m_Name: PH_5OfAKindFlush
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Flush Five
+  <Description>k__BackingField: Five cards that match in value and are also the same
+    suit.
   <Rules>k__BackingField:
-  - type: 0
-    amountNeeded: 2
-    stopCountingAtAmount: 1
-    afterRuleOperation: 0
-    allowedValues: 01010101010101010101010101
-    allowedSuits: 00000000
-  - type: 0
-    amountNeeded: 0
+  - type: 1
+    amountNeeded: 5
     stopCountingAtAmount: 0
-    afterRuleOperation: 0
-    allowedValues: 00000000000000000001010101
-    allowedSuits: 00000000
+    afterRuleOperation: 2
+    allowedValues: 01010101010101010101010101
+    allowedSuits: 01010101
+  - type: 0
+    amountNeeded: 5
+    stopCountingAtAmount: 1
+    afterRuleOperation: 2
+    allowedValues: 01010101010101010101010101
+    allowedSuits: 01010101
