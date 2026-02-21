@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PaytableRow
+public class PaytableRowBlackJack
 {
-    [SerializeField] private PokerHand hand;
+    [SerializeField] private string name;
     [SerializeField] private float betMultiplier;
 
-    public PokerHand Hand { get => hand; }
+    public string Name { get => name; }
     public float BetMultiplier { get => betMultiplier; }
 
 }

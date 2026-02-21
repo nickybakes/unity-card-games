@@ -59,6 +59,7 @@ public class HandTester : MonoBehaviour
         {
             if (handsToTest[i].Count == 0)
                 continue;
+            Card.DebugLogCardList(handsToTest[i]);
 
             bool[] passed = new bool[pokerHands.Count];
 

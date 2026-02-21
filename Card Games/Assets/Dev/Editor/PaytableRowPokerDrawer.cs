@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(PaytableRow))]
-public class PaytableRowDrawer : BetterPropertyDrawer
+[CustomPropertyDrawer(typeof(PaytableRowPoker))]
+public class PaytableRowPokerDrawer : BetterPropertyDrawer
 {
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

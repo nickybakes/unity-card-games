@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -22,5 +23,18 @@ public class Card
         Value = _value;
         Suit = _suit;
         Special = _special;
+    }
+
+    public override string ToString()
+    {
+        return value + " of " + suit + "s";
+    }
+
+    public static void DebugLogCardList(List<Card> cardList)
+    {
+        foreach (Card card in cardList)
+        {
+            Debug.Log(card);
+        }
     }
 }

@@ -3,8 +3,8 @@ returns handtype, value, and suit, if applicable
 for instance, pair of queens, doesnt care about suit.
 flush of diamonds, cares about suit but not value.
 HandType enum
-CardValue enum
-CardSuit enum
+//CardValue enum
+//CardSuit enum
 
 SCE_AppInit_01 will have:
 
@@ -74,8 +74,8 @@ pay table for each hand (multiply of your bet)
 
 GameObjects:
 
-CardManager:
-CardHandReferences
+GameViewManagerBase:
+HandDisplays
 CardDeckPosition
 CardDiscardPosition
 AddCard
@@ -87,7 +87,7 @@ HoldCard
 UnholdCard
 Flip
 
-CardHand:
+HandDisplay:
 DrawFromPosition
 IsHandViewable
 like the CharacterActionMenu
