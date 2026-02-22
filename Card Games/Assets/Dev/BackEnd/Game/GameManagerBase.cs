@@ -16,7 +16,8 @@ public class GameManagerBase : MonoBehaviour
 
     public virtual void StartGame()
     {
-
+        Debug.Log("wsadawd");
+        StartRound();
     }
 
     public virtual void StartRound()

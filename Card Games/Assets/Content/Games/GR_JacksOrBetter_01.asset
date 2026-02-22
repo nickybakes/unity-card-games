@@ -15,8 +15,9 @@ MonoBehaviour:
   <Name>k__BackingField: Jacks Or Better
   <Description>k__BackingField: Standard Poker but the minimum scoring hand is a
     Pair of Jacks.
-  <HandSize>k__BackingField: 5
-  <NumberOfDraws>k__BackingField: 1
-  <deckData>k__BackingField: {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
-  <SceneToLoad>k__BackingField: {}
+  <NumberOfHands>k__BackingField: 1
+  <Decks>k__BackingField:
+  - {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
+  <SceneToLoad>k__BackingField: 2
   <paytableData>k__BackingField: {fileID: 11400000, guid: 4ddefeb4854d4e3429d0cb01b797fabc, type: 2}
+  <HandSize>k__BackingField: 5

@@ -15,8 +15,9 @@ MonoBehaviour:
   <Name>k__BackingField: Jacks Or Better x2
   <Description>k__BackingField: Jacks Or Better but your hand size is 10 and you
     get 2 chances to draw. The deck is also doubled in size.
+  <NumberOfHands>k__BackingField: 1
+  <Decks>k__BackingField:
+  - {fileID: 11400000, guid: ca65f5358679acd49ad07c575c6182e7, type: 2}
+  <SceneToLoad>k__BackingField: 2
+  <paytableData>k__BackingField: {fileID: 11400000, guid: 3ce3240a29c3cb84caddc9a8049de299, type: 2}
   <HandSize>k__BackingField: 10
-  <NumberOfDraws>k__BackingField: 2
-  <deckData>k__BackingField: {fileID: 11400000, guid: ca65f5358679acd49ad07c575c6182e7, type: 2}
-  <SceneToLoad>k__BackingField: {}
-  <paytableData>k__BackingField: {fileID: 11400000, guid: c82d5491eb118e649950362563fcc5a4, type: 2}

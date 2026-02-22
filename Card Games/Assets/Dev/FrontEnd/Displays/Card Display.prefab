@@ -426,8 +426,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8bdd6d58080fe4b8c6c2a7f3c8bb34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
-  valueDisplay: {fileID: 0}
-  suitDisplay: {fileID: 0}
+  valueDisplay: {fileID: 5202629602529094005}
+  suitDisplay: {fileID: 3667780303892396717}
+  moveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.6654769
+      outSlope: 1.6654769
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055012073
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -1.0440662
+      outSlope: -1.0440662
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10120559
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveTimeLength: 0.2
 --- !u!1 &9068564536451717029
 GameObject:
   m_ObjectHideFlags: 0

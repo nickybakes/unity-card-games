@@ -7,7 +7,8 @@ public enum SceneIndex
 {
     AppInit = 0,
     GameMenu = 1,
-    BattleTest = 2,
+    Poker = 2,
+    BlackJack = 2,
 }
 
 /// <summary>

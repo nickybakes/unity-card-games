@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cbcf781f23e4444a086478f65ac62c, type: 3}
+  m_Name: GR_BlackJack_01
+  m_EditorClassIdentifier: Assembly-CSharp::GameRulesBlackJack
+  <Name>k__BackingField: Black Jack
+  <Description>k__BackingField: Standard Black Jack. Score limit is 21, don't go
+    over or you'll bust!
+  <NumberOfHands>k__BackingField: 2
+  <Decks>k__BackingField:
+  - {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
+  <SceneToLoad>k__BackingField: 2
+  <paytableData>k__BackingField: {fileID: 11400000, guid: 7c1ffacf3b103084e82bc014fc4bd7f1, type: 2}
+  <BaseScoreLimit>k__BackingField: 21
+  <BaseHandSize>k__BackingField: 2
