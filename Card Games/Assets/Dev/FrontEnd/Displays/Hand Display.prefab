@@ -59,8 +59,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandDisplay
   splineContainer: {fileID: 2029683785413202443}
-  cardSizeNormalized: 0.2
-  bigCardSizeNormalized: 0.25
+  cardSizeNormalized: 0.16
+  bigCardSizeNormalized: 0.2
   rotationFirst: 0
   rotationLast: 0
   cardShiftTransitionTime: 0.2

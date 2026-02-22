@@ -571,6 +571,7 @@ MonoBehaviour:
   handDisplays:
   - {fileID: 169853835}
   deckDisplays: []
+  gamePanelTransform: {fileID: 20773177}
   cardPrefab: {fileID: 8746525971175064651, guid: 4c6b74fe9e1142046a9259442442dcee, type: 3}
 --- !u!1 &933462879
 GameObject:
@@ -1005,6 +1006,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 20773177}
     m_Modifications:
+    - target: {fileID: 971678216585146152, guid: a9913f030edcbbd45901ea5b96195db0, type: 3}
+      propertyPath: rotationLast
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 971678216585146152, guid: a9913f030edcbbd45901ea5b96195db0, type: 3}
+      propertyPath: rotationFirst
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5756820985529365037, guid: a9913f030edcbbd45901ea5b96195db0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
