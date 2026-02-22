@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines.Interpolators;
 using UnityEngine.UIElements;
@@ -26,6 +25,7 @@ public class CardDisplay : TravelingDisplay
     void Awake()
     {
         SetupRectTransform();
+        SetupTravelingTransformData();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

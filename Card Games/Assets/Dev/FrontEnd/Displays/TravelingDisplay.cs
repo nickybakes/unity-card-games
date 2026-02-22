@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class TravelingDisplay : Display
 {
-    private Vector2 startAnchoredPosition;
-    private Quaternion startRotation;
-    private Vector3 startScale;
 
-    private Vector2 goalAnchoredPosition;
-    private Quaternion goalRotation;
-    private Vector3 goalScale;
+    private RectTransformData startTransformData;
+
+    private RectTransformData goalTransformData;
 
     [SerializeField] private AnimationCurve moveCurve;
     [SerializeField] private float travelTimeLength = .2f;
@@ -18,6 +15,13 @@ public class TravelingDisplay : Display
     void Awake()
     {
         SetupRectTransform();
+        SetupTravelingTransformData();
+    }
+
+    protected void SetupTravelingTransformData()
+    {
+        startTransformData = new RectTransformData(rectTransform);
+        goalTransformData = new RectTransformData(rectTransform);
     }
 
     public void StartMoving()
@@ -32,30 +36,43 @@ public class TravelingDisplay : Display
 
     public void SetStartTransform(Vector2 anchoredPosition, Quaternion rotation, Vector3 scale)
     {
-        startAnchoredPosition = anchoredPosition;
-        startRotation = rotation;
-        startScale = scale;
+        startTransformData.anchoredPosition = anchoredPosition;
+        startTransformData.rotation = rotation;
+        startTransformData.scale = scale;
     }
 
     public void SetGoalTransform(Vector2 anchoredPosition, Quaternion rotation, Vector3 scale)
     {
-        goalAnchoredPosition = anchoredPosition;
-        goalRotation = rotation;
-        goalScale = scale;
+        goalTransformData.anchoredPosition = anchoredPosition;
+        goalTransformData.rotation = rotation;
+        goalTransformData.scale = scale;
+    }
+
+    public void ApplyTransformParentToStartTransform(RectTransform parent, bool applyScale = true, bool applyRotation = true)
+    {
+        startTransformData.ApplyRectTransformParentToData(parent, applyScale, applyRotation);
+    }
+
+    public void ApplyTransformParentToGoalTransform(RectTransform parent, bool applyScale = true, bool applyRotation = true)
+    {
+        goalTransformData.ApplyRectTransformParentToData(parent, applyScale, applyRotation);
     }
 
     public void ApplyLerpTransform(float t)
     {
-        rectTransform.anchoredPosition = Vector2.LerpUnclamped(startAnchoredPosition, goalAnchoredPosition, t);
-        rectTransform.rotation = Quaternion.LerpUnclamped(startRotation, goalRotation, t);
-        rectTransform.localScale = Vector3.LerpUnclamped(startScale, goalScale, t);
+        rectTransform.anchoredPosition = Vector2.LerpUnclamped(startTransformData.anchoredPosition, goalTransformData.anchoredPosition, t);
+        rectTransform.rotation = Quaternion.LerpUnclamped(startTransformData.rotation, goalTransformData.rotation, t);
+        rectTransform.localScale = Vector3.LerpUnclamped(startTransformData.scale, goalTransformData.scale, t);
+    }
+
+    public void ApplyStartTransform()
+    {
+        startTransformData.ApplyDataToRectTranform(rectTransform);
     }
 
     public void ApplyGoalTransform()
     {
-        rectTransform.anchoredPosition = goalAnchoredPosition;
-        rectTransform.rotation = goalRotation;
-        rectTransform.localScale = goalScale;
+        goalTransformData.ApplyDataToRectTranform(rectTransform);
     }
 
     public bool isTraveling()
