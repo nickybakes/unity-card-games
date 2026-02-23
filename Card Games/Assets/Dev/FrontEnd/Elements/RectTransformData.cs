@@ -15,6 +15,18 @@ public class RectTransformData
         ownerRect = _ownerRect;
     }
 
+    public void SetTransformData(RectTransform rect)
+    {
+        SetTransformData(rect.anchoredPosition, rect.rotation, rect.localScale);
+    }
+
+    public void SetTransformData(Vector2 _anchoredPosition, Quaternion _rotation, Vector3 _scale)
+    {
+        anchoredPosition = _anchoredPosition;
+        rotation = _rotation;
+        scale = _scale;
+    }
+
     public void ApplyDataToRectTranform(RectTransform rect)
     {
         rect.anchoredPosition = anchoredPosition;

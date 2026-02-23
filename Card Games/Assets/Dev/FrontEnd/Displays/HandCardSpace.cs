@@ -17,6 +17,8 @@ public class HandCardSpace
     private float spaceSize = 0f;
 
     private float transitionTimeLength = .2f;
+
+    private AnimationCurve transitionCurve;
     private float currentMoveTime = 0;
 
     private float currentGrowTime = 0;
@@ -27,10 +29,11 @@ public class HandCardSpace
 
     public float SpaceSize { get => spaceSize; }
 
-    public HandCardSpace(CardDisplay _cardDisplay, float _spaceIndexPosition, float _transitionTimeLength)
+    public HandCardSpace(CardDisplay _cardDisplay, float _spaceIndexPosition, float _transitionTimeLength, AnimationCurve _transitionCurve)
     {
         cardDisplay = _cardDisplay;
         transitionTimeLength = _transitionTimeLength;
+        transitionCurve = _transitionCurve;
         spaceIndexPosition = _spaceIndexPosition;
         currentMoveTime = transitionTimeLength + 1;
         currentGrowTime = 0;
@@ -41,13 +44,13 @@ public class HandCardSpace
         if (currentGrowTime <= transitionTimeLength)
         {
             currentGrowTime += Time.deltaTime;
-            spaceSize = Mathf.Clamp01(currentGrowTime / transitionTimeLength);
+            spaceSize = transitionCurve.Evaluate(currentGrowTime / transitionTimeLength);
         }
 
         if (currentMoveTime <= transitionTimeLength)
         {
             currentMoveTime += Time.deltaTime;
-            spaceIndexPosition = Mathf.Lerp(spaceIndexPosition, spaceIndexPositionGoal, currentMoveTime / transitionTimeLength);
+            spaceIndexPosition = Mathf.LerpUnclamped(spaceIndexPosition, spaceIndexPositionGoal, transitionCurve.Evaluate(currentMoveTime / transitionTimeLength));
         }
     }
 

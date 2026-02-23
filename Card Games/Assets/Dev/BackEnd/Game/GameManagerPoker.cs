@@ -3,17 +3,44 @@ using UnityEngine;
 public class GameManagerPoker : GameManagerBase
 {
 
-    [field: SerializeField] public GameRulesPoker GameRules { get; private set; }
+    protected GameRulesPoker gameRulesPoker;
 
+    public GameRulesPoker gameRulesOverrive;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private float timeInGame;
+
+    private void Start()
     {
+        LoadGameRules(gameRulesOverrive);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void LoadGameRules(GameRulesBase _gameRules)
     {
+        gameRules = _gameRules;
+        gameRulesPoker = (GameRulesPoker)_gameRules;
+        SetupHands();
+    }
 
+    public override void StartGame()
+    {
+        Debug.Log("Start Game");
+        StartRound();
+    }
+
+    public override void StartRound()
+    {
+        base.StartRound();
+        DrawCardsToHand(0, 0, gameRulesPoker.HandSize);
+        FinishTurn();
+    }
+
+    public void Update()
+    {
+        timeInGame += Time.deltaTime;
+        if (timeInGame > 3 && !gameStarted)
+        {
+            gameStarted = true;
+            StartGame();
+        }
     }
 }

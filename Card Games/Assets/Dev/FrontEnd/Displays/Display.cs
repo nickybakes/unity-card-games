@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Display : MonoBehaviour
 {
+    public GameViewManager viewManager;
     protected RectTransform rectTransform;
 
     void Awake()
@@ -12,6 +13,11 @@ public class Display : MonoBehaviour
     protected void SetupRectTransform()
     {
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    public RectTransform GetRect()
+    {
+        return rectTransform;
     }
 
     // Update is called once per frame

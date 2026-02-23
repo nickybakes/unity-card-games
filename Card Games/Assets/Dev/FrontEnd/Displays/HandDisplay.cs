@@ -15,6 +15,8 @@ public class HandDisplay : Display
     [SerializeField] private float rotationFirst;
     [SerializeField] private float rotationLast;
 
+    [SerializeField] private AnimationCurve cardShiftTransitionCurve;
+
     [SerializeField] private float cardShiftTransitionTime = .2f;
 
     [SerializeField] private bool cardsInheritRotation = true;
@@ -42,9 +44,17 @@ public class HandDisplay : Display
         UpdateCardTransforms();
     }
 
-    public void AddCardDisplay(CardDisplay display)
+    public void AddCardDisplayToHand(CardDisplay display, int indexPosition = -1)
     {
-        handCardSpaces.Add(new HandCardSpace(display, handCardSpaces.Count, cardShiftTransitionTime));
+        if (indexPosition == -1)
+            indexPosition = handCardSpaces.Count;
+
+        for (int i = indexPosition; i < handCardSpaces.Count; i++)
+        {
+            handCardSpaces[i].SetGoalPosition(i + 1);
+        }
+
+        handCardSpaces.Add(new HandCardSpace(display, indexPosition, cardShiftTransitionTime, cardShiftTransitionCurve));
     }
 
     public void UpdateCardTransforms()
@@ -90,13 +100,22 @@ public class HandDisplay : Display
         }
     }
 
-    public void RemoveCardFromHand(int index)
+    public void RemoveCardDisplayFromHand(CardDisplay display)
     {
-        handCardSpaces.RemoveAt(index);
-
-        for (int i = index; i < handCardSpaces.Count; i++)
+        bool removed = false;
+        for (int i = 0; i < handCardSpaces.Count; i++)
         {
-            handCardSpaces[i].SetGoalPosition(i - 1);
+            if (handCardSpaces[i].CardDisplay == display)
+            {
+                handCardSpaces.RemoveAt(i);
+                i--;
+                removed = true;
+            }
+
+            if (removed)
+            {
+                handCardSpaces[i].SetGoalPosition(i - 1);
+            }
         }
     }
 

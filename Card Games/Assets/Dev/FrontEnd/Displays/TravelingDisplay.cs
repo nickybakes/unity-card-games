@@ -34,18 +34,24 @@ public class TravelingDisplay : Display
         currentTravelTime = travelTimeLength + 1;
     }
 
+    public void SetStartTransform(RectTransform rect)
+    {
+        startTransformData.SetTransformData(rect);
+    }
+
+    public void SetGoalTransform(RectTransform rect)
+    {
+        goalTransformData.SetTransformData(rect);
+    }
+
     public void SetStartTransform(Vector2 anchoredPosition, Quaternion rotation, Vector3 scale)
     {
-        startTransformData.anchoredPosition = anchoredPosition;
-        startTransformData.rotation = rotation;
-        startTransformData.scale = scale;
+        startTransformData.SetTransformData(anchoredPosition, rotation, scale);
     }
 
     public void SetGoalTransform(Vector2 anchoredPosition, Quaternion rotation, Vector3 scale)
     {
-        goalTransformData.anchoredPosition = anchoredPosition;
-        goalTransformData.rotation = rotation;
-        goalTransformData.scale = scale;
+        goalTransformData.SetTransformData(anchoredPosition, rotation, scale);
     }
 
     public void ApplyTransformParentToStartTransform(RectTransform parent, bool applyRotation = true, bool applyScale = true)

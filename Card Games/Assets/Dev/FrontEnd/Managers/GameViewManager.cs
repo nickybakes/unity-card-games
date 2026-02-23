@@ -4,40 +4,113 @@ using UnityEngine;
 public class GameViewManager : MonoBehaviour
 {
 
+    [SerializeField] private GameManagerBase gameManager;
+
     [SerializeField] private List<HandDisplay> handDisplays;
     [SerializeField] private List<DeckDisplay> deckDisplays;
-    [SerializeField] private Transform gamePanelTransform;
-    [SerializeField] private CardDisplay cardPrefab;
+    [SerializeField] private DisplayPool cardDisplayPool;
+    [SerializeField] private RectTransform discardPileTransform;
+
+    [SerializeField] private float timeBetweenStandardGameChangeAction = .2f;
+
+    [SerializeField] private float timeBetweenLongGameChangeAction = 1f;
+
+    private float timeForCurrentChange;
+    private float currentChangeTime;
+
+
+    private List<GameStateChange> changesThisTurn;
+    private int currentChangeIndex;
+
+    private Dictionary<Card, CardDisplay> cardToCardDisplayReferences;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        List<Card> cards = new List<Card>(5)
-        {
-            new Card(CardValue.King, CardSuit.Heart, CardSpecial.None),
-            new Card(CardValue.Five, CardSuit.Spade, CardSpecial.None),
-            new Card(CardValue.Two, CardSuit.Heart, CardSpecial.None),
-            new Card(CardValue.Five, CardSuit.Diamond, CardSpecial.None),
-            new Card(CardValue.Jack, CardSuit.Club, CardSpecial.None)
-        };
-
-        foreach (Card card in cards)
-        {
-            SpawnCardPrefab(card);
-        }
+        changesThisTurn = new List<GameStateChange>();
+        cardToCardDisplayReferences = new Dictionary<Card, CardDisplay>();
     }
 
-    public void SpawnCardPrefab(Card card)
+    public void ButtonSelected(int index)
     {
-        CardDisplay display = Instantiate(cardPrefab, gamePanelTransform);
-        display.DisplayCard(card);
-        handDisplays[0].AddCardDisplay(display);
+
+    }
+
+    public void CardSelected(Card card)
+    {
+        gameManager.PlayerSelectCard(card);
+    }
+
+    public void CaptureAndDisplayGameChanges(List<GameStateChange> changes)
+    {
+        if (currentChangeIndex >= changesThisTurn.Count)
+        {
+            changesThisTurn = changes;
+            currentChangeIndex = 0;
+        }
+        else
+        {
+            changesThisTurn.AddRange(changes);
+        }
+
+        currentChangeTime = timeForCurrentChange;
+    }
+
+    public void DrawCardToHand(Card card, int deckIndex, int handIndex, int indexInHand = -1)
+    {
+        CardDisplay display = (CardDisplay)cardDisplayPool.GetDisplay();
+        cardToCardDisplayReferences.Add(card, display);
+        display.DisplayCard(card, deckDisplays[deckIndex].GetRect(), true);
+        display.SetStartTransform(deckDisplays[deckIndex].GetRect());
+        handDisplays[handIndex].AddCardDisplayToHand(display, indexInHand);
     }
 
     // Update is called once per frame
     void Update()
     {
+        currentChangeTime += Time.deltaTime;
+        while (currentChangeTime >= timeForCurrentChange && currentChangeIndex < changesThisTurn.Count)
+        {
+            ParseGameStateChange(changesThisTurn[currentChangeIndex]);
+            currentChangeTime = 0;
+            currentChangeIndex++;
 
+            if (currentChangeIndex < changesThisTurn.Count)
+            {
+                switch (changesThisTurn[currentChangeIndex].ChangeTime)
+                {
+                    case GameStateChangeTime.Instant:
+                        timeForCurrentChange = 0;
+                        break;
+                    case GameStateChangeTime.Standard:
+                        timeForCurrentChange = timeBetweenStandardGameChangeAction;
+                        break;
+                    case GameStateChangeTime.Long:
+                        timeForCurrentChange = timeBetweenLongGameChangeAction;
+                        break;
+                }
+            }
+        }
+    }
+
+    private void ParseGameStateChange(GameStateChange change)
+    {
+        switch (change.Type)
+        {
+            case GameStateChangeType.CardMove:
+                if (change.From == GameBoardTarget.Deck && change.To == GameBoardTarget.Hand)
+                {
+                    DrawCardToHand(change.Card, change.FromIndex, change.ToIndex, change.IndexInHand);
+                }
+                break;
+
+
+            case GameStateChangeType.CardUpdate:
+                CardDisplay displayToUpdate = cardToCardDisplayReferences.GetValueOrDefault(change.Card);
+                displayToUpdate.UpdateFlip();
+                displayToUpdate.UpdateHeld();
+                break;
+        }
     }
 }

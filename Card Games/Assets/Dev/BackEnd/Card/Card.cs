@@ -11,6 +11,9 @@ public class Card
     [SerializeField] private CardValue value;
     [SerializeField] private CardSuit suit;
     [SerializeField] private CardSpecial special;
+    private bool flipped;
+    private bool held;
+
 
     public CardValue Value { get => value; private set => this.value = value; }
 
@@ -18,11 +21,25 @@ public class Card
 
     public CardSpecial Special { get => special; private set => special = value; }
 
+    public bool Flipped { get => flipped; private set => flipped = value; }
+    public bool Held { get => held; private set => held = value; }
+
+
     public Card(CardValue _value, CardSuit _suit, CardSpecial _special)
     {
         Value = _value;
         Suit = _suit;
         Special = _special;
+    }
+
+    public void Flip()
+    {
+        flipped = !flipped;
+    }
+
+    public void ChangeHold()
+    {
+        held = !held;
     }
 
     public override string ToString()

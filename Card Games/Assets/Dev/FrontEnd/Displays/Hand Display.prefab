@@ -58,12 +58,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a178a0c504723ac4692bfa755053f201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandDisplay
+  viewManager: {fileID: 0}
   splineContainer: {fileID: 2029683785413202443}
   alignment: 1
   cardSizeNormalized: 0.16
   bigCardSizeNormalized: 0.23
   rotationFirst: 10
   rotationLast: -10
+  cardShiftTransitionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.6654769
+      outSlope: 1.6654769
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.055012073
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -5.2531395
+      outSlope: -5.2531395
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.045987785
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   cardShiftTransitionTime: 0.2
   cardsInheritRotation: 1
   cardsInheritScale: 1

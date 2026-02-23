@@ -615,6 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8bdd6d58080fe4b8c6c2a7f3c8bb34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
+  viewManager: {fileID: 0}
   moveCurve:
     serializedVersion: 2
     m_Curve:
@@ -630,11 +631,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -1.0440662
-      outSlope: -1.0440662
+      inSlope: -0.7880591
+      outSlope: -0.7880591
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10120559
+      inWeight: 0.094845355
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -644,6 +645,7 @@ MonoBehaviour:
   valueDisplay: {fileID: 5202629602529094005}
   suitDisplay: {fileID: 3667780303892396717}
   sizeTransition: 0
+  timeAfterDisplayToUpdate: 0
 --- !u!95 &7057346554841063081
 Animator:
   serializedVersion: 7
@@ -690,7 +692,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8746525971175064651}
         m_TargetAssemblyTypeName: CardDisplay, Assembly-CSharp
-        m_MethodName: FlipCard
+        m_MethodName: SelectCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
