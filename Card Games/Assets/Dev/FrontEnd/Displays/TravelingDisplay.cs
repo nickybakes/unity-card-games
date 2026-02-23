@@ -48,14 +48,14 @@ public class TravelingDisplay : Display
         goalTransformData.scale = scale;
     }
 
-    public void ApplyTransformParentToStartTransform(RectTransform parent, bool applyScale = true, bool applyRotation = true)
+    public void ApplyTransformParentToStartTransform(RectTransform parent, bool applyRotation = true, bool applyScale = true)
     {
-        startTransformData.ApplyRectTransformParentToData(parent, applyScale, applyRotation);
+        startTransformData.ApplyRectTransformParentToData(parent, applyRotation, applyScale);
     }
 
-    public void ApplyTransformParentToGoalTransform(RectTransform parent, bool applyScale = true, bool applyRotation = true)
+    public void ApplyTransformParentToGoalTransform(RectTransform parent, bool applyRotation = true, bool applyScale = true)
     {
-        goalTransformData.ApplyRectTransformParentToData(parent, applyScale, applyRotation);
+        goalTransformData.ApplyRectTransformParentToData(parent, applyRotation, applyScale);
     }
 
     public void ApplyLerpTransform(float t)

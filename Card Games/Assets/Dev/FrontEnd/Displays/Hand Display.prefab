@@ -59,11 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandDisplay
   splineContainer: {fileID: 2029683785413202443}
+  alignment: 1
   cardSizeNormalized: 0.16
-  bigCardSizeNormalized: 0.2
-  rotationFirst: 0
-  rotationLast: 0
+  bigCardSizeNormalized: 0.23
+  rotationFirst: 10
+  rotationLast: -10
   cardShiftTransitionTime: 0.2
+  cardsInheritRotation: 1
+  cardsInheritScale: 1
 --- !u!1 &8223087930552402490
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class RectTransformData
         rect.localScale = scale;
     }
 
-    public void ApplyRectTransformParentToData(RectTransform parent, bool applyScale = true, bool applyRotation = true)
+    public void ApplyRectTransformParentToData(RectTransform parent, bool applyRotation = true, bool applyScale = true)
     {
         RectTransform currentParent = parent;
         while (currentParent != null && currentParent != ownerRect.parent)

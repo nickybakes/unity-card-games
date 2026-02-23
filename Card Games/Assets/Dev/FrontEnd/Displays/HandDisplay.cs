@@ -17,8 +17,9 @@ public class HandDisplay : Display
 
     [SerializeField] private float cardShiftTransitionTime = .2f;
 
-    [SerializeField] private bool applyScaleToCards = true;
-    [SerializeField] private bool applyRotationToCards = true;
+    [SerializeField] private bool cardsInheritRotation = true;
+
+    [SerializeField] private bool cardsInheritScale = true;
 
 
     private List<HandCardSpace> handCardSpaces;
@@ -85,7 +86,7 @@ public class HandDisplay : Display
             Vector3 position = splineContainer.Spline.EvaluatePosition(point);
             position.z = 0;
             currentSpace.CardDisplay.SetGoalTransform(position, Quaternion.AngleAxis(Mathf.Lerp(rotationFirst, rotationLast, point), Vector3.forward), Vector3.one);
-            currentSpace.CardDisplay.ApplyTransformParentToGoalTransform(rectTransform, applyScaleToCards, applyRotationToCards);
+            currentSpace.CardDisplay.ApplyTransformParentToGoalTransform(rectTransform, cardsInheritRotation, cardsInheritScale);
         }
     }
 

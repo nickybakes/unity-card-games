@@ -118,6 +118,17 @@ public class BetterSelectable :
         SetAnimationTrigger("Reset");
     }
 
+    public virtual void RefreshState()
+    {
+        if (isPointerInside)
+            Select();
+        else
+        {
+            SetAnimationTrigger("Deselect");
+            hasSelection = false;
+        }
+    }
+
     public virtual void OnSelected()
     {
         if (!hasSelection)

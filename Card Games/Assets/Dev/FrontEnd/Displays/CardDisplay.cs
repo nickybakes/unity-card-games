@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class CardDisplay : TravelingDisplay
 {
+    [SerializeField] private Animator animator;
 
     [SerializeField] private TextMeshProUGUI valueDisplay;
     [SerializeField] private TextMeshProUGUI suitDisplay;
@@ -14,12 +15,24 @@ public class CardDisplay : TravelingDisplay
 
     public float SizeTransition { get => sizeTransition; }
 
+    private bool flipped;
 
-    public void DisplayCard(Card card)
+
+    public void DisplayCard(Card card, bool startFlipped = false)
     {
         valueDisplay.text = Card.CARD_VALUE_STRINGS[(int)card.Value];
         suitDisplay.text = Card.CARD_SUIT_STRINGS[(int)card.Suit];
         gameObject.SetActive(true);
+        flipped = startFlipped;
+        animator.SetBool("Flipped", flipped);
+        animator.SetTrigger("FlipInstant");
+    }
+
+    public void FlipCard()
+    {
+        flipped = !flipped;
+        animator.SetBool("Flipped", flipped);
+        animator.SetTrigger("Flip");
     }
 
     void Awake()
