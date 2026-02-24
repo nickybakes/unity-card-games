@@ -15,9 +15,8 @@ public class HandDisplay : Display
     [SerializeField] private float rotationFirst;
     [SerializeField] private float rotationLast;
 
-    [SerializeField] private AnimationCurve cardShiftTransitionCurve;
-
-    [SerializeField] private float cardShiftTransitionTime = .2f;
+    [SerializeField] private float cardSpaceMoveSpeed = 4f;
+    [SerializeField] private float cardSpaceGrowSpeed = 4f;
 
     [SerializeField] private bool cardsInheritRotation = true;
 
@@ -25,6 +24,8 @@ public class HandDisplay : Display
 
 
     private List<HandCardSpace> handCardSpaces;
+
+    private int numCardDisplaysInHand;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -38,7 +39,7 @@ public class HandDisplay : Display
     {
         for (int i = 0; i < handCardSpaces.Count; i++)
         {
-            handCardSpaces[i].Update();
+            handCardSpaces[i].Update(cardSpaceGrowSpeed, cardSpaceMoveSpeed);
         }
 
         UpdateCardTransforms();
@@ -47,29 +48,63 @@ public class HandDisplay : Display
     public void AddCardDisplayToHand(CardDisplay display, int indexPosition = -1)
     {
         if (indexPosition == -1)
-            indexPosition = handCardSpaces.Count;
+            indexPosition = numCardDisplaysInHand;
 
-        for (int i = indexPosition; i < handCardSpaces.Count; i++)
+        numCardDisplaysInHand++;
+
+        HandCardSpace newSpace = null;
+        int newSpaceIndexInArray = -1;
+        for (int i = 0; i < handCardSpaces.Count; i++)
         {
-            handCardSpaces[i].SetGoalPosition(i + 1);
+            if (handCardSpaces[i].displayRemoved)
+            {
+                newSpace = handCardSpaces[i];
+                newSpaceIndexInArray = i;
+                handCardSpaces[i].Setup(display, indexPosition);
+                break;
+            }
+        }
+        if (newSpace == null)
+        {
+            newSpace = new HandCardSpace(display, indexPosition);
+            handCardSpaces.Add(newSpace);
+            newSpaceIndexInArray = handCardSpaces.Count - 1;
         }
 
-        handCardSpaces.Add(new HandCardSpace(display, indexPosition, cardShiftTransitionTime, cardShiftTransitionCurve));
+        newSpace.cardDisplay.transform.SetAsLastSibling();
+
+        for (int i = 0; i < handCardSpaces.Count; i++)
+        {
+            if (i != newSpaceIndexInArray && !handCardSpaces[i].displayRemoved && handCardSpaces[i].IncrementGoalPositionIfGreaterThanIndex(indexPosition - 1))
+                handCardSpaces[i].cardDisplay.transform.SetAsLastSibling();
+        }
     }
 
     public void UpdateCardTransforms()
     {
-        // Calculate offsets
+
+
         float totalSpaceSize = 0;
         for (int i = 0; i < handCardSpaces.Count; i++)
         {
             HandCardSpace currentSpace = handCardSpaces[i];
-            currentSpace.positionOffset = 0;
             totalSpaceSize += currentSpace.SpaceSize;
+        }
+
+        float scale = Math.Min(1f / (cardSizeNormalized * totalSpaceSize), 1f);
+        float scaledCardSizeNormalized = cardSizeNormalized * scale;
+        float scaledBigCardSizeNormalized = bigCardSizeNormalized * scale;
+
+        // Calculate offsets
+        for (int i = 0; i < handCardSpaces.Count; i++)
+        {
+            HandCardSpace currentSpace = handCardSpaces[i];
+            currentSpace.positionOffset = 0;
+
             for (int j = 0; j < handCardSpaces.Count; j++)
             {
                 HandCardSpace compareSpace = handCardSpaces[j];
-                float offset = GetCardOffsetSizeNormalized(j) * compareSpace.SpaceSize * .5f;
+                float offset = GetCardOffsetSizeNormalized(j, scaledCardSizeNormalized, scaledBigCardSizeNormalized) * compareSpace.SpaceSize * .5f;
                 offset *= Mathf.Clamp(currentSpace.SpaceIndexPosition - compareSpace.SpaceIndexPosition, -1, 1);
                 currentSpace.positionOffset += offset;
             }
@@ -79,11 +114,11 @@ public class HandDisplay : Display
         float startPoint = 0;
         if (alignment == TextAlignment.Center)
         {
-            startPoint = (cardSizeNormalized * .5f) + .5f - (totalSpaceSize * .5f * cardSizeNormalized);
+            startPoint = (scaledCardSizeNormalized * .5f) + .5f - (totalSpaceSize * .5f * scaledCardSizeNormalized);
         }
         else if (alignment == TextAlignment.Right)
         {
-            startPoint = 1.0f - ((totalSpaceSize - 1.0f) * cardSizeNormalized);
+            startPoint = 1.0f - ((totalSpaceSize - 1.0f) * scaledCardSizeNormalized);
         }
 
 
@@ -91,37 +126,46 @@ public class HandDisplay : Display
         for (int i = 0; i < handCardSpaces.Count; i++)
         {
             HandCardSpace currentSpace = handCardSpaces[i];
-            float point = startPoint + (currentSpace.SpaceIndexPosition * cardSizeNormalized) + currentSpace.positionOffset;
+            if (currentSpace.displayRemoved)
+                continue;
+
+            float point = startPoint + (currentSpace.SpaceIndexPosition * scaledCardSizeNormalized) + currentSpace.positionOffset;
 
             Vector3 position = splineContainer.Spline.EvaluatePosition(point);
             position.z = 0;
-            currentSpace.CardDisplay.SetGoalTransform(position, Quaternion.AngleAxis(Mathf.Lerp(rotationFirst, rotationLast, point), Vector3.forward), Vector3.one);
-            currentSpace.CardDisplay.ApplyTransformParentToGoalTransform(rectTransform, cardsInheritRotation, cardsInheritScale);
+            currentSpace.cardDisplay.SetGoalTransform(position, Quaternion.AngleAxis(Mathf.Lerp(rotationFirst, rotationLast, point), Vector3.forward), Vector3.one);
+            currentSpace.cardDisplay.ApplyTransformParentToGoalTransform(rectTransform, cardsInheritRotation, cardsInheritScale);
         }
     }
 
     public void RemoveCardDisplayFromHand(CardDisplay display)
     {
-        bool removed = false;
+        int removeIndex = numCardDisplaysInHand;
+
         for (int i = 0; i < handCardSpaces.Count; i++)
         {
-            if (handCardSpaces[i].CardDisplay == display)
+            if (handCardSpaces[i].cardDisplay == display && !handCardSpaces[i].displayRemoved)
             {
-                handCardSpaces.RemoveAt(i);
-                i--;
-                removed = true;
+                handCardSpaces[i].displayRemoved = true;
+                handCardSpaces[i].SetGoalSize(0);
+                numCardDisplaysInHand--;
+                removeIndex = (int)handCardSpaces[i].SpaceIndexPositionGoal;
+                break;
             }
+        }
 
-            if (removed)
-            {
-                handCardSpaces[i].SetGoalPosition(i - 1);
-            }
+        for (int i = 0; i < handCardSpaces.Count; i++)
+        {
+            handCardSpaces[i].DecrementGoalPositionIfGreaterThanIndex(removeIndex);
         }
     }
 
-    private float GetCardOffsetSizeNormalized(int index)
+    private float GetCardOffsetSizeNormalized(int index, float scaledCardSizeNormalized, float scaledBigCardSizeNormalized)
     {
-        return (bigCardSizeNormalized - cardSizeNormalized) * handCardSpaces[index].CardDisplay.SizeTransition;
+        float sizeTransition = 0;
+        if (!handCardSpaces[index].displayRemoved)
+            sizeTransition = handCardSpaces[index].cardDisplay.SizeTransition;
+        return (scaledBigCardSizeNormalized - scaledCardSizeNormalized) * sizeTransition;
     }
 }
 

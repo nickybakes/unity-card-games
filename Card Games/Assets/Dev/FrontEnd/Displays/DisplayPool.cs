@@ -33,6 +33,11 @@ public class DisplayPool : MonoBehaviour
         return SpawnNewDisplay();
     }
 
+    public void RemoveDisplay(Display display)
+    {
+        display.gameObject.SetActive(false);
+    }
+
     public Display SpawnNewDisplay()
     {
         Display display = Instantiate(prefab, spawnParent);

@@ -35,6 +35,8 @@ public class CardDisplay : TravelingDisplay
 
         updatedAfterInitialDisplay = false;
 
+        UpdateHeld();
+
         shownFlipped = startFlipped;
         animator.SetBool("Flipped", shownFlipped);
         animator.SetTrigger("FlipInstant");
@@ -65,6 +67,13 @@ public class CardDisplay : TravelingDisplay
         }
     }
 
+    public void FlipOverride(bool overrideFlip)
+    {
+        shownFlipped = overrideFlip;
+        animator.SetBool("Flipped", shownFlipped);
+        animator.SetTrigger("Flip");
+    }
+
     void Awake()
     {
         SetupRectTransform();
@@ -85,6 +94,7 @@ public class CardDisplay : TravelingDisplay
         {
             updatedAfterInitialDisplay = true;
             UpdateFlip();
+            UpdateHeld();
         }
     }
 }

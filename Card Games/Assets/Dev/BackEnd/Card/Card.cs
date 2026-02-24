@@ -32,12 +32,12 @@ public class Card
         Special = _special;
     }
 
-    public void Flip()
+    public void InvertFlipped()
     {
         flipped = !flipped;
     }
 
-    public void ChangeHold()
+    public void InvertHeld()
     {
         held = !held;
     }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TravelingDisplay : Display
@@ -12,6 +13,8 @@ public class TravelingDisplay : Display
 
     private float currentTravelTime;
 
+    private Action<TravelingDisplay> arrivalCallback = null;
+
     void Awake()
     {
         SetupRectTransform();
@@ -24,14 +27,22 @@ public class TravelingDisplay : Display
         goalTransformData = new RectTransformData(rectTransform);
     }
 
-    public void StartMoving()
+    public void StartTraveling()
     {
         currentTravelTime = 0;
     }
 
-    public void StopMoving()
+    public void StopTraveling()
     {
         currentTravelTime = travelTimeLength + 1;
+    }
+
+    public void TravelToTransform(RectTransform rect, Action<TravelingDisplay> _arrivalCallback = null)
+    {
+        SetStartTransform(rectTransform);
+        SetGoalTransform(rect);
+        StartTraveling();
+        arrivalCallback = _arrivalCallback;
     }
 
     public void SetStartTransform(RectTransform rect)
@@ -94,6 +105,11 @@ public class TravelingDisplay : Display
             float lerpT = currentTravelTime / travelTimeLength;
             lerpT = moveCurve.Evaluate(lerpT);
             ApplyLerpTransform(lerpT);
+            if (!isTraveling() && arrivalCallback != null)
+            {
+                arrivalCallback.Invoke(this);
+                arrivalCallback = null;
+            }
         }
         else
         {

@@ -62,34 +62,11 @@ MonoBehaviour:
   splineContainer: {fileID: 2029683785413202443}
   alignment: 1
   cardSizeNormalized: 0.16
-  bigCardSizeNormalized: 0.23
+  bigCardSizeNormalized: 0.26
   rotationFirst: 10
   rotationLast: -10
-  cardShiftTransitionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1.6654769
-      outSlope: 1.6654769
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.055012073
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -5.2531395
-      outSlope: -5.2531395
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.045987785
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  cardShiftTransitionTime: 0.2
+  cardSpaceMoveSpeed: 12
+  cardSpaceGrowSpeed: 12
   cardsInheritRotation: 1
   cardsInheritScale: 1
 --- !u!1 &8223087930552402490
@@ -157,27 +134,27 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: -539.04474
-        y: 0
-        z: -0.00048828125
+        x: -533.675
+        y: -7.3292847
+        z: -0.00024414062
       TangentIn:
         x: 0
         y: 0
-        z: -573.8976
+        z: -583.31775
       TangentOut:
         x: 0
         y: 0
-        z: 573.8976
+        z: 583.31775
       Rotation:
         value:
-          x: -0.12385645
-          y: 0.69617975
-          z: 0.12385282
-          w: 0.69617087
+          x: -0.16175751
+          y: 0.68836254
+          z: 0.16175392
+          w: 0.6883511
     - Position:
-        x: 539.04474
-        y: 0
-        z: -0.00048828125
+        x: 511.112
+        y: -7.3292847
+        z: -0.00024414062
       TangentIn:
         x: 0
         y: 0

@@ -34,12 +34,19 @@ public class GameViewManager : MonoBehaviour
 
     public void ButtonSelected(int index)
     {
-
+        if (currentChangeIndex >= changesThisTurn.Count)
+        {
+            Debug.Log("Button Clicked: " + index);
+            gameManager.PlayerSelectButton(index);
+        }
     }
 
     public void CardSelected(Card card)
     {
-        gameManager.PlayerSelectCard(card);
+        if (currentChangeIndex >= changesThisTurn.Count)
+        {
+            gameManager.PlayerSelectCard(card);
+        }
     }
 
     public void CaptureAndDisplayGameChanges(List<GameStateChange> changes)
@@ -63,7 +70,21 @@ public class GameViewManager : MonoBehaviour
         cardToCardDisplayReferences.Add(card, display);
         display.DisplayCard(card, deckDisplays[deckIndex].GetRect(), true);
         display.SetStartTransform(deckDisplays[deckIndex].GetRect());
+        display.StartTraveling();
         handDisplays[handIndex].AddCardDisplayToHand(display, indexInHand);
+    }
+
+    public void DiscardCardFromHand(Card card, int handIndex)
+    {
+        CardDisplay display = cardToCardDisplayReferences.GetValueOrDefault(card);
+        handDisplays[handIndex].RemoveCardDisplayFromHand(display);
+        display.TravelToTransform(discardPileTransform, cardDisplayPool.RemoveDisplay);
+        display.FlipOverride(true);
+    }
+
+    public void MoveCardToAnotherHand(Card card, int fromHandIndex, int toHandIndex)
+    {
+
     }
 
     // Update is called once per frame
@@ -103,13 +124,18 @@ public class GameViewManager : MonoBehaviour
                 {
                     DrawCardToHand(change.Card, change.FromIndex, change.ToIndex, change.IndexInHand);
                 }
+
+                if (change.To == GameBoardTarget.Discard)
+                {
+                    DiscardCardFromHand(change.Card, change.FromIndex);
+                }
                 break;
 
 
             case GameStateChangeType.CardUpdate:
-                CardDisplay displayToUpdate = cardToCardDisplayReferences.GetValueOrDefault(change.Card);
-                displayToUpdate.UpdateFlip();
-                displayToUpdate.UpdateHeld();
+                CardDisplay cardDisplay = cardToCardDisplayReferences.GetValueOrDefault(change.Card);
+                cardDisplay.UpdateFlip();
+                cardDisplay.UpdateHeld();
                 break;
         }
     }

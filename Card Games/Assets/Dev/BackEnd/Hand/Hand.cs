@@ -17,6 +17,18 @@ public class Hand
         cards.Add(card);
     }
 
+    public void InsertCard(int index, Card card)
+    {
+        cards.Insert(index, card);
+    }
+
+    public Card ReplaceCardAt(int index, Card cardToInsert)
+    {
+        Card card = cards[index];
+        cards[index] = cardToInsert;
+        return card;
+    }
+
     public void RemoveCardAt(int index)
     {
         cards.RemoveAt(index);
@@ -25,6 +37,21 @@ public class Hand
     public bool RemoveCard(Card card)
     {
         return cards.Remove(card);
+    }
+
+    public List<Card> GetUnheldCards()
+    {
+        List<Card> unheldCards = new List<Card>();
+
+        foreach (Card card in cards)
+        {
+            if (!card.Held)
+            {
+                unheldCards.Add(card);
+            }
+        }
+
+        return unheldCards;
     }
 
     public void ShuffleHand()

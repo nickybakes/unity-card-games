@@ -67,11 +67,9 @@ public class GameManagerBase : MonoBehaviour
 
     public void DrawCardsToHand(int deckIndex, int handIndex, int numCards)
     {
-        Card[] newCards = new Card[numCards];
         for (int i = 0; i < numCards; i++)
         {
             Card card = decks[deckIndex].DrawCard();
-            newCards[i] = card;
             hands[handIndex].AddCard(card);
             changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card));
         }
@@ -86,28 +84,68 @@ public class GameManagerBase : MonoBehaviour
         }
     }
 
+    public void DiscardAllCardsFromHand(int handIndex)
+    {
+        DiscardCardsFromHand(new List<Card>(hands[handIndex].Cards), handIndex);
+    }
+
+    public void UnholdAllCardsInHand(int handIndex)
+    {
+        for (int i = 0; i < hands[handIndex].Cards.Count; i++)
+        {
+            if (hands[handIndex].Cards[i].Held)
+            {
+                hands[handIndex].Cards[i].InvertHeld();
+                changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, hands[handIndex].Cards[i], GameStateChangeTime.Instant));
+            }
+        }
+    }
+
+    public void ReplaceCardsInHand(List<Card> cardsToReplace, int handIndex, int deckIndex)
+    {
+        List<int> cardIndices = new List<int>(cardsToReplace.Count);
+
+        foreach (Card card in cardsToReplace)
+        {
+            cardIndices.Add(hands[handIndex].Cards.IndexOf(card));
+        }
+
+        List<GameStateChange> dicardChanges = new List<GameStateChange>();
+        List<GameStateChange> drawChanges = new List<GameStateChange>();
+
+        for (int i = 0; i < cardIndices.Count; i++)
+        {
+            Card card = decks[deckIndex].DrawCard();
+            hands[handIndex].ReplaceCardAt(cardIndices[i], card);
+            dicardChanges.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Hand, handIndex, GameBoardTarget.Discard, 0, cardsToReplace[i]));
+            drawChanges.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card, GameStateChangeTime.Standard, cardIndices[i]));
+        }
+
+        changesThisTurn.AddRange(dicardChanges);
+        changesThisTurn.AddRange(drawChanges);
+    }
+
+    public void MoveCardsToAnotherHand(List<Card> cardsToMove, int fromHandIndex, int toHandIndex)
+    {
+        foreach (Card card in cardsToMove)
+        {
+            hands[fromHandIndex].RemoveCard(card);
+            hands[toHandIndex].AddCard(card);
+            changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Hand, fromHandIndex, GameBoardTarget.Hand, toHandIndex, card));
+        }
+    }
+
     public virtual void PlayerSelectCard(Card card)
     {
-        card.Flip();
+        card.InvertFlipped();
         changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, card));
         FinishTurn();
     }
 
-    public void DiscardAllCardsFromHand(int handIndex)
-    {
-        DiscardCardsFromHand(hands[handIndex].Cards, handIndex);
-    }
-
-    public void ReplaceCardsInHand(List<Card> cardsToReplace, int handIndex)
+    public virtual void PlayerSelectButton(int index)
     {
 
     }
-
-    public void MoveCardsToAnotherHand(List<Card> cardsToMove, int fromHandIndex, int tohandIndex)
-    {
-
-    }
-
 
     public virtual void DealHand()
     {

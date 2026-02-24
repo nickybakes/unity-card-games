@@ -11,6 +11,7 @@ public enum GameStateChangeType
 {
     CardMove,
     CardUpdate,
+    RoundEnd,
 }
 
 public enum GameStateChangeTime
