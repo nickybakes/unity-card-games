@@ -8,6 +8,14 @@ public class GameManagerPoker : GameManagerBase
 
     public GameRulesPoker gameRulesOverrive;
 
+    [Header("View Elements")]
+    [SerializeField] private int drawButtonIndex;
+    [SerializeField] private int drawsLeftNumberTextIndex;
+
+    [Header("Test Data/Cheats")]
+    [SerializeField] private List<Card> testPlayerHand;
+
+
     private int drawsLeft;
 
     private float timeInGame;
@@ -21,7 +29,12 @@ public class GameManagerPoker : GameManagerBase
     {
         gameRules = _gameRules;
         gameRulesPoker = (GameRulesPoker)_gameRules;
+        paytable = gameRulesPoker.paytableData;
+        changesThisTurn = new List<GameStateChange>();
         SetupHands();
+        HideAllTexts(GameStateChangeTime.Instant);
+        HideAllButtons(GameStateChangeTime.Instant);
+        SubmitChanges();
     }
 
     public override void StartGame()
@@ -32,9 +45,31 @@ public class GameManagerPoker : GameManagerBase
 
     public override void StartRound()
     {
-        base.StartRound();
+        ResetDecks();
+        drawsLeft = gameRulesPoker.NumberOfDraws;
+        UpdateText(drawsLeftNumberTextIndex, drawsLeft.ToString());
+
+#if UNITY_EDITOR
+        if (testPlayerHand != null && testPlayerHand.Count > 0)
+        {
+            foreach (Card card in testPlayerHand)
+            {
+                hands[0].AddCard(card);
+                changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, 0, GameBoardTarget.Hand, 0, card));
+            }
+        }
+        else
+        {
+            DrawCardsToHand(0, 0, gameRulesPoker.HandSize);
+        }
+#else
         DrawCardsToHand(0, 0, gameRulesPoker.HandSize);
-        FinishTurn();
+#endif
+
+        ShowAllTexts(GameStateChangeTime.Instant);
+        ShowAllButtons(GameStateChangeTime.Short);
+
+        SubmitChanges();
     }
 
     public void Update()
@@ -55,21 +90,52 @@ public class GameManagerPoker : GameManagerBase
     {
         card.InvertHeld();
         changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, card));
-        FinishTurn();
+        SubmitChanges();
     }
 
     public override void PlayerSelectButton(int index)
     {
-        switch (index)
+        if (index == drawButtonIndex)
         {
-            case 0:
-                List<Card> unheldCards = hands[0].GetUnheldCards();
-                ReplaceCardsInHand(unheldCards, 0, 0);
-                // UnholdAllCardsInHand(0);
-                // MoveCardsToAnotherHand()
-                drawsLeft--;
-                FinishTurn();
-                break;
+            HideAllTexts(GameStateChangeTime.Instant);
+            HideAllButtons(GameStateChangeTime.Medium);
+            drawsLeft--;
+            UpdateText(drawsLeftNumberTextIndex, drawsLeft.ToString());
+
+            List<Card> unheldCards = hands[0].GetUnheldCards();
+            ReplaceCardsInHand(unheldCards, 0, 0);
+
+            if (drawsLeft == 0)
+            {
+                UnholdAllCardsInHand(0);
+                EndRound(GetWinningPokerHand(0));
+                StartRound();
+            }
+            else
+            {
+                ShowAllTexts(GameStateChangeTime.Instant);
+                ShowAllButtons(GameStateChangeTime.Medium);
+            }
+
+            SubmitChanges();
         }
+    }
+
+    public int GetWinningPokerHand(int handIndex)
+    {
+        for (int i = paytable.GetRowCount() - 1; i > 0; i--)
+        {
+            if (HandAnalysis.AnalizeForPokerHand(hands[handIndex].Cards, gameRulesPoker.paytableData.GetPokerHand(i)))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public override PaytableDataBase GetPaytable()
+    {
+        return gameRulesPoker.paytableData;
     }
 }

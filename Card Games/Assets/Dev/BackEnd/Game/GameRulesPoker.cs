@@ -7,6 +7,7 @@ public class GameRulesPoker : GameRulesBase
     [Header("Poker Game Rules")]
     [field: SerializeField] public PaytableDataPoker paytableData { get; private set; }
 
-    [field: SerializeField] public int HandSize { get; private set; }
+    [field: SerializeField] public int HandSize { get; private set; } = 5;
+    [field: SerializeField] public int NumberOfDraws { get; private set; } = 1;
 
 }

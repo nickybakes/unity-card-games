@@ -54,6 +54,21 @@ public class Hand
         return unheldCards;
     }
 
+    public List<Card> GetHeldCards()
+    {
+        List<Card> heldCards = new List<Card>();
+
+        foreach (Card card in cards)
+        {
+            if (card.Held)
+            {
+                heldCards.Add(card);
+            }
+        }
+
+        return heldCards;
+    }
+
     public void ShuffleHand()
     {
         List<Card> shuffledCards = new List<Card>(cards.Capacity);

@@ -11,13 +11,20 @@ public enum GameStateChangeType
 {
     CardMove,
     CardUpdate,
-    RoundEnd,
+    HideButton,
+    ShowButton,
+    TextUpdate,
+    HideText,
+    ShowText,
+    ResultsPresentation,
+    BeginBetting,
 }
 
 public enum GameStateChangeTime
 {
     Instant,
-    Standard,
+    Short,
+    Medium,
     Long
 }
 
@@ -39,9 +46,9 @@ public class GameStateChange
 
     public GameStateChangeTime ChangeTime { get; private set; }
 
+    public string Text { get; private set; }
 
-
-    public GameStateChange(GameStateChangeType type, GameBoardTarget from, int fromIndex, GameBoardTarget to, int toIndex, Card card, GameStateChangeTime changeTime = GameStateChangeTime.Standard, int indexInHand = -1)
+    public GameStateChange(GameStateChangeType type, GameBoardTarget from, int fromIndex, GameBoardTarget to, int toIndex, Card card, GameStateChangeTime changeTime = GameStateChangeTime.Short, int indexInHand = -1)
     {
         Type = type;
         From = from;
@@ -53,7 +60,7 @@ public class GameStateChange
         IndexInHand = indexInHand;
     }
 
-    public GameStateChange(GameStateChangeType type, Card card, GameStateChangeTime changeTime = GameStateChangeTime.Standard)
+    public GameStateChange(GameStateChangeType type, Card card, GameStateChangeTime changeTime = GameStateChangeTime.Short)
     {
         Type = type;
         From = GameBoardTarget.None;
@@ -63,6 +70,27 @@ public class GameStateChange
         Card = card;
         ChangeTime = changeTime;
         IndexInHand = -1;
+    }
+
+    public GameStateChange(GameStateChangeType type, int fromIndex, string text, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        Type = type;
+        FromIndex = fromIndex;
+        Text = text;
+        ChangeTime = changeTime;
+    }
+
+    public GameStateChange(GameStateChangeType type, int fromIndex, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        Type = type;
+        FromIndex = fromIndex;
+        ChangeTime = changeTime;
+    }
+
+    public GameStateChange(GameStateChangeType type, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        Type = type;
+        ChangeTime = changeTime;
     }
 
 

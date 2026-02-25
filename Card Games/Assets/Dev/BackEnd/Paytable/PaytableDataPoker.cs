@@ -20,4 +20,9 @@ public class PaytableDataPoker : PaytableDataBase
     {
         return Rows[index].BetMultiplier;
     }
+
+    public PokerHand GetPokerHand(int index)
+    {
+        return Rows[index].Hand;
+    }
 }

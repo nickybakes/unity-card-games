@@ -12,12 +12,17 @@ public class GameManagerBase : MonoBehaviour
 
     protected List<GameStateChange> changesThisTurn;
 
+    protected PaytableDataBase paytable;
+
+
     protected bool gameStarted = false;
+
 
 
     public virtual void LoadGameRules(GameRulesBase _gameRules)
     {
         gameRules = _gameRules;
+        changesThisTurn = new List<GameStateChange>();
         SetupHands();
     }
 
@@ -30,18 +35,12 @@ public class GameManagerBase : MonoBehaviour
     public virtual void StartRound()
     {
         ResetDecks();
-        StartNewTurn();
     }
 
-    public virtual void StartNewTurn()
-    {
-        changesThisTurn = new List<GameStateChange>();
-    }
-
-    public virtual void FinishTurn()
+    public virtual void SubmitChanges()
     {
         finishTurnEvent.Invoke(changesThisTurn);
-        StartNewTurn();
+        changesThisTurn = new List<GameStateChange>();
     }
 
     public void ResetDecks()
@@ -69,14 +68,19 @@ public class GameManagerBase : MonoBehaviour
     {
         for (int i = 0; i < numCards; i++)
         {
-            Card card = decks[deckIndex].DrawCard();
-            hands[handIndex].AddCard(card);
-            changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card));
+            if (decks[deckIndex].NumberOfCardsLeft() > 0)
+            {
+                Card card = decks[deckIndex].DrawCard();
+                hands[handIndex].AddCard(card);
+                changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card));
+            }
         }
     }
 
     public void DiscardCardsFromHand(List<Card> cardsToDiscard, int handIndex)
     {
+        cardsToDiscard = new List<Card>(cardsToDiscard);
+
         for (int i = 0; i < cardsToDiscard.Count; i++)
         {
             changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Hand, handIndex, GameBoardTarget.Discard, 0, cardsToDiscard[i]));
@@ -86,18 +90,20 @@ public class GameManagerBase : MonoBehaviour
 
     public void DiscardAllCardsFromHand(int handIndex)
     {
-        DiscardCardsFromHand(new List<Card>(hands[handIndex].Cards), handIndex);
+        DiscardCardsFromHand(hands[handIndex].Cards, handIndex);
     }
 
     public void UnholdAllCardsInHand(int handIndex)
     {
-        for (int i = 0; i < hands[handIndex].Cards.Count; i++)
+        List<Card> heldCards = hands[handIndex].GetHeldCards();
+
+        for (int i = 0; i < heldCards.Count; i++)
         {
-            if (hands[handIndex].Cards[i].Held)
-            {
-                hands[handIndex].Cards[i].InvertHeld();
-                changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, hands[handIndex].Cards[i], GameStateChangeTime.Instant));
-            }
+            heldCards[i].InvertHeld();
+            GameStateChangeTime time = GameStateChangeTime.Instant;
+            if (i == heldCards.Count - 1)
+                time = GameStateChangeTime.Medium;
+            changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, heldCards[i], time));
         }
     }
 
@@ -115,10 +121,17 @@ public class GameManagerBase : MonoBehaviour
 
         for (int i = 0; i < cardIndices.Count; i++)
         {
-            Card card = decks[deckIndex].DrawCard();
-            hands[handIndex].ReplaceCardAt(cardIndices[i], card);
-            dicardChanges.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Hand, handIndex, GameBoardTarget.Discard, 0, cardsToReplace[i]));
-            drawChanges.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card, GameStateChangeTime.Standard, cardIndices[i]));
+            if (decks[deckIndex].NumberOfCardsLeft() > 0)
+            {
+                Card card = decks[deckIndex].DrawCard();
+                hands[handIndex].ReplaceCardAt(cardIndices[i], card);
+                dicardChanges.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Hand, handIndex, GameBoardTarget.Discard, 0, cardsToReplace[i]));
+                drawChanges.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card, GameStateChangeTime.Short, cardIndices[i]));
+            }
+            else
+            {
+                break;
+            }
         }
 
         changesThisTurn.AddRange(dicardChanges);
@@ -135,30 +148,74 @@ public class GameManagerBase : MonoBehaviour
         }
     }
 
+    public void UpdateText(int textIndex, string text)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.TextUpdate, textIndex, text, GameStateChangeTime.Instant));
+    }
+
+    public void HideButton(int buttonIndex, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideButton, buttonIndex, changeTime));
+    }
+
+    public void ShowButton(int buttonIndex, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ShowButton, buttonIndex, changeTime));
+    }
+
+    public void HideAllButtons(GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideButton, -1, changeTime));
+    }
+
+    public void ShowAllButtons(GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ShowButton, -1, changeTime));
+    }
+
+    public void HideText(int textIndex, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideText, textIndex, changeTime));
+    }
+
+    public void ShowText(int textIndex, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ShowText, textIndex, changeTime));
+    }
+
+    public void HideAllTexts(GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideText, -1, changeTime));
+    }
+
+    public void ShowAllTexts(GameStateChangeTime changeTime = GameStateChangeTime.Instant)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ShowText, -1, changeTime));
+    }
+
     public virtual void PlayerSelectCard(Card card)
     {
         card.InvertFlipped();
         changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, card));
-        FinishTurn();
+        SubmitChanges();
     }
 
     public virtual void PlayerSelectButton(int index)
     {
-
     }
 
-    public virtual void DealHand()
+    public void EndRound(int paytableWinningRowIndex)
     {
-
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ResultsPresentation, paytableWinningRowIndex));
+        for (int i = 0; i < hands.Count; i++)
+        {
+            DiscardAllCardsFromHand(i);
+        }
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.BeginBetting));
     }
 
-    public virtual void DiscardHand()
+    public virtual PaytableDataBase GetPaytable()
     {
-
-    }
-
-    public virtual void AfterHandDealt()
-    {
-
+        return paytable;
     }
 }

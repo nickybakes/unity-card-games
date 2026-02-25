@@ -38,6 +38,8 @@ public class BetterSelectable :
             m_Interactable = value;
             if (!m_Interactable && EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject)
                 EventSystem.current.SetSelectedGameObject(null);
+            else if (m_Interactable && EventSystem.current != null && isPointerInside)
+                EventSystem.current.SetSelectedGameObject(gameObject);
         }
     }
 
@@ -173,7 +175,8 @@ public class BetterSelectable :
     /// </summary>
     public virtual void OnSelect(BaseEventData eventData)
     {
-        OnSelected();
+        if (interactable)
+            OnSelected();
     }
 
     /// <summary>
@@ -193,5 +196,17 @@ public class BetterSelectable :
             return;
 
         EventSystem.current.SetSelectedGameObject(gameObject);
+    }
+
+    public void Hide()
+    {
+        interactable = false;
+        animator.SetTrigger("Hide");
+    }
+
+    public void Show()
+    {
+        interactable = true;
+        animator.SetTrigger("Show");
     }
 }

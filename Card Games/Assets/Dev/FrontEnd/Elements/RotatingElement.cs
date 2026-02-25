@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotatingElement : MonoBehaviour
+public class IdlingElement : MonoBehaviour
 {
 
     [SerializeField] private RotatingElementProfile profile;

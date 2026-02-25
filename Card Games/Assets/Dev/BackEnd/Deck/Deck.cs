@@ -54,4 +54,9 @@ public class Deck
         return card;
     }
 
+    public int NumberOfCardsLeft()
+    {
+        return cards.Count;
+    }
+
 }
