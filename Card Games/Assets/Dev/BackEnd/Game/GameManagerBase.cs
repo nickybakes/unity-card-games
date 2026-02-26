@@ -220,6 +220,14 @@ public class GameManagerBase : MonoBehaviour
         changesThisTurn.Add(new GameStateChange(GameStateChangeType.BeginBetting));
     }
 
+    protected void ApplyBetMultiplierFromPaytable(int index)
+    {
+        if (index == -1)
+            return;
+
+        UserManager.user.AwardWinnings(UserManager.user.CurrentBet * paytable.GetBetMultiplier(index));
+    }
+
     public virtual PaytableDataBase GetPaytable()
     {
         return paytable;

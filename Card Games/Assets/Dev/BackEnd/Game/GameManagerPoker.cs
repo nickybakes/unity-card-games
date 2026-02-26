@@ -96,7 +96,9 @@ public class GameManagerPoker : GameManagerBase
             if (drawsLeft == 0)
             {
                 UnholdAllCardsInHand(0);
-                EndRound(GetWinningPokerHand(0));
+                int winningPokerHandIndex = GetWinningPokerHandIndex(0);
+                ApplyBetMultiplierFromPaytable(winningPokerHandIndex);
+                EndRound(winningPokerHandIndex);
             }
             else
             {
@@ -108,9 +110,9 @@ public class GameManagerPoker : GameManagerBase
         }
     }
 
-    public int GetWinningPokerHand(int handIndex)
+    public int GetWinningPokerHandIndex(int handIndex)
     {
-        for (int i = paytable.GetRowCount() - 1; i > 0; i--)
+        for (int i = paytable.GetRowCount() - 1; i >= 0; i--)
         {
             if (HandAnalysis.AnalizeForPokerHand(hands[handIndex].Cards, gameRulesPoker.paytableData.GetPokerHand(i)))
             {

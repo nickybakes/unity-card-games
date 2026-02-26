@@ -22,5 +22,11 @@ MonoBehaviour:
   - 5
   - 7.5
   - 10
+  - 15
+  - 20
+  - 25
+  - 30
+  - 40
+  - 50
   <DefaultBetIndex>k__BackingField: 3
   <UserStartingBalance>k__BackingField: 1000

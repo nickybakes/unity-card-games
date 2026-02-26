@@ -18,6 +18,9 @@ public class TextDisplay : Display
 
     public void SetText(string text)
     {
+        if (textLabel.text != text)
+            animator.SetTrigger("Bump");
+
         textLabel.text = text;
     }
 }

@@ -30,7 +30,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_text: Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c604c09465d1c2d4785ff2d37b98cab6, type: 2}
-  m_sharedMaterial: {fileID: -50535468528596550, guid: c604c09465d1c2d4785ff2d37b98cab6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 4d10234ccadfe4847b8bd82a902c6441, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

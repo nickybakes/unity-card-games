@@ -9,12 +9,14 @@ public class BetPanel : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    [SerializeField] private TextMeshProUGUI betNumberText;
-    [SerializeField] private TextMeshProUGUI totalBalanceText;
+    [SerializeField] private TextDisplay betNumberText;
+    [SerializeField] private TextDisplay totalBalanceText;
 
     [SerializeField] private BetterButton increaseBetButton;
     [SerializeField] private BetterButton decreaseBetButton;
     [SerializeField] private BetterButton placeBetButton;
+
+    [SerializeField] private WinDisplay winDisplay;
 
     private bool maximized;
 
@@ -60,16 +62,11 @@ public class BetPanel : MonoBehaviour
         if (UserManager.user == null)
             return;
 
-        betNumberText.text = ParseAsDollarAmount(UserManager.user.CurrentBet);
-        totalBalanceText.text = ParseAsDollarAmount(UserManager.user.Balance);
+        betNumberText.SetText(ParseAsDollarAmount(UserManager.user.CurrentBet));
+        totalBalanceText.SetText(ParseAsDollarAmount(UserManager.user.Balance));
         increaseBetButton.Interactable = !UserManager.user.IsSelectedBetIndexAtMax();
         decreaseBetButton.Interactable = !UserManager.user.IsSelectedBetIndexAtMin();
         placeBetButton.Interactable = UserManager.user.IsBalanceHighEnoughToBet();
-    }
-
-    private string ParseAsDollarAmount(float amount)
-    {
-        return amount.ToString("C", cultureUS);
     }
 
     public void MaximizePanel()
@@ -85,16 +82,16 @@ public class BetPanel : MonoBehaviour
         animator.SetTrigger("Minimize");
     }
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void ShowUserWinnings()
     {
+        if (UserManager.user == null)
+            return;
 
+        winDisplay.ShowWinnings(ParseAsDollarAmount(UserManager.user.Winnings), UpdatePanelElements);
     }
 
-    // Update is called once per frame
-    void Update()
+    private string ParseAsDollarAmount(float amount)
     {
-
+        return amount.ToString("C", cultureUS);
     }
 }

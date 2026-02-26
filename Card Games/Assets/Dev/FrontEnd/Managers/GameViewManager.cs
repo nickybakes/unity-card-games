@@ -111,8 +111,10 @@ public class GameViewManager : MonoBehaviour
         if (paytableWinningRowIndex == -1)
             resultsDisplay.StartPresentation("", 0);
         else
+        {
             resultsDisplay.StartPresentation(gameManager.GetPaytable().GetRowName(paytableWinningRowIndex), gameManager.GetPaytable().GetBetMultiplier(paytableWinningRowIndex));
-
+            betPanel.ShowUserWinnings();
+        }
     }
 
     public void EndResultsPresentation()

@@ -15,6 +15,8 @@ public class UserManager : MonoBehaviour
 
     private int currentSelectedBetIndex;
 
+    private float winnings;
+
     public int CurrentSelectedBetIndex
     {
         get
@@ -44,6 +46,14 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    public float Winnings
+    {
+        get
+        {
+            return winnings;
+        }
+    }
+
     void Awake()
     {
         if (user != null && user != this)
@@ -69,6 +79,13 @@ public class UserManager : MonoBehaviour
         balance = marketInfo.UserStartingBalance;
         currentSelectedBetIndex = marketInfo.DefaultBetIndex;
     }
+
+    public void AwardWinnings(float _winnings)
+    {
+        winnings = _winnings;
+        balance += winnings;
+    }
+
 
     /// <summary>
     /// Tries to take the current bet amount from the balance. If the balance is too low, it does not take the bet amount.
