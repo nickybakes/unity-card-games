@@ -15,6 +15,7 @@ public class GameViewManager : MonoBehaviour
     [SerializeField] private DisplayPool cardDisplayPool;
     [SerializeField] private RectTransform discardPileTransform;
     [SerializeField] private ResultsDisplay resultsDisplay;
+    [SerializeField] private BetPanel betPanel;
 
     [SerializeField] private GameObject uiRaycastShield;
 
@@ -69,6 +70,12 @@ public class GameViewManager : MonoBehaviour
         DisablePlayerInteractions();
 
         currentChangeTime = timeForCurrentChange;
+    }
+
+    public void BetPlaced()
+    {
+        betPanel.MinimizePanel();
+        gameManager.StartRound();
     }
 
     public void DrawCardToHand(Card card, int deckIndex, int handIndex, int indexInHand = -1)
@@ -233,6 +240,10 @@ public class GameViewManager : MonoBehaviour
 
             case GameStateChangeType.ResultsPresentation:
                 StartResultsPresentation(change.FromIndex);
+                break;
+
+            case GameStateChangeType.BeginBetting:
+                betPanel.MaximizePanel();
                 break;
         }
     }

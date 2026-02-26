@@ -11,8 +11,6 @@ public class BetterSelectable :
 {
     private bool m_EnableCalled = false;
 
-    private bool m_GroupsAllowInteraction = true;
-
     [Tooltip("Can the Selectable be interacted with?")]
     [SerializeField]
     private bool m_Interactable = true;
@@ -21,25 +19,29 @@ public class BetterSelectable :
     [SerializeField] protected UnityEvent<int> deselectEvent;
 
     protected int index;
-
-
     protected Animator animator;
-
 
     /// <summary>
     /// Is this object interactable.
     /// </summary>
     /// <example>
-    public bool interactable
+    public bool Interactable
     {
         get { return m_Interactable; }
         set
         {
             m_Interactable = value;
-            if (!m_Interactable && EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject)
-                EventSystem.current.SetSelectedGameObject(null);
-            else if (m_Interactable && EventSystem.current != null && isPointerInside)
-                EventSystem.current.SetSelectedGameObject(gameObject);
+            if (!m_Interactable)
+            {
+                SetAnimationTrigger("Disable");
+                Deselect();
+            }
+            else if (m_Interactable)
+            {
+                SetAnimationTrigger("Enable");
+                if (isPointerInside)
+                    Select();
+            }
         }
     }
 
@@ -65,14 +67,6 @@ public class BetterSelectable :
         {
             animator.ResetTrigger(trigger);
         }
-    }
-
-    /// <summary>
-    /// Is the object interactable.
-    /// </summary>
-    public virtual bool IsInteractable()
-    {
-        return m_GroupsAllowInteraction && m_Interactable;
     }
 
     // Select on enable and add to the list.
@@ -120,20 +114,9 @@ public class BetterSelectable :
         SetAnimationTrigger("Reset");
     }
 
-    public virtual void RefreshState()
-    {
-        if (isPointerInside)
-            Select();
-        else
-        {
-            SetAnimationTrigger("Deselect");
-            hasSelection = false;
-        }
-    }
-
     public virtual void OnSelected()
     {
-        if (!hasSelection)
+        if (!hasSelection && Interactable)
         {
             SetAnimationTrigger("Select");
             selectEvent.Invoke(index);
@@ -175,7 +158,7 @@ public class BetterSelectable :
     /// </summary>
     public virtual void OnSelect(BaseEventData eventData)
     {
-        if (interactable)
+        if (Interactable)
             OnSelected();
     }
 
@@ -198,15 +181,26 @@ public class BetterSelectable :
         EventSystem.current.SetSelectedGameObject(gameObject);
     }
 
+    /// <summary>
+    /// Selects this Selectable.
+    /// </summary>
+    public virtual void Deselect()
+    {
+        if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
     public void Hide()
     {
-        interactable = false;
+        Interactable = false;
         animator.SetTrigger("Hide");
     }
 
     public void Show()
     {
-        interactable = true;
+        Interactable = true;
         animator.SetTrigger("Show");
     }
 }

@@ -17,5 +17,5 @@ public class MarketInfo : ScriptableObject
     /// <summary>
     /// The amount of credits the user starts with.
     /// </summary>
-    [field: SerializeField] public float UserStartingCredits { get; private set; }
+    [field: SerializeField] public float UserStartingBalance { get; private set; }
 }

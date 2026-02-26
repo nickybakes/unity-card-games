@@ -22,12 +22,6 @@ public class AppManager : MonoBehaviour
     /// </summary>
     public static AppManager app;
 
-    /// <summary>
-    /// The current user's info.
-    /// </summary>
-    [SerializeField] private UserManager user;
-
-
     private SceneIndex currentScene = SceneIndex.AppInit;
 
     private Action currentCallback;
@@ -40,6 +34,7 @@ public class AppManager : MonoBehaviour
         if (app != null && app != this)
         {
             Destroy(this);
+            return;
         }
         else
         {
@@ -51,7 +46,7 @@ public class AppManager : MonoBehaviour
     private void Start()
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex((int)SceneIndex.AppInit))
-            SwitchToScene(SceneIndex.GameMenu);
+            SwitchToScene(SceneIndex.Poker);
     }
     #endregion
 

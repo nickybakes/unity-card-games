@@ -213,6 +213,9 @@ MonoBehaviour:
   - value: 12
     suit: 0
     special: 0
+  - value: 3
+    suit: 0
+    special: 0
   - value: 0
     suit: 0
     special: 0
@@ -220,12 +223,6 @@ MonoBehaviour:
     suit: 0
     special: 0
   - value: 2
-    suit: 0
-    special: 0
-  - value: 3
-    suit: 0
-    special: 0
-  - value: 4
     suit: 0
     special: 0
   hand05: []

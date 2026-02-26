@@ -23,13 +23,14 @@ public class GameManagerBase : MonoBehaviour
     {
         gameRules = _gameRules;
         changesThisTurn = new List<GameStateChange>();
-        SetupHands();
+        InitGame();
     }
 
-    public virtual void StartGame()
+    public virtual void InitGame()
     {
-        Debug.Log("Start Game");
-        StartRound();
+        SetupHands();
+        BeginBetting();
+        SubmitChanges();
     }
 
     public virtual void StartRound()
@@ -211,6 +212,11 @@ public class GameManagerBase : MonoBehaviour
         {
             DiscardAllCardsFromHand(i);
         }
+        BeginBetting();
+    }
+
+    public void BeginBetting()
+    {
         changesThisTurn.Add(new GameStateChange(GameStateChangeType.BeginBetting));
     }
 

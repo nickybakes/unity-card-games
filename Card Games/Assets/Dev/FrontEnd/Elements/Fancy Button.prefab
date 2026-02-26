@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 924094990323918288}
   - component: {fileID: 9157716231126653724}
   - component: {fileID: 7655678824272658662}
+  - component: {fileID: 385879825337407740}
   - component: {fileID: 680029752190034878}
   - component: {fileID: 9126110177679285336}
   m_Layer: 5
@@ -214,6 +215,18 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &385879825337407740
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5686537560718685957}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!95 &680029752190034878
 Animator:
   serializedVersion: 7

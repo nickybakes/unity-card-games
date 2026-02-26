@@ -18,8 +18,6 @@ public class GameManagerPoker : GameManagerBase
 
     private int drawsLeft;
 
-    private float timeInGame;
-
     private void Start()
     {
         LoadGameRules(gameRulesOverrive);
@@ -31,16 +29,16 @@ public class GameManagerPoker : GameManagerBase
         gameRulesPoker = (GameRulesPoker)_gameRules;
         paytable = gameRulesPoker.paytableData;
         changesThisTurn = new List<GameStateChange>();
+        InitGame();
+    }
+
+    public override void InitGame()
+    {
         SetupHands();
         HideAllTexts(GameStateChangeTime.Instant);
         HideAllButtons(GameStateChangeTime.Instant);
+        BeginBetting();
         SubmitChanges();
-    }
-
-    public override void StartGame()
-    {
-        Debug.Log("Start Game");
-        StartRound();
     }
 
     public override void StartRound()
@@ -72,16 +70,6 @@ public class GameManagerPoker : GameManagerBase
         SubmitChanges();
     }
 
-    public void Update()
-    {
-        timeInGame += Time.deltaTime;
-        if (timeInGame > 1 && !gameStarted)
-        {
-            gameStarted = true;
-            StartGame();
-        }
-    }
-
     /// <summary>
     /// In Poker, when the player selected a card, it sets the card as "Held" (or Unheld if its already held)
     /// </summary>
@@ -109,7 +97,6 @@ public class GameManagerPoker : GameManagerBase
             {
                 UnholdAllCardsInHand(0);
                 EndRound(GetWinningPokerHand(0));
-                StartRound();
             }
             else
             {

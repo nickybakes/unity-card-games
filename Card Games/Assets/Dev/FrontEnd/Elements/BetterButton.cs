@@ -14,7 +14,7 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
 
     public virtual void Submit()
     {
-        if (!IsActive() || !IsInteractable() || timeSinceSubmit < cooldownTime)
+        if (!IsActive() || !Interactable || timeSinceSubmit < cooldownTime)
             return;
 
         timeSinceSubmit = 0;
@@ -29,6 +29,9 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
 
     public virtual void Press()
     {
+        if (!IsActive() || !Interactable)
+            return;
+
         ResetAnimationTrigger("Release");
         SetAnimationTrigger("Press");
         pressed = true;
@@ -36,6 +39,9 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
 
     public virtual void Release()
     {
+        if (!IsActive() || !Interactable)
+            return;
+
         SetAnimationTrigger("Release");
         pressed = false;
         if (isPointerInside)
@@ -46,6 +52,9 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
 
     public override void OnSelected()
     {
+        if (!IsActive() || !Interactable)
+            return;
+
         if (!hasSelection)
         {
             if (pressed)
@@ -75,7 +84,7 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
             return;
 
         // Selection tracking
-        if (IsInteractable() && EventSystem.current != null)
+        if (Interactable && EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(gameObject, eventData);
 
         Press();
