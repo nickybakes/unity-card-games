@@ -28,7 +28,11 @@ public class GameManagerPoker : GameManagerBase
         gameRules = _gameRules;
         gameRulesPoker = (GameRulesPoker)_gameRules;
         paytable = gameRulesPoker.paytableData;
-        changesThisTurn = new List<GameStateChange>();
+        changesThisTurn = new List<GameStateChange>
+        {
+            new GameStateChange(GameStateChangeType.GameRulesLoaded)
+        };
+        SubmitChanges();
         InitGame();
     }
 

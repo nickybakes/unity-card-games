@@ -20,20 +20,16 @@ public class BetPanel : MonoBehaviour
 
     private bool maximized;
 
-    private CultureInfo cultureUS;
-
-    public void Awake()
-    {
-        cultureUS = CultureInfo.CreateSpecificCulture("en-US");
-    }
-
     public void OnIncreaseBetSubmitted()
     {
         if (!maximized)
             return;
 
-        UserManager.user.TryIncreaseBet();
-        UpdatePanelElements();
+        if (UserManager.user.TryIncreaseBet())
+        {
+            viewManager.UpdatePaytable();
+            UpdatePanelElements();
+        }
     }
 
     public void OnDecreaseBetSubmitted()
@@ -41,8 +37,11 @@ public class BetPanel : MonoBehaviour
         if (!maximized)
             return;
 
-        UserManager.user.TryDecreaseBet();
-        UpdatePanelElements();
+        if (UserManager.user.TryDecreaseBet())
+        {
+            viewManager.UpdatePaytable();
+            UpdatePanelElements();
+        }
     }
 
     public void OnPlaceBetSubmitted()
@@ -62,8 +61,8 @@ public class BetPanel : MonoBehaviour
         if (UserManager.user == null)
             return;
 
-        betNumberText.SetText(ParseAsDollarAmount(UserManager.user.CurrentBet));
-        totalBalanceText.SetText(ParseAsDollarAmount(UserManager.user.Balance));
+        betNumberText.SetText(ParseAsCurrency(UserManager.user.CurrentBet));
+        totalBalanceText.SetText(ParseAsCurrency(UserManager.user.Balance));
         increaseBetButton.Interactable = !UserManager.user.IsSelectedBetIndexAtMax();
         decreaseBetButton.Interactable = !UserManager.user.IsSelectedBetIndexAtMin();
         placeBetButton.Interactable = UserManager.user.IsBalanceHighEnoughToBet();
@@ -84,14 +83,11 @@ public class BetPanel : MonoBehaviour
 
     public void ShowUserWinnings()
     {
-        if (UserManager.user == null)
-            return;
-
-        winDisplay.ShowWinnings(ParseAsDollarAmount(UserManager.user.Winnings), UpdatePanelElements);
+        winDisplay.ShowWinnings(ParseAsCurrency(UserManager.user.Winnings), UpdatePanelElements);
     }
 
-    private string ParseAsDollarAmount(float amount)
+    private string ParseAsCurrency(float amount)
     {
-        return amount.ToString("C", cultureUS);
+        return amount.ToString("C", UserManager.user.Culture);
     }
 }

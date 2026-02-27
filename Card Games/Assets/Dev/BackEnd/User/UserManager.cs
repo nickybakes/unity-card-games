@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class UserManager : MonoBehaviour
@@ -17,16 +18,13 @@ public class UserManager : MonoBehaviour
 
     private float winnings;
 
+    private CultureInfo culture;
+
     public int CurrentSelectedBetIndex
     {
         get
         {
-            return CurrentSelectedBetIndex;
-        }
-
-        set
-        {
-            currentSelectedBetIndex = Math.Clamp(value, 0, marketInfo.PossibleBets.Count - 1);
+            return currentSelectedBetIndex;
         }
     }
 
@@ -35,6 +33,14 @@ public class UserManager : MonoBehaviour
         get
         {
             return marketInfo.PossibleBets[currentSelectedBetIndex];
+        }
+    }
+
+    public int NumberPossibleBets
+    {
+        get
+        {
+            return marketInfo.PossibleBets.Count;
         }
     }
 
@@ -51,6 +57,14 @@ public class UserManager : MonoBehaviour
         get
         {
             return winnings;
+        }
+    }
+
+    public CultureInfo Culture
+    {
+        get
+        {
+            return culture;
         }
     }
 
@@ -78,6 +92,12 @@ public class UserManager : MonoBehaviour
     {
         balance = marketInfo.UserStartingBalance;
         currentSelectedBetIndex = marketInfo.DefaultBetIndex;
+        culture = CultureInfo.CreateSpecificCulture(marketInfo.CultureCode);
+    }
+
+    public float GetPossibleBet(int index)
+    {
+        return marketInfo.PossibleBets[index];
     }
 
     public void AwardWinnings(float _winnings)
@@ -111,7 +131,7 @@ public class UserManager : MonoBehaviour
         if (IsSelectedBetIndexAtMax())
             return false;
 
-        currentSelectedBetIndex++;
+        currentSelectedBetIndex = Math.Clamp(currentSelectedBetIndex + 1, 0, marketInfo.PossibleBets.Count - 1);
         return true;
     }
 
@@ -124,7 +144,7 @@ public class UserManager : MonoBehaviour
         if (IsSelectedBetIndexAtMin())
             return false;
 
-        currentSelectedBetIndex--;
+        currentSelectedBetIndex = Math.Clamp(currentSelectedBetIndex - 1, 0, marketInfo.PossibleBets.Count - 1);
         return true;
     }
 

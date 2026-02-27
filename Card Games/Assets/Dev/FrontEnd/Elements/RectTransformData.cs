@@ -10,7 +10,7 @@ public class RectTransformData
     public RectTransformData(RectTransform _ownerRect)
     {
         anchoredPosition = new Vector2();
-        rotation = new Quaternion();
+        rotation = Quaternion.identity;
         scale = new Vector3();
         ownerRect = _ownerRect;
     }

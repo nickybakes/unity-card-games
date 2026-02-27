@@ -22,7 +22,11 @@ public class GameManagerBase : MonoBehaviour
     public virtual void LoadGameRules(GameRulesBase _gameRules)
     {
         gameRules = _gameRules;
-        changesThisTurn = new List<GameStateChange>();
+        changesThisTurn = new List<GameStateChange>
+        {
+            new GameStateChange(GameStateChangeType.GameRulesLoaded)
+        };
+        SubmitChanges();
         InitGame();
     }
 

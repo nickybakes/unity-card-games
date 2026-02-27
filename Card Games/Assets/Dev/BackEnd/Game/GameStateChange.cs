@@ -18,6 +18,7 @@ public enum GameStateChangeType
     ShowText,
     ResultsPresentation,
     BeginBetting,
+    GameRulesLoaded,
 }
 
 public enum GameStateChangeTime

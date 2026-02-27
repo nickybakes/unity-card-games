@@ -3,24 +3,34 @@ using UnityEngine;
 
 public class TextDisplay : Display
 {
-    [SerializeField] private TextMeshProUGUI textLabel;
-    [SerializeField] private Animator animator;
+    [SerializeField] protected TextMeshProUGUI textLabel;
+    [SerializeField] protected Animator animator;
 
-    public void Hide()
+    public virtual void Hide()
     {
         animator.SetTrigger("Hide");
     }
 
-    public void Show()
+    public virtual void Show()
     {
         animator.SetTrigger("Show");
     }
 
-    public void SetText(string text)
+    public virtual void SetText(string text, bool forceBumpAnimation = false)
     {
-        if (textLabel.text != text)
+        if (textLabel.text != text || forceBumpAnimation)
             animator.SetTrigger("Bump");
 
         textLabel.text = text;
+    }
+
+    public virtual void HighlightText()
+    {
+        animator.SetTrigger("Highlight");
+    }
+
+    public virtual void UnhighlightText()
+    {
+        animator.SetTrigger("Unhighlight");
     }
 }

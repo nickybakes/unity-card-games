@@ -45,6 +45,14 @@ public class TravelingDisplay : Display
         arrivalCallback = _arrivalCallback;
     }
 
+    public void TravelToTransform(Vector2 anchoredPosition, Quaternion rotation, Vector3 scale, Action<TravelingDisplay> _arrivalCallback = null)
+    {
+        SetStartTransform(rectTransform);
+        SetGoalTransform(anchoredPosition, rotation, scale);
+        StartTraveling();
+        arrivalCallback = _arrivalCallback;
+    }
+
     public void SetStartTransform(RectTransform rect)
     {
         startTransformData.SetTransformData(rect);
@@ -97,7 +105,7 @@ public class TravelingDisplay : Display
         return currentTravelTime <= travelTimeLength;
     }
 
-    protected void UpdateTravel()
+    public void UpdateTravel()
     {
         if (isTraveling())
         {

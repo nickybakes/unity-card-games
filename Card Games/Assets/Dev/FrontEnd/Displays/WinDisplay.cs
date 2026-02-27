@@ -20,7 +20,7 @@ public class WinDisplay : TravelingDisplay
 
     public void ShowWinnings(string formattedWinningsText, Action _updateBetDisplayCallback)
     {
-        textDisplay.SetText("+" + formattedWinningsText);
+        textDisplay.SetText("+" + formattedWinningsText, true);
         SetStartTransform(winStartTransform);
         ApplyStartTransform();
         TravelToTransform(winGoalTransform, DoneTravelingCallback);

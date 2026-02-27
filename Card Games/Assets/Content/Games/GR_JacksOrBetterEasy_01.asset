@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952eaf90c309eee4b9f5c8ea47e8ca68, type: 3}
   m_Name: GR_JacksOrBetterEasy_01
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Jacks Or Better x2
-  <Description>k__BackingField: Jacks Or Better but your hand size is 7 and you get
-    2 chances to draw.
+  <Name>k__BackingField: Need a Hand
+  <Description>k__BackingField: Jacks Or Better with a hand size of 7 and you get
+    2 chances to draw, but rewards are half.
   <NumberOfHands>k__BackingField: 1
   <Decks>k__BackingField:
   - {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
   <SceneToLoad>k__BackingField: 2
-  <paytableData>k__BackingField: {fileID: 11400000, guid: 3ce3240a29c3cb84caddc9a8049de299, type: 2}
+  <paytableData>k__BackingField: {fileID: 11400000, guid: ff22d3a818828484bbaaeedba5542d05, type: 2}
   <HandSize>k__BackingField: 7
   <NumberOfDraws>k__BackingField: 2

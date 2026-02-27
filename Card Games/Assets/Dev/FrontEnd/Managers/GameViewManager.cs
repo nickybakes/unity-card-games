@@ -16,6 +16,7 @@ public class GameViewManager : MonoBehaviour
     [SerializeField] private RectTransform discardPileTransform;
     [SerializeField] private ResultsDisplay resultsDisplay;
     [SerializeField] private BetPanel betPanel;
+    [SerializeField] private PaytablePanel paytablePanel;
 
     [SerializeField] private GameObject uiRaycastShield;
 
@@ -75,7 +76,13 @@ public class GameViewManager : MonoBehaviour
     public void BetPlaced()
     {
         betPanel.MinimizePanel();
+        paytablePanel.MinimizePanel();
         gameManager.StartRound();
+    }
+
+    public void UpdatePaytable()
+    {
+        paytablePanel.UpdatePaytableChosenBet();
     }
 
     public void DrawCardToHand(Card card, int deckIndex, int handIndex, int indexInHand = -1)
@@ -112,6 +119,7 @@ public class GameViewManager : MonoBehaviour
             resultsDisplay.StartPresentation("", 0);
         else
         {
+            paytablePanel.HighlightText(paytableWinningRowIndex);
             resultsDisplay.StartPresentation(gameManager.GetPaytable().GetRowName(paytableWinningRowIndex), gameManager.GetPaytable().GetBetMultiplier(paytableWinningRowIndex));
             betPanel.ShowUserWinnings();
         }
@@ -119,6 +127,7 @@ public class GameViewManager : MonoBehaviour
 
     public void EndResultsPresentation()
     {
+        paytablePanel.UnhighlightText();
         StartParsingGameChanges();
     }
 
@@ -245,7 +254,12 @@ public class GameViewManager : MonoBehaviour
                 break;
 
             case GameStateChangeType.BeginBetting:
+                paytablePanel.MaximizePanel();
                 betPanel.MaximizePanel();
+                break;
+
+            case GameStateChangeType.GameRulesLoaded:
+                paytablePanel.SetupPaytablePanel(gameManager.GetPaytable());
                 break;
         }
     }

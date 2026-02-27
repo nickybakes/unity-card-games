@@ -18,4 +18,9 @@ public class MarketInfo : ScriptableObject
     /// The amount of credits the user starts with.
     /// </summary>
     [field: SerializeField] public float UserStartingBalance { get; private set; }
+
+    /// <summary>
+    /// The string code for the user's culture/localization settings.
+    /// </summary>
+    [field: SerializeField] public string CultureCode { get; private set; }
 }
