@@ -45,8 +45,10 @@ public class AppManager : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex((int)SceneIndex.AppInit))
             SwitchToScene(SceneIndex.Poker);
+#endif
     }
     #endregion
 

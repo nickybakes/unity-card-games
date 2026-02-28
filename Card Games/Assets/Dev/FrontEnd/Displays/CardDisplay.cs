@@ -17,6 +17,9 @@ public class CardDisplay : TravelingDisplay
 
     [SerializeField, Range(0.0f, 1.0f)] private float sizeTransition;
 
+    [SerializeField] private float timeBeforeUpdateCardStateMin;
+    [SerializeField] private float timeBeforeUpdateCardStateMax;
+
     public float SizeTransition { get => sizeTransition; }
 
     private Card card;
@@ -26,10 +29,17 @@ public class CardDisplay : TravelingDisplay
 
     private bool updatedAfterInitialDisplay;
 
+    private float timeDisplayed;
+
+    private float timeBeforeUpdateCardState;
+
     public void DisplayCard(Card _card, CardVisualProfile visualProfile, RectTransform startingTransform, bool startFlipped)
     {
         card = _card;
         ApplyCardVisualProfile(visualProfile);
+
+        timeDisplayed = 0;
+        timeBeforeUpdateCardState = UnityEngine.Random.Range(timeBeforeUpdateCardStateMin, timeBeforeUpdateCardStateMax);
 
         SetStartTransform(startingTransform);
         ApplyStartTransform();
@@ -162,7 +172,9 @@ public class CardDisplay : TravelingDisplay
     {
         UpdateTravel();
 
-        if (!updatedAfterInitialDisplay)
+        timeDisplayed += Time.deltaTime;
+
+        if (timeDisplayed >= timeBeforeUpdateCardState && !updatedAfterInitialDisplay)
         {
             updatedAfterInitialDisplay = true;
             UpdateHeld();
