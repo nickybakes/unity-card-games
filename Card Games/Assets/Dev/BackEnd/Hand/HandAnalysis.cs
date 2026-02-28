@@ -88,7 +88,7 @@ public class HandAnalysis
             for (int j = 0; j < remainingCards.Count; j++)
             {
                 Card nextCard = remainingCards[j];
-                if (DoCardsPassCondition(currentCard, nextCard, conditionToCheck))
+                if (DoCardsPassCondition(currentCard, nextCard, conditionToCheck, currentCard == hand[i]))
                 {
                     currentPassingCards.Add(nextCard);
                     currentCard = nextCard;
@@ -111,7 +111,7 @@ public class HandAnalysis
         return mostPassingCards;
     }
 
-    private static bool DoCardsPassCondition(Card a, Card b, HandComponent conditionToCheck)
+    private static bool DoCardsPassCondition(Card a, Card b, HandComponent conditionToCheck, bool aIsFirstCardInList)
     {
         switch (conditionToCheck)
         {
@@ -120,7 +120,7 @@ public class HandAnalysis
             case HandComponent.SuitCollection:
                 return a.Suit == b.Suit;
             case HandComponent.ConsecutiveValues:
-                return (int)b.Value - (int)a.Value == 1 || (a.Value == CardValue.Ace && b.Value == CardValue.Two);
+                return (int)b.Value - (int)a.Value == 1 || (a.Value == CardValue.Ace && b.Value == CardValue.Two && aIsFirstCardInList);
         }
 
         return false;

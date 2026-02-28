@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27028d79f831bbe47b8987451f3e823d, type: 3}
+  m_Name: CVP_MultiColor_01
+  m_EditorClassIdentifier: Assembly-CSharp::CardVisualProfile
+  <SpadeSprite>k__BackingField: {fileID: 21300000, guid: e07b01cbb5eada54b85a90e9b1e0e405, type: 3}
+  <HeartSprite>k__BackingField: {fileID: 21300000, guid: e7ec9b2744a0aaf4d967c0b3a8342227, type: 3}
+  <ClubSprite>k__BackingField: {fileID: 21300000, guid: c32aed8cc1831214294fd2f484163222, type: 3}
+  <DiamondSprite>k__BackingField: {fileID: 21300000, guid: 53b46cfbacb5ca249bfd72968bc72838, type: 3}
+  <SpadeSpriteColor>k__BackingField: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  <HeartSpriteColor>k__BackingField: {r: 0.764151, g: 0.11894804, b: 0.11894804, a: 1}
+  <ClubSpriteColor>k__BackingField: {r: 0.09064613, g: 0.49337265, b: 0.9150943, a: 1}
+  <DiamondSpriteColor>k__BackingField: {r: 0.9339623, g: 0.8196903, b: 0.066082224, a: 1}
+  <SpadeTextColor>k__BackingField: {fileID: 11400000, guid: b3e9d409c74c06a4993fc1d34bfb004a, type: 2}
+  <HeartTextColor>k__BackingField: {fileID: 11400000, guid: 990754b42c510a847b3fb05d34621bd0, type: 2}
+  <ClubTextColor>k__BackingField: {fileID: 11400000, guid: b3e9d409c74c06a4993fc1d34bfb004a, type: 2}
+  <DiamondTextColor>k__BackingField: {fileID: 11400000, guid: 990754b42c510a847b3fb05d34621bd0, type: 2}
+  <JackCustomSprite>k__BackingField: {fileID: 21300000, guid: 2e0d41c7ed9fa1e40bb4140bd2ac1883, type: 3}
+  <QueenCustomSprite>k__BackingField: {fileID: 21300000, guid: e2361440d29a0c545a2c8ea84ddcd720, type: 3}
+  <KingCustomSprite>k__BackingField: {fileID: 21300000, guid: 77f63873d6740a44d8cf731340de8989, type: 3}
+  <TintCustomFaceSpriteWithSuitColor>k__BackingField: 1
+  <DisableFaceCornerStyle>k__BackingField: 0

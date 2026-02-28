@@ -232,6 +232,16 @@ public class GameManagerBase : MonoBehaviour
         UserManager.user.AwardWinnings(UserManager.user.CurrentBet * paytable.GetBetMultiplier(index));
     }
 
+    public void SetPaytableScorePreview(int index)
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.SetAndShowScorePaytablePreview, index));
+    }
+
+    public void HideScorePreview()
+    {
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideScorePreview));
+    }
+
     public virtual PaytableDataBase GetPaytable()
     {
         return paytable;

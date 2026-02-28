@@ -39,6 +39,7 @@ public class GameManagerPoker : GameManagerBase
     public override void InitGame()
     {
         SetupHands();
+        HideScorePreview();
         HideAllTexts(GameStateChangeTime.Instant);
         HideAllButtons(GameStateChangeTime.Instant);
         BeginBetting();
@@ -68,6 +69,12 @@ public class GameManagerPoker : GameManagerBase
         DrawCardsToHand(0, 0, gameRulesPoker.HandSize);
 #endif
 
+        int winningPokerHandIndex = GetWinningPokerHandIndex(0);
+
+        if (winningPokerHandIndex != -1)
+        {
+            SetPaytableScorePreview(winningPokerHandIndex);
+        }
         ShowAllTexts(GameStateChangeTime.Instant);
         ShowAllButtons(GameStateChangeTime.Short);
 
@@ -89,6 +96,7 @@ public class GameManagerPoker : GameManagerBase
     {
         if (index == drawButtonIndex)
         {
+            HideScorePreview();
             HideAllTexts(GameStateChangeTime.Instant);
             HideAllButtons(GameStateChangeTime.Medium);
             drawsLeft--;
@@ -97,15 +105,19 @@ public class GameManagerPoker : GameManagerBase
             List<Card> unheldCards = hands[0].GetUnheldCards();
             ReplaceCardsInHand(unheldCards, 0, 0);
 
+            int winningPokerHandIndex = GetWinningPokerHandIndex(0);
             if (drawsLeft == 0)
             {
                 UnholdAllCardsInHand(0);
-                int winningPokerHandIndex = GetWinningPokerHandIndex(0);
                 ApplyBetMultiplierFromPaytable(winningPokerHandIndex);
                 EndRound(winningPokerHandIndex);
             }
             else
             {
+                if (winningPokerHandIndex != -1)
+                {
+                    SetPaytableScorePreview(winningPokerHandIndex);
+                }
                 ShowAllTexts(GameStateChangeTime.Instant);
                 ShowAllButtons(GameStateChangeTime.Medium);
             }

@@ -12,8 +12,10 @@ public class GameViewManager : MonoBehaviour
     [SerializeField] private List<BetterButton> gameButtons;
     [SerializeField] private List<TextDisplay> textDisplays;
 
+    [SerializeField] private CardVisualProfile cardVisualProfile;
     [SerializeField] private DisplayPool cardDisplayPool;
     [SerializeField] private RectTransform discardPileTransform;
+    [SerializeField] private TextDisplay scorePreviewDisplay;
     [SerializeField] private ResultsDisplay resultsDisplay;
     [SerializeField] private BetPanel betPanel;
     [SerializeField] private PaytablePanel paytablePanel;
@@ -89,7 +91,7 @@ public class GameViewManager : MonoBehaviour
     {
         CardDisplay display = (CardDisplay)cardDisplayPool.GetDisplay();
         cardToCardDisplayReferences.Add(card, display);
-        display.DisplayCard(card, deckDisplays[deckIndex].GetRect(), true);
+        display.DisplayCard(card, cardVisualProfile, deckDisplays[deckIndex].GetRect(), true);
         display.SetStartTransform(deckDisplays[deckIndex].GetRect());
         display.StartTraveling();
         handDisplays[handIndex].AddCardDisplayToHand(display, indexInHand);
@@ -129,6 +131,19 @@ public class GameViewManager : MonoBehaviour
     {
         paytablePanel.UnhighlightText();
         StartParsingGameChanges();
+    }
+
+    public void SetAndShowScorePaytablePreview(int index)
+    {
+        scorePreviewDisplay.Show();
+        scorePreviewDisplay.SetText(gameManager.GetPaytable().GetRowName(index), true);
+        paytablePanel.HighlightText(index);
+    }
+
+    public void HideScorePreviewDisplay()
+    {
+        paytablePanel.UnhighlightText();
+        scorePreviewDisplay.Hide();
     }
 
     public void StartParsingGameChanges()
@@ -260,6 +275,14 @@ public class GameViewManager : MonoBehaviour
 
             case GameStateChangeType.GameRulesLoaded:
                 paytablePanel.SetupPaytablePanel(gameManager.GetPaytable());
+                break;
+
+            case GameStateChangeType.SetAndShowScorePaytablePreview:
+                SetAndShowScorePaytablePreview(change.FromIndex);
+                break;
+
+            case GameStateChangeType.HideScorePreview:
+                HideScorePreviewDisplay();
                 break;
         }
     }

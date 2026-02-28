@@ -1,15 +1,19 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Splines.Interpolators;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class CardDisplay : TravelingDisplay
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] private TextMeshProUGUI valueDisplay;
-    [SerializeField] private TextMeshProUGUI suitDisplay;
+    [SerializeField] private List<TextMeshProUGUI> valueDisplays;
+    [SerializeField] private List<Image> suitDisplays;
+    [SerializeField] private Image jackCorner;
+    [SerializeField] private Image queenCorner;
+    [SerializeField] private Image kingCorner;
+    [SerializeField] private Image faceCustomImage;
 
     [SerializeField, Range(0.0f, 1.0f)] private float sizeTransition;
 
@@ -22,11 +26,10 @@ public class CardDisplay : TravelingDisplay
 
     private bool updatedAfterInitialDisplay;
 
-    public void DisplayCard(Card _card, RectTransform startingTransform, bool startFlipped)
+    public void DisplayCard(Card _card, CardVisualProfile visualProfile, RectTransform startingTransform, bool startFlipped)
     {
         card = _card;
-        valueDisplay.text = Card.CARD_VALUE_STRINGS[(int)card.Value];
-        suitDisplay.text = Card.CARD_SUIT_STRINGS[(int)card.Suit];
+        ApplyCardVisualProfile(visualProfile);
 
         SetStartTransform(startingTransform);
         ApplyStartTransform();
@@ -40,6 +43,75 @@ public class CardDisplay : TravelingDisplay
         shownFlipped = startFlipped;
         animator.SetBool("Flipped", shownFlipped);
         animator.SetTrigger("FlipInstant");
+    }
+
+    public void ApplyCardVisualProfile(CardVisualProfile visualProfile)
+    {
+        Sprite[] suitSprites = visualProfile.SuitSprites;
+        Color[] suitSpriteColors = visualProfile.SuitSpriteColors;
+        TMP_ColorGradient[] suitTextColors = visualProfile.SuitTextColors;
+
+        foreach (TextMeshProUGUI text in valueDisplays)
+        {
+            text.text = Card.CARD_VALUE_STRINGS[(int)card.Value];
+            text.colorGradientPreset = suitTextColors[(int)card.Suit];
+        }
+
+        foreach (Image image in suitDisplays)
+        {
+            image.sprite = suitSprites[(int)card.Suit];
+            image.color = suitSpriteColors[(int)card.Suit];
+        }
+
+        jackCorner.gameObject.SetActive(false);
+        queenCorner.gameObject.SetActive(false);
+        kingCorner.gameObject.SetActive(false);
+        faceCustomImage.gameObject.SetActive(false);
+
+        switch (card.Value)
+        {
+            case CardValue.Jack:
+                if (!visualProfile.DisableFaceCornerStyle)
+                    jackCorner.gameObject.SetActive(true);
+                if (visualProfile.JackCustomSprite != null)
+                {
+                    faceCustomImage.gameObject.SetActive(true);
+                    faceCustomImage.sprite = visualProfile.JackCustomSprite;
+                    if (visualProfile.TintCustomFaceSpriteWithSuitColor)
+                    {
+                        faceCustomImage.color = suitSpriteColors[(int)card.Suit];
+                    }
+                }
+                break;
+
+            case CardValue.Queen:
+                if (!visualProfile.DisableFaceCornerStyle)
+                    queenCorner.gameObject.SetActive(true);
+                if (visualProfile.QueenCustomSprite != null)
+                {
+                    faceCustomImage.gameObject.SetActive(true);
+                    faceCustomImage.sprite = visualProfile.QueenCustomSprite;
+                    if (visualProfile.TintCustomFaceSpriteWithSuitColor)
+                    {
+                        faceCustomImage.color = suitSpriteColors[(int)card.Suit];
+                    }
+                }
+                break;
+
+            case CardValue.King:
+                if (!visualProfile.DisableFaceCornerStyle)
+                    kingCorner.gameObject.SetActive(true);
+                if (visualProfile.KingCustomSprite != null)
+                {
+                    faceCustomImage.gameObject.SetActive(true);
+                    faceCustomImage.sprite = visualProfile.KingCustomSprite;
+                    if (visualProfile.TintCustomFaceSpriteWithSuitColor)
+                    {
+                        faceCustomImage.color = suitSpriteColors[(int)card.Suit];
+                    }
+                }
+                break;
+        }
     }
 
     public void SelectCard()
@@ -93,8 +165,8 @@ public class CardDisplay : TravelingDisplay
         if (!updatedAfterInitialDisplay)
         {
             updatedAfterInitialDisplay = true;
-            UpdateFlip();
             UpdateHeld();
+            UpdateFlip();
         }
     }
 }
