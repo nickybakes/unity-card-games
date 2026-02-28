@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Tint_Texture:
-        m_Texture: {fileID: 2800000, guid: 8f6e1edecd2c92742a48ee6e8e461717, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2d8dc67bb4c90ba4c9c12ad319138753, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _White_Band_Texture:
@@ -70,7 +70,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Emission: 13.1
+    - _Emission: 12.43
     - _Emission_Direction: 105
     - _Emission_Minimum: 0
     - _Emission_Multiply: 0.55
@@ -89,7 +89,7 @@ Material:
     - _White_Band_Contrast: 1.79
     - _White_Band_Direction: 133
     - _White_Band_Minimum: 0
-    - _White_Band_Multiply: 0.8
+    - _White_Band_Multiply: 1
     - _White_Band_Rotation: 69
     - _White_Band_Scale: 0.63
     - _White_Band_Speed: 0.71

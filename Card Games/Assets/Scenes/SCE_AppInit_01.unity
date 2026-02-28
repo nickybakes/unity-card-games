@@ -1176,6 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a9c2e7c6495aa4b83d8a6dfc6789ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skipTitleAnimationInEditor: 1
 --- !u!4 &1728526004
 Transform:
   m_ObjectHideFlags: 0

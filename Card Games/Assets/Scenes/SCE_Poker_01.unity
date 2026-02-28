@@ -559,9 +559,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 2917443223869799983, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 5.15
+      objectReference: {fileID: 0}
     - target: {fileID: 5686537560718685957, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: m_Name
       value: Decrease Bet Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670416522588130385, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 5.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025801699244445018, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 5.15
       objectReference: {fileID: 0}
     - target: {fileID: 9126110177679285336, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: submitEvent.m_PersistentCalls.m_Calls.Array.size
@@ -1541,7 +1553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: 90b6213ca04605749bc097c2575b943f, type: 2}
+  m_Material: {fileID: 2100000, guid: 377f4207ff2d53a4d92a77bce4e77e91, type: 2}
   m_Color: {r: 0, g: 1, b: 0.1333332, a: 0.05490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1697,7 +1709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2421615365487488891, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 169
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 2421615365487488891, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1965,7 +1977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2421615365487488891, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 126.295
+      value: 69.295
       objectReference: {fileID: 0}
     - target: {fileID: 2421615365487488891, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2636,9 +2648,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 2917443223869799983, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 5.15
+      objectReference: {fileID: 0}
     - target: {fileID: 5686537560718685957, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: m_Name
       value: Increase Bet Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670416522588130385, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 5.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025801699244445018, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 5.15
       objectReference: {fileID: 0}
     - target: {fileID: 9126110177679285336, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: submitEvent.m_PersistentCalls.m_Calls.Array.size
@@ -2937,9 +2961,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 39
       objectReference: {fileID: 0}
+    - target: {fileID: 2917443223869799983, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4.98
+      objectReference: {fileID: 0}
     - target: {fileID: 5686537560718685957, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: m_Name
       value: Fancy Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670416522588130385, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025801699244445018, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 4.98
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4941,9 +4977,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2917443223869799983, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 3.47
+      objectReference: {fileID: 0}
     - target: {fileID: 5686537560718685957, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: m_Name
       value: Draw Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670416522588130385, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 3.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025801699244445018, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025801699244445018, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 3.47
       objectReference: {fileID: 0}
     - target: {fileID: 9126110177679285336, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: submitEvent.m_PersistentCalls.m_Calls.Array.size
