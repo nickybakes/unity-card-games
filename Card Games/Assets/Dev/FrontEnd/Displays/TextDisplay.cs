@@ -5,20 +5,31 @@ public class TextDisplay : Display
 {
     [SerializeField] protected TextMeshProUGUI textLabel;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected Material highlightMaterial;
+
+    private Material normalMaterial;
+
+    void Awake()
+    {
+        SetupRectTransform();
+        normalMaterial = textLabel.material;
+    }
 
     public virtual void Hide()
     {
-        animator.SetTrigger("Hide");
+        if (animator != null)
+            animator.SetTrigger("Hide");
     }
 
     public virtual void Show()
     {
-        animator.SetTrigger("Show");
+        if (animator != null)
+            animator.SetTrigger("Show");
     }
 
     public virtual void SetText(string text, bool forceBumpAnimation = false)
     {
-        if (textLabel.text != text || forceBumpAnimation)
+        if (animator != null && (textLabel.text != text || forceBumpAnimation))
             animator.SetTrigger("Bump");
 
         textLabel.text = text;
@@ -26,11 +37,11 @@ public class TextDisplay : Display
 
     public virtual void HighlightText()
     {
-        animator.SetTrigger("Highlight");
+        textLabel.color = Color.yellow;
     }
 
     public virtual void UnhighlightText()
     {
-        animator.SetTrigger("Unhighlight");
+        textLabel.color = Color.white;
     }
 }

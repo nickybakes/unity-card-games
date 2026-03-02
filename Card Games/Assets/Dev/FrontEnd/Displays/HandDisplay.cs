@@ -12,8 +12,8 @@ public class HandDisplay : Display
     [SerializeField][Range(0.0f, 1.0f)] private float cardSizeNormalized;
     [SerializeField][Range(0.0f, 1.0f)] private float bigCardSizeNormalized;
 
-    [SerializeField] private float rotationFirst;
-    [SerializeField] private float rotationLast;
+    [SerializeField] private Vector3 rotationFirst;
+    [SerializeField] private Vector3 rotationLast;
 
     [SerializeField] private float cardSpaceMoveSpeed = 4f;
     [SerializeField] private float cardSpaceGrowSpeed = 4f;
@@ -133,7 +133,7 @@ public class HandDisplay : Display
 
             Vector3 position = splineContainer.Spline.EvaluatePosition(point);
             position.z = 0;
-            currentSpace.cardDisplay.SetGoalTransform(position, Quaternion.AngleAxis(Mathf.Lerp(rotationFirst, rotationLast, point), Vector3.forward), Vector3.one);
+            currentSpace.cardDisplay.SetGoalTransform(position, Quaternion.Euler(Vector3.Lerp(rotationFirst, rotationLast, point)), Vector3.one);
             currentSpace.cardDisplay.ApplyTransformParentToGoalTransform(rectTransform, cardsInheritRotation, cardsInheritScale);
         }
     }

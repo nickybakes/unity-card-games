@@ -116,10 +116,10 @@ TextureImporter:
       name: SPR_FancyButtonBorder_01_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 66
-        width: 892
-        height: 892
+        x: 68
+        y: 67
+        width: 890
+        height: 890
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 430, y: 430, z: 430, w: 430}
@@ -146,7 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       SPR_FancyButtonBorder_01_0: 1415756502539484295
   mipmapLimitGroupName: 

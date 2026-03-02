@@ -47,7 +47,6 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
         AddProperty("afterRuleOperation");
 
         AddLabel("Allowed Values");
-        StartSameLine(26);
         SerializedProperty allowedValuesProperty = property.FindPropertyRelative("allowedValues");
 
         if (allowedValuesProperty.arraySize == 0)
@@ -59,9 +58,17 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
             }
         }
 
+        StartSameLine(allowedValuesProperty.arraySize);
+
         for (int i = 0; i < allowedValuesProperty.arraySize; i++)
         {
             AddLabel(Card.CARD_VALUE_STRINGS[i]);
+        }
+
+        StartSameLine(allowedValuesProperty.arraySize);
+
+        for (int i = 0; i < allowedValuesProperty.arraySize; i++)
+        {
             AddProperty("", "", allowedValuesProperty.GetArrayElementAtIndex(i));
         }
 
@@ -69,7 +76,7 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
 
         AddLabel("Allowed Suits");
 
-        StartSameLine(8);
+        StartSameLine(4);
 
         SerializedProperty allowedSuitsProperty = property.FindPropertyRelative("allowedSuits");
 
@@ -82,9 +89,16 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
             }
         }
 
+
         for (int i = 0; i < allowedSuitsProperty.arraySize; i++)
         {
             AddLabel(Card.CARD_SUIT_STRINGS[i]);
+        }
+
+        StartSameLine(4);
+
+        for (int i = 0; i < allowedSuitsProperty.arraySize; i++)
+        {
             AddProperty("", "", allowedSuitsProperty.GetArrayElementAtIndex(i));
         }
 

@@ -74,7 +74,7 @@ pay table for each hand (multiply of your bet)
 
 GameObjects:
 
-GameViewManagerBase:
+GameViewManager:
 HandDisplays
 CardDeckPosition
 CardDiscardPosition

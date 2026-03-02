@@ -15,7 +15,6 @@ public class DeckSuitDataDrawer : BetterPropertyDrawer
 
         AddQuarterBlankLine();
 
-        StartSameLine(26);
         SerializedProperty allowedValuesProperty = property.FindPropertyRelative("values");
 
         if (allowedValuesProperty.arraySize == 0)
@@ -27,9 +26,17 @@ public class DeckSuitDataDrawer : BetterPropertyDrawer
             }
         }
 
+        StartSameLine(allowedValuesProperty.arraySize);
+
         for (int i = 0; i < allowedValuesProperty.arraySize; i++)
         {
             AddLabel(Card.CARD_VALUE_STRINGS[i]);
+        }
+
+        StartSameLine(allowedValuesProperty.arraySize);
+
+        for (int i = 0; i < allowedValuesProperty.arraySize; i++)
+        {
             AddProperty("", "", allowedValuesProperty.GetArrayElementAtIndex(i));
         }
 
