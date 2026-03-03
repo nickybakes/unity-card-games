@@ -69,6 +69,36 @@ public class Hand
         return heldCards;
     }
 
+    public List<Card> GetUnflippedCards()
+    {
+        List<Card> unflippedCards = new List<Card>();
+
+        foreach (Card card in cards)
+        {
+            if (!card.Flipped)
+            {
+                unflippedCards.Add(card);
+            }
+        }
+
+        return unflippedCards;
+    }
+
+    public List<Card> GetFlippedCards()
+    {
+        List<Card> flippedCards = new List<Card>();
+
+        foreach (Card card in cards)
+        {
+            if (card.Flipped)
+            {
+                flippedCards.Add(card);
+            }
+        }
+
+        return flippedCards;
+    }
+
     public void ShuffleHand()
     {
         List<Card> shuffledCards = new List<Card>(cards.Capacity);

@@ -11,6 +11,7 @@ public class GameRulesBlackJack : GameRulesBase
     [field: SerializeField] public int PlayerBaseHandSize { get; private set; }
     [field: SerializeField] public int DealerUnflippedCards { get; private set; }
     [field: SerializeField] public int DealerFlippedCards { get; private set; }
+    [field: SerializeField] public int DealerDrawIfUnder { get; private set; }
     [field: SerializeField] public int JackScoreValue { get; private set; }
     [field: SerializeField] public int QueenScoreValue { get; private set; }
     [field: SerializeField] public int KingScoreValue { get; private set; }

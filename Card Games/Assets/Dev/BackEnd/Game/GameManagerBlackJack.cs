@@ -5,6 +5,14 @@ using UnityEngine;
 public class GameManagerBlackJack : GameManagerBase
 {
 
+    enum PaytableResult
+    {
+        PlayerBust,
+        PlayerLoseNoBust,
+        PlayerDealerTie,
+        PlayerWin
+    }
+
     protected GameRulesBlackJack gameRulesBlackJack;
 
     public GameRulesBlackJack gameRulesOverride;
@@ -18,9 +26,13 @@ public class GameManagerBlackJack : GameManagerBase
     [SerializeField] private int standButtonIndex;
     [SerializeField] private int bustOverNumberTextIndex;
     [SerializeField] private int yourScoreNumberTextIndex;
+    [SerializeField] private int finalPlayerScoreTextIndex;
+    [SerializeField] private int finalDealerScoreTextIndex;
 
     [Header("Test Data/Cheats")]
     [SerializeField] private List<Card> testPlayerHand;
+
+    private int currentScoreLimit;
 
 
     private void Start()
@@ -53,7 +65,8 @@ public class GameManagerBlackJack : GameManagerBase
     public override void StartRound()
     {
         ResetDecks();
-        UpdateText(bustOverNumberTextIndex, gameRulesBlackJack.BaseScoreLimit.ToString());
+        currentScoreLimit = gameRulesBlackJack.BaseScoreLimit;
+        UpdateText(bustOverNumberTextIndex, currentScoreLimit.ToString());
 
 #if UNITY_EDITOR
         if (testPlayerHand != null && testPlayerHand.Count > 0)
@@ -72,18 +85,10 @@ public class GameManagerBlackJack : GameManagerBase
             DealHands();
 #endif
 
-        // int winningPokerHandIndex = GetWinningPokerHandIndex(0);
 
-        // if (winningPokerHandIndex != -1)
-        // {
-        //     SetAndShowResultPreview(winningPokerHandIndex);
-        // }
-        ShowAllTexts(GameStateChangeTime.Instant);
-        ShowAllButtons(GameStateChangeTime.Short);
-
+        CheckScoresForGameOver(false);
         SubmitChanges();
     }
-
 
     /// <summary>
     /// Deals cards to the player and dealer, alternating for each card. Then deals the flipped cards to the dealer.
@@ -114,36 +119,103 @@ public class GameManagerBlackJack : GameManagerBase
     {
         if (index == hitButtonIndex)
         {
-            // HideResultPreview();
-            // HideAllTexts(GameStateChangeTime.Instant);
-            // HideAllButtons(GameStateChangeTime.Medium);
+            HideAllButtons(GameStateChangeTime.Medium);
+            DrawCardsToHand(0, 0, 1);
 
-            // List<Card> unheldCards = hands[0].GetUnheldCards();
-            // ReplaceCardsInHand(unheldCards, 0, 0);
-
-            // int winningPokerHandIndex = GetWinningPokerHandIndex(0);
-            // if (drawsLeft == 0)
-            // {
-            //     UnholdAllCardsInHand(0);
-            //     ApplyBetMultiplierFromPaytable(winningPokerHandIndex);
-            //     EndRound(winningPokerHandIndex);
-            // }
-            // else
-            // {
-            //     if (winningPokerHandIndex != -1)
-            //     {
-            //         SetAndShowResultPreview(winningPokerHandIndex);
-            //     }
-            //     ShowAllTexts(GameStateChangeTime.Instant);
-            //     ShowAllButtons(GameStateChangeTime.Medium);
-            // }
-
-            SubmitChanges();
+            CheckScoresForGameOver(false);
         }
         else if (index == standButtonIndex)
         {
-
+            CheckScoresForGameOver(true);
         }
+
+        SubmitChanges();
+
+    }
+
+    private void CheckScoresForGameOver(bool forceGameOver)
+    {
+        int playerScore = GetHandScore(0);
+
+        if (forceGameOver || playerScore >= currentScoreLimit)
+        {
+            UpdateText(bustOverNumberTextIndex, currentScoreLimit.ToString());
+            UpdateText(yourScoreNumberTextIndex, playerScore.ToString(), GameStateChangeTime.Medium);
+
+            HideAllTexts(GameStateChangeTime.Instant);
+            HideAllButtons(GameStateChangeTime.Short);
+
+            UnflipAllCardsInHand(dealerHandIndex);
+
+            int dealerScore = GetHandScore(dealerHandIndex);
+
+            UpdateText(finalDealerScoreTextIndex, "");
+            UpdateText(finalPlayerScoreTextIndex, "");
+            ShowText(finalDealerScoreTextIndex);
+            ShowText(finalPlayerScoreTextIndex);
+
+            while (dealerScore < gameRulesBlackJack.DealerDrawIfUnder)
+            {
+                UpdateText(finalDealerScoreTextIndex, dealerScore.ToString());
+                UpdateText(finalPlayerScoreTextIndex, playerScore.ToString(), GameStateChangeTime.Long);
+                DrawCardsToHand(0, dealerHandIndex, 1, false, GameStateChangeTime.Medium);
+                dealerScore = GetHandScore(dealerHandIndex);
+            }
+
+            UpdateText(finalDealerScoreTextIndex, dealerScore.ToString());
+            UpdateText(finalPlayerScoreTextIndex, playerScore.ToString(), GameStateChangeTime.Long);
+
+
+            HideAllTexts(GameStateChangeTime.Instant);
+
+            PaytableResult result = GetRoundResult(playerScore, dealerScore);
+            ApplyBetMultiplierFromPaytable((int)result);
+            EndRound((int)result);
+        }
+        else
+        {
+            UpdateText(bustOverNumberTextIndex, currentScoreLimit.ToString());
+            UpdateText(yourScoreNumberTextIndex, playerScore.ToString());
+
+            ShowAllTexts(GameStateChangeTime.Instant);
+            HideText(finalDealerScoreTextIndex);
+            HideText(finalPlayerScoreTextIndex);
+            ShowAllButtons(GameStateChangeTime.Short);
+        }
+    }
+
+
+    private PaytableResult GetRoundResult(int playerScore, int dealerScore)
+    {
+        if (playerScore > currentScoreLimit)
+        {
+            return PaytableResult.PlayerBust;
+        }
+
+        if (dealerScore > currentScoreLimit)
+        {
+            return PaytableResult.PlayerWin;
+        }
+
+        if (playerScore < dealerScore)
+        {
+            return PaytableResult.PlayerLoseNoBust;
+        }
+
+        if (playerScore == dealerScore)
+        {
+            return PaytableResult.PlayerDealerTie;
+        }
+
+        return PaytableResult.PlayerWin;
+    }
+
+    private int GetHandScore(int handIndex)
+    {
+        return HandAnalysis.GetHandScore(hands[handIndex].Cards, gameRulesBlackJack.JackScoreValue,
+        gameRulesBlackJack.QueenScoreValue, gameRulesBlackJack.KingScoreValue,
+        gameRulesBlackJack.AceScoreValueHigh, gameRulesBlackJack.AceScoreValueLow,
+        currentScoreLimit);
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ MonoBehaviour:
     betMultiplier: 0.2
     isAWin: 0
   - name: Player & Dealer Tie
-    betMultiplier: 0.5
+    betMultiplier: 1
     isAWin: 1
   - name: Player Wins
     betMultiplier: 2

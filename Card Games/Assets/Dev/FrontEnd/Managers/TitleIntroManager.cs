@@ -5,6 +5,7 @@ public class TitleIntroManager : MonoBehaviour
 {
 
     [SerializeField] private GameViewManager viewManager;
+    [SerializeField] private SceneIndex sceneToLoadInto;
     [SerializeField] private DeckData deckData;
     [SerializeField] private int numberOfCardsToDraw = 30;
 
@@ -52,6 +53,6 @@ public class TitleIntroManager : MonoBehaviour
 
     public void TitleAnimationFinished()
     {
-        AppManager.app.SwitchToScene(SceneIndex.BlackJack);
+        AppManager.app.SwitchToScene(sceneToLoadInto);
     }
 }

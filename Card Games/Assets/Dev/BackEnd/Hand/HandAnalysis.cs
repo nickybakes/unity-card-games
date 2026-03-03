@@ -113,23 +113,19 @@ public class HandAnalysis
 
     public static int GetHandScore(List<Card> hand, int jackValue, int queenValue, int kingValue, int aceValueHigh, int aceValueLow, int scoreLimit)
     {
-        //Filter aces into a different list. This way, aces can decide to be high or low.
-        List<Card> noAcesHand = new List<Card>(hand);
         int numAces = 0;
-        for (int i = 0; i < noAcesHand.Count; i++)
-        {
-            if (noAcesHand[i].Value == CardValue.Ace)
-            {
-                numAces++;
-                noAcesHand.RemoveAt(i);
-                i--;
-            }
-        }
 
+        // Count up the score of the non-ace cards.
         int totalScore = 0;
-        for (int i = 0; i < noAcesHand.Count; i++)
+        for (int i = 0; i < hand.Count; i++)
         {
             Card card = hand[i];
+
+            if (card.Value == CardValue.Ace)
+            {
+                numAces++;
+                continue;
+            }
 
             int cardScore = Card.CARD_VALUE_SCORES[(int)card.Value];
             switch (card.Value)
@@ -147,28 +143,27 @@ public class HandAnalysis
             totalScore += cardScore;
         }
 
-        int acesScore = 0;
+        // Work backwards from the score limit to find the highest score without going over, if possible.
+        int acesScore = numAces * aceValueHigh;
         for (int i = 0; i < numAces; i++)
         {
-            if (totalScore + acesScore + aceValueHigh > scoreLimit)
+            if (totalScore + acesScore > scoreLimit)
             {
-
+                acesScore -= aceValueHigh;
+                acesScore += aceValueLow;
             }
-            Card card = hand[i];
-
-            int cardScore = Card.CARD_VALUE_SCORES[(int)card.Value];
         }
 
-        return totalScore;
+        return totalScore + acesScore;
     }
 
     private static bool DoCardsPassCondition(Card a, Card b, HandComponent conditionToCheck, bool aIsFirstCardInList)
     {
         switch (conditionToCheck)
         {
-            case HandComponent.ValueCollection:
+            case HandComponent.MatchingValues:
                 return a.Value == b.Value;
-            case HandComponent.SuitCollection:
+            case HandComponent.MatchingSuits:
                 return a.Suit == b.Suit;
             case HandComponent.ConsecutiveValues:
                 return (int)b.Value - (int)a.Value == 1 || (a.Value == CardValue.Ace && b.Value == CardValue.Two && aIsFirstCardInList);

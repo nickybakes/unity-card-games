@@ -83,7 +83,8 @@ public class BetPanel : MonoBehaviour
 
     public void ShowUserWinnings()
     {
-        winDisplay.ShowWinnings(ParseAsCurrency(UserManager.user.Winnings), UpdatePanelElements, UserManager.user.Winnings > UserManager.user.CurrentBet);
+        if (UserManager.user.Winnings > 0)
+            winDisplay.ShowWinnings(ParseAsCurrency(UserManager.user.Winnings), UpdatePanelElements, UserManager.user.Winnings > UserManager.user.CurrentBet);
     }
 
     private string ParseAsCurrency(float amount)

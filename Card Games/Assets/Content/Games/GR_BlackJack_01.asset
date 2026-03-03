@@ -24,6 +24,7 @@ MonoBehaviour:
   <PlayerBaseHandSize>k__BackingField: 2
   <DealerUnflippedCards>k__BackingField: 1
   <DealerFlippedCards>k__BackingField: 1
+  <DealerDrawIfUnder>k__BackingField: 17
   <JackScoreValue>k__BackingField: 10
   <QueenScoreValue>k__BackingField: 10
   <KingScoreValue>k__BackingField: 10

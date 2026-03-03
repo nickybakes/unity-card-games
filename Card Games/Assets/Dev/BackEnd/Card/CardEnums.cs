@@ -25,8 +25,8 @@ public enum CardSuit
 
 public enum HandComponent
 {
-    ValueCollection,
-    SuitCollection,
+    MatchingValues,
+    MatchingSuits,
     ConsecutiveValues,
 }
 

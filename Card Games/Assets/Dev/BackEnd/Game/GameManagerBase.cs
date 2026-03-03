@@ -69,7 +69,7 @@ public class GameManagerBase : MonoBehaviour
         }
     }
 
-    public void DrawCardsToHand(int deckIndex, int handIndex, int numCards, bool flipped = false)
+    public void DrawCardsToHand(int deckIndex, int handIndex, int numCards, bool flipped = false, GameStateChangeTime changeTime = GameStateChangeTime.Short)
     {
         for (int i = 0; i < numCards; i++)
         {
@@ -79,7 +79,7 @@ public class GameManagerBase : MonoBehaviour
                 hands[handIndex].AddCard(card);
                 if (flipped)
                     card.InvertFlipped();
-                changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card));
+                changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card, changeTime));
             }
         }
     }
@@ -111,6 +111,20 @@ public class GameManagerBase : MonoBehaviour
             if (i == heldCards.Count - 1)
                 time = GameStateChangeTime.Medium;
             changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, heldCards[i], time));
+        }
+    }
+
+    public void UnflipAllCardsInHand(int handIndex)
+    {
+        List<Card> flippedCards = hands[handIndex].GetFlippedCards();
+
+        for (int i = 0; i < flippedCards.Count; i++)
+        {
+            flippedCards[i].InvertFlipped();
+            GameStateChangeTime time = GameStateChangeTime.Short;
+            if (i == flippedCards.Count - 1)
+                time = GameStateChangeTime.Medium;
+            changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardUpdate, flippedCards[i], time));
         }
     }
 
@@ -155,9 +169,9 @@ public class GameManagerBase : MonoBehaviour
         }
     }
 
-    public void UpdateText(int textIndex, string text)
+    public void UpdateText(int textIndex, string text, GameStateChangeTime changeTime = GameStateChangeTime.Instant)
     {
-        changesThisTurn.Add(new GameStateChange(GameStateChangeType.TextUpdate, textIndex, text, GameStateChangeTime.Instant));
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.TextUpdate, textIndex, text, changeTime));
     }
 
     public void HideButton(int buttonIndex, GameStateChangeTime changeTime = GameStateChangeTime.Instant)

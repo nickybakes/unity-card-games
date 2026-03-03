@@ -569,8 +569,8 @@ MonoBehaviour:
   cardVisualProfile: {fileID: 11400000, guid: 579b795c7cbcd99419c65b74fc7a9f4e, type: 2}
   cardDisplayPool: {fileID: 2008494085}
   discardPileTransform: {fileID: 1130876628}
-  scorePreviewDisplay: {fileID: 0}
-  resultsDisplay: {fileID: 0}
+  resultPreviewDisplay: {fileID: 0}
+  resultPanel: {fileID: 0}
   betPanel: {fileID: 0}
   paytablePanel: {fileID: 0}
   uiRaycastShield: {fileID: 1478979789}
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleIntroManager
   viewManager: {fileID: 340487865}
+  sceneToLoadInto: 3
   deckData: {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
   numberOfCardsToDraw: 52
 --- !u!1 &536719963
