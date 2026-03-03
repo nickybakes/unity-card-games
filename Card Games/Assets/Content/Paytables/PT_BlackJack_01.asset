@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: PT_BlackJack_01
   m_EditorClassIdentifier: Assembly-CSharp::PaytableDataBlackJack
   <Rows>k__BackingField:
-  - name: Player Wins
-    betMultiplier: 2
-  - name: Player & Dealer Tie
-    betMultiplier: 0.5
-  - name: Player Loses, No Bust
-    betMultiplier: 0.2
   - name: Player Busts
     betMultiplier: 0
+    isAWin: 0
+  - name: Player Loses, No Bust
+    betMultiplier: 0.2
+    isAWin: 0
+  - name: Player & Dealer Tie
+    betMultiplier: 0.5
+    isAWin: 1
+  - name: Player Wins
+    betMultiplier: 2
+    isAWin: 1

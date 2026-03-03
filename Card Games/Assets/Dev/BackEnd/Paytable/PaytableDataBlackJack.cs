@@ -20,4 +20,9 @@ public class PaytableDataBlackJack : PaytableDataBase
     {
         return Rows[index].BetMultiplier;
     }
+
+    public override bool IsAWin(int index)
+    {
+        return Rows[index].IsAWin;
+    }
 }

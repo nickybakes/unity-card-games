@@ -39,7 +39,7 @@ public class GameManagerPoker : GameManagerBase
     public override void InitGame()
     {
         SetupHands();
-        HideScorePreview();
+        HideResultPreview();
         HideAllTexts(GameStateChangeTime.Instant);
         HideAllButtons(GameStateChangeTime.Instant);
         BeginBetting();
@@ -73,7 +73,7 @@ public class GameManagerPoker : GameManagerBase
 
         if (winningPokerHandIndex != -1)
         {
-            SetPaytableScorePreview(winningPokerHandIndex);
+            SetAndShowResultPreview(winningPokerHandIndex);
         }
         ShowAllTexts(GameStateChangeTime.Instant);
         ShowAllButtons(GameStateChangeTime.Short);
@@ -82,7 +82,7 @@ public class GameManagerPoker : GameManagerBase
     }
 
     /// <summary>
-    /// In Poker, when the player selected a card, it sets the card as "Held" (or Unheld if its already held)
+    /// In Poker, when the player selects a card, it sets the card as "Held" (or Unheld if its already held)
     /// </summary>
     /// <param name="card">The card the player selected.</param>
     public override void PlayerSelectCard(Card card)
@@ -96,7 +96,7 @@ public class GameManagerPoker : GameManagerBase
     {
         if (index == drawButtonIndex)
         {
-            HideScorePreview();
+            HideResultPreview();
             HideAllTexts(GameStateChangeTime.Instant);
             HideAllButtons(GameStateChangeTime.Medium);
             drawsLeft--;
@@ -116,7 +116,7 @@ public class GameManagerPoker : GameManagerBase
             {
                 if (winningPokerHandIndex != -1)
                 {
-                    SetPaytableScorePreview(winningPokerHandIndex);
+                    SetAndShowResultPreview(winningPokerHandIndex);
                 }
                 ShowAllTexts(GameStateChangeTime.Instant);
                 ShowAllButtons(GameStateChangeTime.Medium);

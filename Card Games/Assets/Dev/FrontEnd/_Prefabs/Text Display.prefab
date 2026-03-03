@@ -176,3 +176,4 @@ MonoBehaviour:
   viewManager: {fileID: 0}
   textLabel: {fileID: 1016382237929289037}
   animator: {fileID: 2073258597338683443}
+  highlightMaterial: {fileID: 2100000, guid: 38cf4a0068cbea048bbee3c0903d696a, type: 2}

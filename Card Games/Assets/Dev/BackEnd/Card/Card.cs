@@ -7,6 +7,7 @@ public class Card
 {
     public static string[] CARD_VALUE_STRINGS = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
     public static string[] CARD_SUIT_STRINGS = { "Spades", "Hearts", "Clubs", "Diamonds" };
+    public static int[] CARD_VALUE_SCORES = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 
     [SerializeField] private CardValue value;
     [SerializeField] private CardSuit suit;

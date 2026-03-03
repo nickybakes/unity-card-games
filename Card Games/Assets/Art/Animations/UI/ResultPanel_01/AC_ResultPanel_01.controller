@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 24306df4bc574f44db460d41c7982510, type: 2}
+  m_Motion: {fileID: 7400000, guid: 57e23db09e020d943a44ea6edc0e15fe, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -97,7 +97,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 92955056074806c409b6b203897b4cf7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4a0a0d69ce3ca6f49b3bedfd285dabbe, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -146,7 +146,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 24306df4bc574f44db460d41c7982510, type: 2}
+  m_Motion: {fileID: 7400000, guid: 997fe9f3a8a12e74394f08cccd75cf1f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -158,7 +158,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AC_ResultsBanner_01
+  m_Name: AC_ResultPanel_01
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Win

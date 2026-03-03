@@ -13,6 +13,7 @@ public class PaytableRowBaseDrawer : BetterPropertyDrawer
 
         AddProperty("name");
         AddProperty("betMultiplier");
+        AddProperty("isAWin");
 
         EditorGUI.EndProperty();
     }

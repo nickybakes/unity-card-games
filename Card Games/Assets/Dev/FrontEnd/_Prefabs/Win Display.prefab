@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1016382237929289037, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_fontSize
-      value: 133.56
+      value: 111.8
       objectReference: {fileID: 0}
     - target: {fileID: 1016382237929289037, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_fontStyle
@@ -118,12 +118,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1016382237929289037, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_fontSizeMax
-      value: 133.56
+      value: 111.8
       objectReference: {fileID: 0}
     - target: {fileID: 1016382237929289037, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_fontSizeBase
       value: 136.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1016382237929289037, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 1685dd603f36f8f43aabd3effd7ac889, type: 2}
     - target: {fileID: 1016382237929289037, guid: 2bde8d81b94d7704f99a2aebc9e16d7e, type: 3}
       propertyPath: m_TextWrappingMode
       value: 0

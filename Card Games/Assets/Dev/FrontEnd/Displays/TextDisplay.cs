@@ -12,7 +12,7 @@ public class TextDisplay : Display
     void Awake()
     {
         SetupRectTransform();
-        normalMaterial = textLabel.material;
+        normalMaterial = textLabel.fontMaterial;
     }
 
     public virtual void Hide()
@@ -37,11 +37,11 @@ public class TextDisplay : Display
 
     public virtual void HighlightText()
     {
-        textLabel.color = Color.yellow;
+        textLabel.fontMaterial = highlightMaterial;
     }
 
     public virtual void UnhighlightText()
     {
-        textLabel.color = Color.white;
+        textLabel.fontMaterial = normalMaterial;
     }
 }

@@ -52,6 +52,6 @@ public class TitleIntroManager : MonoBehaviour
 
     public void TitleAnimationFinished()
     {
-        AppManager.app.SwitchToScene(SceneIndex.Poker);
+        AppManager.app.SwitchToScene(SceneIndex.BlackJack);
     }
 }

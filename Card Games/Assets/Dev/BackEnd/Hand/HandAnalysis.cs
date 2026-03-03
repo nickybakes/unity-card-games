@@ -111,6 +111,57 @@ public class HandAnalysis
         return mostPassingCards;
     }
 
+    public static int GetHandScore(List<Card> hand, int jackValue, int queenValue, int kingValue, int aceValueHigh, int aceValueLow, int scoreLimit)
+    {
+        //Filter aces into a different list. This way, aces can decide to be high or low.
+        List<Card> noAcesHand = new List<Card>(hand);
+        int numAces = 0;
+        for (int i = 0; i < noAcesHand.Count; i++)
+        {
+            if (noAcesHand[i].Value == CardValue.Ace)
+            {
+                numAces++;
+                noAcesHand.RemoveAt(i);
+                i--;
+            }
+        }
+
+        int totalScore = 0;
+        for (int i = 0; i < noAcesHand.Count; i++)
+        {
+            Card card = hand[i];
+
+            int cardScore = Card.CARD_VALUE_SCORES[(int)card.Value];
+            switch (card.Value)
+            {
+                case CardValue.Jack:
+                    cardScore = jackValue;
+                    break;
+                case CardValue.Queen:
+                    cardScore = queenValue;
+                    break;
+                case CardValue.King:
+                    cardScore = kingValue;
+                    break;
+            }
+            totalScore += cardScore;
+        }
+
+        int acesScore = 0;
+        for (int i = 0; i < numAces; i++)
+        {
+            if (totalScore + acesScore + aceValueHigh > scoreLimit)
+            {
+
+            }
+            Card card = hand[i];
+
+            int cardScore = Card.CARD_VALUE_SCORES[(int)card.Value];
+        }
+
+        return totalScore;
+    }
+
     private static bool DoCardsPassCondition(Card a, Card b, HandComponent conditionToCheck, bool aIsFirstCardInList)
     {
         switch (conditionToCheck)

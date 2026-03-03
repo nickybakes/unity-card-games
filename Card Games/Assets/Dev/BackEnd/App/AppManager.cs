@@ -8,7 +8,7 @@ public enum SceneIndex
     AppInit = 0,
     GameMenu = 1,
     Poker = 2,
-    BlackJack = 2,
+    BlackJack = 3,
 }
 
 /// <summary>
@@ -51,7 +51,7 @@ public class AppManager : MonoBehaviour
         {
 #if UNITY_EDITOR
             if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex((int)SceneIndex.AppInit))
-                SwitchToScene(SceneIndex.Poker);
+                SwitchToScene(SceneIndex.BlackJack);
 #endif
         }
     }

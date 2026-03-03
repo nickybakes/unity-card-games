@@ -69,7 +69,7 @@ public class GameManagerBase : MonoBehaviour
         }
     }
 
-    public void DrawCardsToHand(int deckIndex, int handIndex, int numCards)
+    public void DrawCardsToHand(int deckIndex, int handIndex, int numCards, bool flipped = false)
     {
         for (int i = 0; i < numCards; i++)
         {
@@ -77,6 +77,8 @@ public class GameManagerBase : MonoBehaviour
             {
                 Card card = decks[deckIndex].DrawCard();
                 hands[handIndex].AddCard(card);
+                if (flipped)
+                    card.InvertFlipped();
                 changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, deckIndex, GameBoardTarget.Hand, handIndex, card));
             }
         }
@@ -198,6 +200,10 @@ public class GameManagerBase : MonoBehaviour
         changesThisTurn.Add(new GameStateChange(GameStateChangeType.ShowText, -1, changeTime));
     }
 
+    /// <summary>
+    /// Default behavior is to flip a card when a player selects it.
+    /// </summary>
+    /// <param name="card">The card the player selected.</param>
     public virtual void PlayerSelectCard(Card card)
     {
         card.InvertFlipped();
@@ -211,7 +217,7 @@ public class GameManagerBase : MonoBehaviour
 
     public void EndRound(int paytableWinningRowIndex)
     {
-        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ResultsPresentation, paytableWinningRowIndex));
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.ResultPresentation, paytableWinningRowIndex));
         for (int i = 0; i < hands.Count; i++)
         {
             DiscardAllCardsFromHand(i);
@@ -232,14 +238,14 @@ public class GameManagerBase : MonoBehaviour
         UserManager.user.AwardWinnings(UserManager.user.CurrentBet * paytable.GetBetMultiplier(index));
     }
 
-    public void SetPaytableScorePreview(int index)
+    public void SetAndShowResultPreview(int index)
     {
-        changesThisTurn.Add(new GameStateChange(GameStateChangeType.SetAndShowScorePaytablePreview, index));
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.SetAndShowResultPreview, index));
     }
 
-    public void HideScorePreview()
+    public void HideResultPreview()
     {
-        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideScorePreview));
+        changesThisTurn.Add(new GameStateChange(GameStateChangeType.HideResultPreview));
     }
 
     public virtual PaytableDataBase GetPaytable()

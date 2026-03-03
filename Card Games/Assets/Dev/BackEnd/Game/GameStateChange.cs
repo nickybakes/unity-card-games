@@ -16,11 +16,11 @@ public enum GameStateChangeType
     TextUpdate,
     HideText,
     ShowText,
-    ResultsPresentation,
+    ResultPresentation,
     BeginBetting,
     GameRulesLoaded,
-    SetAndShowScorePaytablePreview,
-    HideScorePreview,
+    SetAndShowResultPreview,
+    HideResultPreview,
 }
 
 public enum GameStateChangeTime

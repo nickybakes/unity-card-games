@@ -153,4 +153,4 @@ MonoBehaviour:
   viewManager: {fileID: 0}
   textLabel: {fileID: 195580894979731826}
   animator: {fileID: 0}
-  highlightMaterial: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: 38cf4a0068cbea048bbee3c0903d696a, type: 2}

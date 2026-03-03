@@ -18,9 +18,13 @@ public class WinDisplay : TravelingDisplay
         StopTraveling();
     }
 
-    public void ShowWinnings(string formattedWinningsText, Action _updateBetDisplayCallback)
+    public void ShowWinnings(string formattedWinningsText, Action _updateBetDisplayCallback, bool isProfit)
     {
         textDisplay.SetText("+" + formattedWinningsText, true);
+        if (isProfit)
+        {
+            textDisplay.HighlightText();
+        }
         SetStartTransform(winStartTransform);
         ApplyStartTransform();
         TravelToTransform(winGoalTransform, DoneTravelingCallback);
@@ -30,6 +34,7 @@ public class WinDisplay : TravelingDisplay
 
     public void DoneTravelingCallback(Display display)
     {
+        textDisplay.UnhighlightText();
         textDisplay.Hide();
         updateBetDisplayCallback.Invoke();
     }

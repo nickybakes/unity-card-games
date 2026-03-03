@@ -8,4 +8,7 @@ public abstract class PaytableDataBase : ScriptableObject
     public abstract string GetRowName(int index);
 
     public abstract float GetBetMultiplier(int index);
+
+    public abstract bool IsAWin(int index);
+
 }

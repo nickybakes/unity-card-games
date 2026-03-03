@@ -8,6 +8,13 @@ public class GameRulesBlackJack : GameRulesBase
     [field: SerializeField] public PaytableDataBlackJack paytableData { get; private set; }
 
     [field: SerializeField] public int BaseScoreLimit { get; private set; }
-    [field: SerializeField] public int BaseHandSize { get; private set; }
+    [field: SerializeField] public int PlayerBaseHandSize { get; private set; }
+    [field: SerializeField] public int DealerUnflippedCards { get; private set; }
+    [field: SerializeField] public int DealerFlippedCards { get; private set; }
+    [field: SerializeField] public int JackScoreValue { get; private set; }
+    [field: SerializeField] public int QueenScoreValue { get; private set; }
+    [field: SerializeField] public int KingScoreValue { get; private set; }
+    [field: SerializeField] public int AceScoreValueLow { get; private set; }
+    [field: SerializeField] public int AceScoreValueHigh { get; private set; }
 
 }

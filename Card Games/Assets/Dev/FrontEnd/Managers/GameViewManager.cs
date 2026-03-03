@@ -15,8 +15,8 @@ public class GameViewManager : MonoBehaviour
     [SerializeField] private CardVisualProfile cardVisualProfile;
     [SerializeField] private DisplayPool cardDisplayPool;
     [SerializeField] private RectTransform discardPileTransform;
-    [SerializeField] private TextDisplay scorePreviewDisplay;
-    [SerializeField] private ResultsDisplay resultsDisplay;
+    [SerializeField] private TextDisplay resultPreviewDisplay;
+    [SerializeField] private ResultPanel resultPanel;
     [SerializeField] private BetPanel betPanel;
     [SerializeField] private PaytablePanel paytablePanel;
 
@@ -114,36 +114,36 @@ public class GameViewManager : MonoBehaviour
         display.StartTraveling();
     }
 
-    public void StartResultsPresentation(int paytableWinningRowIndex)
+    public void StartResultPresentation(int paytableWinningRowIndex)
     {
         StopParsingGameChanges();
         if (paytableWinningRowIndex == -1)
-            resultsDisplay.StartPresentation("", 0);
+            resultPanel.StartPresentation("", false);
         else
         {
             paytablePanel.HighlightText(paytableWinningRowIndex);
-            resultsDisplay.StartPresentation(gameManager.GetPaytable().GetRowName(paytableWinningRowIndex), gameManager.GetPaytable().GetBetMultiplier(paytableWinningRowIndex));
+            resultPanel.StartPresentation(gameManager.GetPaytable().GetRowName(paytableWinningRowIndex), gameManager.GetPaytable().IsAWin(paytableWinningRowIndex));
             betPanel.ShowUserWinnings();
         }
     }
 
-    public void EndResultsPresentation()
+    public void EndResultPresentation()
     {
         paytablePanel.UnhighlightText();
         StartParsingGameChanges();
     }
 
-    public void SetAndShowScorePaytablePreview(int index)
+    public void SetAndShowResultPreview(int index)
     {
-        scorePreviewDisplay.Show();
-        scorePreviewDisplay.SetText(gameManager.GetPaytable().GetRowName(index), true);
+        resultPreviewDisplay.Show();
+        resultPreviewDisplay.SetText(gameManager.GetPaytable().GetRowName(index), true);
         paytablePanel.HighlightText(index);
     }
 
-    public void HideScorePreviewDisplay()
+    public void HideResultPreviewDisplay()
     {
         paytablePanel.UnhighlightText();
-        scorePreviewDisplay.Hide();
+        resultPreviewDisplay.Hide();
     }
 
     public void StartParsingGameChanges()
@@ -264,8 +264,8 @@ public class GameViewManager : MonoBehaviour
                 cardDisplay.UpdateHeld();
                 break;
 
-            case GameStateChangeType.ResultsPresentation:
-                StartResultsPresentation(change.FromIndex);
+            case GameStateChangeType.ResultPresentation:
+                StartResultPresentation(change.FromIndex);
                 break;
 
             case GameStateChangeType.BeginBetting:
@@ -277,12 +277,12 @@ public class GameViewManager : MonoBehaviour
                 paytablePanel.SetupPaytablePanel(gameManager.GetPaytable());
                 break;
 
-            case GameStateChangeType.SetAndShowScorePaytablePreview:
-                SetAndShowScorePaytablePreview(change.FromIndex);
+            case GameStateChangeType.SetAndShowResultPreview:
+                SetAndShowResultPreview(change.FromIndex);
                 break;
 
-            case GameStateChangeType.HideScorePreview:
-                HideScorePreviewDisplay();
+            case GameStateChangeType.HideResultPreview:
+                HideResultPreviewDisplay();
                 break;
         }
     }

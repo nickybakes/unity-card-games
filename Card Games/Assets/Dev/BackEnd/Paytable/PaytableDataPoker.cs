@@ -21,6 +21,11 @@ public class PaytableDataPoker : PaytableDataBase
         return Rows[index].BetMultiplier;
     }
 
+    public override bool IsAWin(int index)
+    {
+        return true;
+    }
+
     public PokerHand GetPokerHand(int index)
     {
         return Rows[index].Hand;
