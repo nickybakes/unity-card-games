@@ -22,8 +22,6 @@ public class AppManager : MonoBehaviour
     /// </summary>
     public static AppManager app;
 
-    [SerializeField] private bool skipTitleAnimationInEditor;
-
     private SceneIndex currentScene = SceneIndex.AppInit;
 
     private Action currentCallback;
@@ -42,17 +40,6 @@ public class AppManager : MonoBehaviour
         {
             app = this;
             DontDestroyOnLoad(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        if (skipTitleAnimationInEditor)
-        {
-#if UNITY_EDITOR
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex((int)SceneIndex.AppInit))
-                SwitchToScene(SceneIndex.BlackJack);
-#endif
         }
     }
     #endregion

@@ -90,6 +90,10 @@ public class GameViewManager : MonoBehaviour
     public void DrawCardToHand(Card card, int deckIndex, int handIndex, int indexInHand = -1)
     {
         CardDisplay display = (CardDisplay)cardDisplayPool.GetDisplay();
+        if (cardToCardDisplayReferences.ContainsKey(card))
+        {
+            cardToCardDisplayReferences.Remove(card);
+        }
         cardToCardDisplayReferences.Add(card, display);
         display.DisplayCard(card, cardVisualProfile, deckDisplays[deckIndex].GetRect(), true);
         display.SetStartTransform(deckDisplays[deckIndex].GetRect());

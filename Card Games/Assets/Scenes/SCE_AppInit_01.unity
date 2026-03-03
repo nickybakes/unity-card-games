@@ -591,6 +591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TitleIntroManager
   viewManager: {fileID: 340487865}
   sceneToLoadInto: 3
+  skipTitleAnimationInEditor: 1
   deckData: {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
   numberOfCardsToDraw: 52
 --- !u!1 &536719963
@@ -1177,7 +1178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a9c2e7c6495aa4b83d8a6dfc6789ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipTitleAnimationInEditor: 1
 --- !u!4 &1728526004
 Transform:
   m_ObjectHideFlags: 0

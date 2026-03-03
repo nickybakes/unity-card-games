@@ -76,6 +76,16 @@ public class GameManagerBlackJack : GameManagerBase
                 hands[0].AddCard(card);
                 changesThisTurn.Add(new GameStateChange(GameStateChangeType.CardMove, GameBoardTarget.Deck, 0, GameBoardTarget.Hand, 0, card));
             }
+
+            for (int i = 0; i < gameRulesBlackJack.DealerUnflippedCards; i++)
+            {
+                DrawCardsToHand(0, dealerHandIndex, 1);
+            }
+
+            for (int i = 0; i < gameRulesBlackJack.DealerFlippedCards; i++)
+            {
+                DrawCardsToHand(0, dealerHandIndex, 1, true);
+            }
         }
         else
         {
@@ -126,6 +136,7 @@ public class GameManagerBlackJack : GameManagerBase
         }
         else if (index == standButtonIndex)
         {
+            HideAllButtons(GameStateChangeTime.Instant);
             CheckScoresForGameOver(true);
         }
 
@@ -143,7 +154,7 @@ public class GameManagerBlackJack : GameManagerBase
             UpdateText(yourScoreNumberTextIndex, playerScore.ToString(), GameStateChangeTime.Medium);
 
             HideAllTexts(GameStateChangeTime.Instant);
-            HideAllButtons(GameStateChangeTime.Short);
+            HideAllButtons(GameStateChangeTime.Instant);
 
             UnflipAllCardsInHand(dealerHandIndex);
 
@@ -154,7 +165,7 @@ public class GameManagerBlackJack : GameManagerBase
             ShowText(finalDealerScoreTextIndex);
             ShowText(finalPlayerScoreTextIndex);
 
-            while (dealerScore < gameRulesBlackJack.DealerDrawIfUnder)
+            while (playerScore <= currentScoreLimit && dealerScore < gameRulesBlackJack.DealerDrawIfUnder)
             {
                 UpdateText(finalDealerScoreTextIndex, dealerScore.ToString());
                 UpdateText(finalPlayerScoreTextIndex, playerScore.ToString(), GameStateChangeTime.Long);
