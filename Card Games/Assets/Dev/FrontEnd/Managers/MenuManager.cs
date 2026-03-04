@@ -11,10 +11,15 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject uiRaycastShield;
 
+    private bool gameHasBeenChosen = false;
+
     public void HideGameDescription()
     {
-        gameDescriptionText.Hide();
-        placeholderDescriptionText.Show();
+        if (!gameHasBeenChosen)
+        {
+            gameDescriptionText.Hide();
+            placeholderDescriptionText.Show();
+        }
     }
 
     public void ShowGameDescription(GameChoice gameChoice)
@@ -26,6 +31,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGameSubmitted(GameChoice gameChoice)
     {
+        gameHasBeenChosen = true;
         GameCollectionManager.collection.CurrentlyChosenGame = gameChoice;
         loadingPanel.GoToChosenGameScene();
     }

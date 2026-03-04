@@ -8,7 +8,7 @@ Library: C:\Users\nick\Documents\unity-card-games\Card Games\Temp\BurstOutput\Da
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---linker-options=PdbAltPath="Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
+--linker-options=PdbAltPath="All In-teractive Video Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\nick\Documents\unity-card-games\Card Games\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
@@ -125,7 +125,7 @@ Library: C:\Users\nick\Documents\unity-card-games\Card Games\Temp\BurstOutput\Da
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---linker-options=PdbAltPath="Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
+--linker-options=PdbAltPath="All In-teractive Video Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\nick\Documents\unity-card-games\Card Games\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
@@ -242,7 +242,7 @@ Library: C:\Users\nick\Documents\unity-card-games\Card Games\Temp\BurstOutput\Da
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---linker-options=PdbAltPath="Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
+--linker-options=PdbAltPath="All In-teractive Video Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\nick\Documents\unity-card-games\Card Games\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
@@ -286,7 +286,7 @@ Library: C:\Users\nick\Documents\unity-card-games\Card Games\Temp\BurstOutput\Da
 --dump=Function
 --float-precision=Standard
 --target-framework=NetFramework
---linker-options=PdbAltPath="Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
+--linker-options=PdbAltPath="All In-teractive Video Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\nick\Documents\unity-card-games\Card Games\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
@@ -332,7 +332,7 @@ Library: C:\Users\nick\Documents\unity-card-games\Card Games\Temp\BurstOutput\Da
 --float-precision=Standard
 --target-framework=NetFramework
 --float-mode=Fast
---linker-options=PdbAltPath="Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
+--linker-options=PdbAltPath="All In-teractive Video Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\nick\Documents\unity-card-games\Card Games\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
@@ -353,7 +353,7 @@ Library: C:\Users\nick\Documents\unity-card-games\Card Games\Temp\BurstOutput\Da
 --float-precision=Standard
 --target-framework=NetFramework
 --float-mode=Fast
---linker-options=PdbAltPath="Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
+--linker-options=PdbAltPath="All In-teractive Video Card Games_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\nick\Documents\unity-card-games\Card Games\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport

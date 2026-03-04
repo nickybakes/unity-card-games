@@ -5,7 +5,6 @@ public class TitleIntroManager : MonoBehaviour
 {
 
     [SerializeField] private GameViewManager viewManager;
-    [SerializeField] private SceneIndex sceneToLoadInto;
     [SerializeField] private bool skipTitleAnimationInEditor;
     [SerializeField] private DeckData deckData;
     [SerializeField] private int numberOfCardsToDraw = 30;
@@ -17,13 +16,14 @@ public class TitleIntroManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+#if UNITY_EDITOR
         if (skipTitleAnimationInEditor)
         {
-#if UNITY_EDITOR
+
             TitleAnimationFinished();
             return;
-#endif
         }
+#endif
 
         ResetDeck();
         gameStateChanges = new List<GameStateChange>();
@@ -62,6 +62,6 @@ public class TitleIntroManager : MonoBehaviour
 
     public void TitleAnimationFinished()
     {
-        AppManager.app.SwitchToScene(sceneToLoadInto);
+        GameCollectionManager.collection.LoadGameMenuScene();
     }
 }

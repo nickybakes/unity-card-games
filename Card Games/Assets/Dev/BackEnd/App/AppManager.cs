@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Index list of scenes in the build.
+/// </summary>
 public enum SceneIndex
 {
     AppInit = 0,
@@ -12,22 +15,34 @@ public enum SceneIndex
 }
 
 /// <summary>
-/// AppManager is the first object that loads in the game and handles overall app status including scene management.
+/// AppManager is the first object that loads in the game and handles overall app status like scene management.
 /// </summary>
 public class AppManager : MonoBehaviour
 {
 
     /// <summary>
-    /// The current App session.
+    /// Singleton reference of the current App session.
     /// </summary>
     public static AppManager app;
 
+    /// <summary>
+    /// The index of the current scene that is loaded.
+    /// </summary>
     private SceneIndex currentScene = SceneIndex.AppInit;
 
+    /// <summary>
+    /// The callback that will be called when a scene is finished loading.
+    /// </summary>
     private Action currentCallback;
 
+    /// <summary>
+    /// The index of the previous scene that was loaded.
+    /// </summary>
     private SceneIndex previousScene = SceneIndex.AppInit;
 
+    /// <summary>
+    /// Awake sets up the singleton and makes sure there is only one.
+    /// </summary>
     private void Awake()
     {
         if (app != null && app != this)
@@ -42,12 +57,9 @@ public class AppManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    /// <summary>
+    /// Closes the entire App, whether in Editor or in build.
+    /// </summary>
     public void QuitApp()
     {
 #if UNITY_EDITOR
@@ -62,17 +74,18 @@ public class AppManager : MonoBehaviour
 
     #region Scene Switching
     /// <summary>
-    /// Switches to a scene asyncronously
+    /// Starts the process for loading a chosen scene and unloading the current one.
     /// </summary>
-    /// <param name="s">The scene you want to load</param>
-    public void SwitchToScene(SceneIndex s, Action callback = null)
+    /// <param name="sceneIndex">The index of the scene to be loaded.</param>
+    /// <param name="callback">Optional callback function to call when</param>
+    public void SwitchToScene(SceneIndex sceneIndex, Action callback = null)
     {
         currentCallback = callback;
         SceneManager.sceneLoaded += WhenSceneDoneLoading;
-        StartCoroutine(StartLoadProcess(s));
+        StartCoroutine(StartLoadProcess(sceneIndex));
 
         previousScene = currentScene;
-        currentScene = s;
+        currentScene = sceneIndex;
     }
 
     private IEnumerator StartLoadProcess(SceneIndex s)
