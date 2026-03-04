@@ -106,6 +106,10 @@ public class UserManager : MonoBehaviour
         balance += winnings;
     }
 
+    public void DepositAmount(float amount)
+    {
+        balance += amount;
+    }
 
     /// <summary>
     /// Tries to take the current bet amount from the balance. If the balance is too low, it does not take the bet amount.

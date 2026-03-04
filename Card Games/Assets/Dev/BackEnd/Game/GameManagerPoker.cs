@@ -6,8 +6,6 @@ public class GameManagerPoker : GameManagerBase
 
     protected GameRulesPoker gameRulesPoker;
 
-    public GameRulesPoker gameRulesOverrive;
-
     [Header("View Elements")]
     [SerializeField] private int drawButtonIndex;
     [SerializeField] private int drawsLeftNumberTextIndex;
@@ -17,11 +15,6 @@ public class GameManagerPoker : GameManagerBase
 
 
     private int drawsLeft;
-
-    private void Start()
-    {
-        LoadGameRules(gameRulesOverrive);
-    }
 
     public override void LoadGameRules(GameRulesBase _gameRules)
     {

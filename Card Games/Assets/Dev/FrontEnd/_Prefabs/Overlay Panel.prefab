@@ -175,7 +175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5686537560718685957, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: m_Name
-      value: Fancy Button
+      value: Main Menu Button
       objectReference: {fileID: 0}
     - target: {fileID: 6670416522588130385, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GR_BlackJack_01
   m_EditorClassIdentifier: Assembly-CSharp::GameRulesBlackJack
   <Name>k__BackingField: Blackjack
-  <Description>k__BackingField: Standard Blackjack. Face cards are worth 10, Ace
-    can be 1 or 11. Get higher than the dealer without going over 21!
+  <Description>k__BackingField: Face cards are worth 10, Aces are 1 or 11. The Dealer
+    hits under 17. Going over 21 is a bust!
   <NumberOfHands>k__BackingField: 2
   <Decks>k__BackingField:
   - {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}
-  <SceneToLoad>k__BackingField: 2
+  <SceneToLoad>k__BackingField: 3
   <paytableData>k__BackingField: {fileID: 11400000, guid: 7c1ffacf3b103084e82bc014fc4bd7f1, type: 2}
   <BaseScoreLimit>k__BackingField: 21
   <PlayerBaseHandSize>k__BackingField: 2

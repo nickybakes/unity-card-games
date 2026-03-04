@@ -17,7 +17,7 @@ MonoBehaviour:
     betMultiplier: 0
     isAWin: 0
   - name: Player Loses, No Bust
-    betMultiplier: 0.2
+    betMultiplier: 0.1
     isAWin: 0
   - name: Player & Dealer Tie
     betMultiplier: 1

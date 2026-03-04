@@ -28,7 +28,6 @@ public class AppManager : MonoBehaviour
 
     private SceneIndex previousScene = SceneIndex.AppInit;
 
-    #region Startup   
     private void Awake()
     {
         if (app != null && app != this)
@@ -42,12 +41,22 @@ public class AppManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-    #endregion
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void QuitApp()
+    {
+#if UNITY_EDITOR
+        // Application.Quit() does not work in the editor so
+        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 
 

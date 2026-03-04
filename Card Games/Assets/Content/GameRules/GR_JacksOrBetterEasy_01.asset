@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GR_JacksOrBetterEasy_01
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Need a Hand
-  <Description>k__BackingField: Jacks Or Better with a hand size of 7 and you get
-    2 chances to draw, but rewards are half.
+  <Description>k__BackingField: Easier version of Jacks Or Better. Has a hand size
+    of 7 and you get 2 draws, but payouts are halved.
   <NumberOfHands>k__BackingField: 1
   <Decks>k__BackingField:
   - {fileID: 11400000, guid: 359777d1e44348a42904f0d919c6bc55, type: 2}

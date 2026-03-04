@@ -15,8 +15,6 @@ public class GameManagerBlackJack : GameManagerBase
 
     protected GameRulesBlackJack gameRulesBlackJack;
 
-    public GameRulesBlackJack gameRulesOverride;
-
     [Header("Game Elements")]
     [SerializeField] private int dealerHandIndex;
 
@@ -28,17 +26,13 @@ public class GameManagerBlackJack : GameManagerBase
     [SerializeField] private int yourScoreNumberTextIndex;
     [SerializeField] private int finalPlayerScoreTextIndex;
     [SerializeField] private int finalDealerScoreTextIndex;
+    [SerializeField] private int dealerHitWhenUnderTextIndex;
 
     [Header("Test Data/Cheats")]
     [SerializeField] private List<Card> testPlayerHand;
 
     private int currentScoreLimit;
-
-
-    private void Start()
-    {
-        LoadGameRules(gameRulesOverride);
-    }
+    private int currentDealerHitWhenUnder;
 
     public override void LoadGameRules(GameRulesBase _gameRules)
     {
@@ -66,7 +60,9 @@ public class GameManagerBlackJack : GameManagerBase
     {
         ResetDecks();
         currentScoreLimit = gameRulesBlackJack.BaseScoreLimit;
+        currentDealerHitWhenUnder = gameRulesBlackJack.DealerDrawIfUnder;
         UpdateText(bustOverNumberTextIndex, currentScoreLimit.ToString());
+        UpdateText(dealerHitWhenUnderTextIndex, currentDealerHitWhenUnder.ToString());
 
 #if UNITY_EDITOR
         if (testPlayerHand != null && testPlayerHand.Count > 0)
