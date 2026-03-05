@@ -59,9 +59,9 @@ Singletons
 -
 I use the singleton pattern for objects in the game that are global for the entire program. They are set to not be auto-destroyed by Unity when the scene changes. For this project, there are three:
 
-- AppManager: the first object loaded and handles the state of the App, including scene management.
+- AppManager: the first object loaded, handles the state of the App and scene management.
 - UserManager: handles User data such as their balance, selected bet, and market/location info. This would be where logging into a User's account and retrieving that data would be done.
-- GameCollectionManager: handles storing all the game choices that the player can pick from.
+- GameCollectionManager: handles storing all the game choices that the player can pick from to play.
 
 I used the Singleton pattern for these as I view them as administrators on the overall program. The game would not be playable without them existing, and there should only ever be one of them, so the game always forces you to first enter the SCE_AppInit_01 scene on startup to make sure they are properly initialized.
 
