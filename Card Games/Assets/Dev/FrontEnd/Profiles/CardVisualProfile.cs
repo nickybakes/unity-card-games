@@ -1,10 +1,16 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable Object for setting how cards visually look.
+/// </summary>
 [CreateAssetMenu(fileName = "CardVisualProfile", menuName = "Scriptable Objects/Card Visual Profile")]
 public class CardVisualProfile : ScriptableObject
 {
 
+    /// <summary>
+    /// The sprites to show for each suit.
+    /// </summary>
     #region Suit Sprites
     [field: SerializeField] public Sprite SpadeSprite { get; private set; }
     [field: SerializeField] public Sprite HeartSprite { get; private set; }
@@ -15,6 +21,10 @@ public class CardVisualProfile : ScriptableObject
 
     #endregion
 
+
+    /// <summary>
+    /// The colors to tint the suit sprites for each suit.
+    /// </summary>
     #region Suit Sprite Colors
 
     [field: SerializeField] public Color SpadeSpriteColor { get; private set; }
@@ -26,6 +36,9 @@ public class CardVisualProfile : ScriptableObject
 
     #endregion
 
+    /// <summary>
+    /// The color gradients to put on the card value texts for each suit.
+    /// </summary>
     #region  Suit Text Gradients
     [field: SerializeField] public TMP_ColorGradient SpadeTextColor { get; private set; }
     [field: SerializeField] public TMP_ColorGradient HeartTextColor { get; private set; }
@@ -36,6 +49,9 @@ public class CardVisualProfile : ScriptableObject
 
     #endregion
 
+    /// <summary>
+    /// The extra, custom sprites for each face card and whether they should also be tinted or not.
+    /// </summary>
     #region Face Card Visuals
     [field: SerializeField] public Sprite JackCustomSprite { get; private set; }
     [field: SerializeField] public Sprite QueenCustomSprite { get; private set; }
