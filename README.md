@@ -34,3 +34,21 @@ Decks
 If a game needs a specific sized/customized deck, that is also easy to do. Games load Deck data from highly customizable scriptable objects.
 
 <img width="1600" height="600" alt="image" src="https://github.com/user-attachments/assets/dc07a6bd-f589-4d2d-aec0-70cd85db3bf7" />
+
+
+# Game Architecture
+The development side of the game is split by Backend and Frontend. 
+
+The Backend (Game Manager) handles loading game data, the scripting of a gamemode, score evaluation, etc. It outputs data that describes the current Game State and how its changing.
+
+The Frontend (Game View Manager) parses that Game State data in order to control the game elements on screen.
+
+The Backend does not card about how a Card moves on screen, it just knows what Cards were drawn to what Hands. The Frontend never tries to calculate score or directly change game data, it only cares about making sure the objects on screen match the state the Backend gave it.
+
+The two sides just need to be setup in a way so that they can talk to eachother. When the player clicks the "Hit" button in Blackjack, the Frontend knows a button has been clicked, but doesn't know what its supposed to do, it just tells the Backend that the player clicked a button with a specific index identifier. The Backend can then understand that and draw a card, check if the player busted, etc, and the Frontend will then display those changes.
+
+If you put the Backend on a remote server to ensure no player tampers/cheats, then the Frontend would just display the game and never try to change data.
+
+Modularity
+-
+Because of this separation of powers, the system is very modular. You can see this in the first second that you open the game: the Intro Animation System is just drawing some cards and senting that data to the Game View Manager, which then displays them the same way as in game.
