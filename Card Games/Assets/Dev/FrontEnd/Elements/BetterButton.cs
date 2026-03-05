@@ -2,16 +2,34 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// An in-game button that is a bit more streamlined than the default Unity buttons.
+/// </summary>
 public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHandler, ISubmitHandler
 {
+    /// <summary>
+    /// The event to call when this button is submitted (clicked).
+    /// </summary>
     [SerializeField] protected UnityEvent submitEvent;
 
+    /// <summary>
+    /// Cooldown between when this button can be submitted again.
+    /// </summary>
     [SerializeField] private float cooldownTime = .1f;
 
+    /// <summary>
+    /// The time since the last submission.
+    /// </summary>
     private float timeSinceSubmit;
 
+    /// <summary>
+    /// Whether the button is currently held down/pressed.
+    /// </summary>
     private bool pressed;
 
+    /// <summary>
+    /// Play the press and release animation and invoke the submit event.
+    /// </summary>
     public virtual void Submit()
     {
         if (!IsActive() || !Interactable || timeSinceSubmit < cooldownTime)
@@ -27,6 +45,9 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
         submitEvent.Invoke();
     }
 
+    /// <summary>
+    /// When the user pressed down on the button.
+    /// </summary>
     public virtual void Press()
     {
         if (!IsActive() || !Interactable)
@@ -37,6 +58,9 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
         pressed = true;
     }
 
+    /// <summary>
+    /// When the user releases the button from being held down. Only submit if the cursor is inside the button.
+    /// </summary>
     public virtual void Release()
     {
         if (!IsActive() || !Interactable)
@@ -50,6 +74,9 @@ public class BetterButton : BetterSelectable, IPointerDownHandler, IPointerUpHan
         }
     }
 
+    /// <summary>
+    /// Add handling for click-holding then dragging off/on the button.
+    /// </summary>
     public override void OnSelected()
     {
         if (!IsActive() || !Interactable)

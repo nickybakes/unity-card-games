@@ -1,6 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Property Drawer for a Poker Hand Rule.
+/// </summary>
 [CustomPropertyDrawer(typeof(PokerHandRule))]
 public class PokerHandRuleDrawer : BetterPropertyDrawer
 {
@@ -14,6 +17,8 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
         AddProperty("type");
 
         AddQuarterBlankLine();
+
+        #region Amount Needed
 
         StartSameLine(4);
 
@@ -42,9 +47,13 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
         normalizedXPositionOverride = -1;
         normalizedWidthOverride = -1;
 
+        #endregion
+
         AddQuarterBlankLine();
 
         AddProperty("afterRuleOperation");
+
+        #region Allowed Values
 
         AddLabel("Allowed Values");
         SerializedProperty allowedValuesProperty = property.FindPropertyRelative("allowedValues");
@@ -73,6 +82,10 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
         }
 
         AddQuarterBlankLine();
+
+        #endregion
+
+        #region Allowed Suits
 
         AddLabel("Allowed Suits");
 
@@ -103,6 +116,8 @@ public class PokerHandRuleDrawer : BetterPropertyDrawer
         }
 
         AddQuarterBlankLine();
+
+        #endregion
 
         EditorGUI.EndProperty();
     }

@@ -1,19 +1,23 @@
 using UnityEngine;
 
-public class IdlingElement : MonoBehaviour
+/// <summary>
+/// An element that rotated back and forth based on a given profile.
+/// </summary>
+public class RotatingElement : MonoBehaviour
 {
-
+    /// <summary>
+    /// The profile to follow.
+    /// </summary>
     [SerializeField] private RotatingElementProfile profile;
 
+    /// <summary>
+    /// How much this effect is used.
+    /// </summary>
     [SerializeField, Range(0.0f, 1.0f)] private float effectAmount = 1;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    /// <summary>
+    /// Updates rotation.
+    /// </summary>
     void Update()
     {
         float lerpT = Mathf.Sin(Time.time * profile.TimeScale);

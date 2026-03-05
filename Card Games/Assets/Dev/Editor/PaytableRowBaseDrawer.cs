@@ -1,6 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Property Drawer for a basic Paytable Row.
+/// </summary>
 [CustomPropertyDrawer(typeof(PaytableRowBlackJack))]
 public class PaytableRowBaseDrawer : BetterPropertyDrawer
 {

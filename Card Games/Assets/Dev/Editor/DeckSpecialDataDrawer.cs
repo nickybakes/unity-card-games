@@ -1,6 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Property Drawer for Deck Special Data.
+/// </summary>
 [CustomPropertyDrawer(typeof(DeckSpecialData))]
 public class DeckSpecialDataDrawer : BetterPropertyDrawer
 {

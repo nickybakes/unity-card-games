@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// An in-game selectable element that is a bit more streamlined than the default Unity selectables.
+/// </summary>
 [RequireComponent(typeof(Animator))]
 public class BetterSelectable :
         UIBehaviour,
@@ -15,16 +18,30 @@ public class BetterSelectable :
     [SerializeField]
     private bool m_Interactable = true;
 
+    /// <summary>
+    /// The event invoke when this is selected.
+    /// </summary>
     [SerializeField] protected UnityEvent<int> selectEvent;
+
+    /// <summary>
+    /// The event invoke when this is deselected.
+    /// </summary>
     [SerializeField] protected UnityEvent<int> deselectEvent;
 
+
+    /// <summary>
+    /// Useable index value thats passed on the select and deselect event.
+    /// </summary>
     protected int index;
+
+    /// <summary>
+    /// The animator component on the selectable.
+    /// </summary>
     protected Animator animator;
 
     /// <summary>
-    /// Is this object interactable.
+    /// Is this selectable interactable.
     /// </summary>
-    /// <example>
     public bool Interactable
     {
         get { return m_Interactable; }
@@ -45,7 +62,14 @@ public class BetterSelectable :
         }
     }
 
+    /// <summary>
+    /// Whether the pointer is inside the selectable or not.
+    /// </summary>
     protected bool isPointerInside { get; set; }
+
+    /// <summary>
+    /// Whether this selectable is selected currently.
+    /// </summary>
     protected bool hasSelection { get; set; }
 
     protected override void Awake()
@@ -53,6 +77,10 @@ public class BetterSelectable :
         animator = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Sets a trigger in the animator.
+    /// </summary>
+    /// <param name="trigger">The trigger to set.</param>
     public void SetAnimationTrigger(string trigger)
     {
         if (animator.enabled && animator.runtimeAnimatorController != null)
@@ -61,6 +89,10 @@ public class BetterSelectable :
         }
     }
 
+    /// <summary>
+    /// Resets a trigger in the animator.
+    /// </summary>
+    /// <param name="trigger">The trigger to reset.</param>
     public void ResetAnimationTrigger(string trigger)
     {
         if (animator.enabled && animator.runtimeAnimatorController != null)
@@ -69,7 +101,9 @@ public class BetterSelectable :
         }
     }
 
-    // Select on enable and add to the list.
+    /// <summary>
+    /// When the selectable is enabled.
+    /// </summary>
     protected override void OnEnable()
     {
         //Check to avoid multiple OnEnable() calls for each selectable
@@ -86,7 +120,9 @@ public class BetterSelectable :
         m_EnableCalled = true;
     }
 
-    // Remove from the list.
+    /// <summary>
+    /// When the selectable is disabled.
+    /// </summary>
     protected override void OnDisable()
     {
         //Check to avoid multiple OnDisable() calls for each selectable
@@ -109,11 +145,17 @@ public class BetterSelectable :
         OnReset();
     }
 
+    /// <summary>
+    /// Go back to the default animation.
+    /// </summary>
     public virtual void OnReset()
     {
         SetAnimationTrigger("Reset");
     }
 
+    /// <summary>
+    /// If this is interactible and not selected, play the select animation.
+    /// </summary>
     public virtual void OnSelected()
     {
         if (!hasSelection && Interactable)
@@ -124,6 +166,9 @@ public class BetterSelectable :
         }
     }
 
+    /// <summary>
+    /// If this is selected, play the deselect animation.
+    /// </summary>
     public virtual void OnDeselected()
     {
         if (hasSelection)
@@ -192,12 +237,18 @@ public class BetterSelectable :
         }
     }
 
+    /// <summary>
+    /// Plays the hide animation and makes it not interactible.
+    /// </summary> 
     public void Hide()
     {
         Interactable = false;
         animator.SetTrigger("Hide");
     }
 
+    /// <summary>
+    /// Plays the show animation and makes it interactible.
+    /// </summary>
     public void Show()
     {
         Interactable = true;

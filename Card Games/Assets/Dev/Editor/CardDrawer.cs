@@ -1,6 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Property Drawer for Card.
+/// </summary>
 [CustomPropertyDrawer(typeof(Card))]
 public class CardDrawer : BetterPropertyDrawer
 {

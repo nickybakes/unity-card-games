@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// A basic UI raycast hitbox that has no graphical element to it.
+/// </summary>
 public class NoDrawRaycastTarget : Graphic
 {
     public override void SetVerticesDirty() { return; }

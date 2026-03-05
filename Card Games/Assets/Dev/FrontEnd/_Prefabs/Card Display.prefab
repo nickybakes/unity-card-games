@@ -1200,7 +1200,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8746525971175064651}
         m_TargetAssemblyTypeName: CardDisplay, Assembly-CSharp
-        m_MethodName: SelectCard
+        m_MethodName: SubmitCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

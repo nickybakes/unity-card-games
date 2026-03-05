@@ -4,35 +4,113 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// The in-game display of a Card.
+/// </summary>
 public class CardDisplay : TravelingDisplay
 {
+    /// <summary>
+    /// The animator attached to this Card Display.
+    /// </summary>
     [SerializeField] private Animator animator;
 
+    /// <summary>
+    /// Text elements that show the card's value.
+    /// </summary>
     [SerializeField] private List<TextMeshProUGUI> valueDisplays;
+
+    /// <summary>
+    /// Image elements that show the card's suit.
+    /// </summary>
     [SerializeField] private List<Image> suitDisplays;
+
+    /// <summary>
+    /// Corner graphic for Jack.
+    /// </summary>
     [SerializeField] private Image jackCorner;
+
+    /// <summary>
+    /// Corner image graphic for Queen.
+    /// </summary>
     [SerializeField] private Image queenCorner;
+
+    /// <summary>
+    /// Corner image graphic for King.
+    /// </summary>
     [SerializeField] private Image kingCorner;
+
+    /// <summary>
+    /// Image graphic for display face card art.
+    /// </summary>
     [SerializeField] private Image faceCustomImage;
 
+    /// <summary>
+    /// Transition lerp between unselected and selected size. Use the animator to control this.
+    /// </summary>
     [SerializeField, Range(0.0f, 1.0f)] private float sizeTransition;
 
+    /// <summary>
+    /// The minimum amount of time after a card is drawn before updating its flipped and held status.
+    /// </summary>
     [SerializeField] private float timeBeforeUpdateCardStateMin;
+
+    /// <summary>
+    /// The maximum amount of time after a card is drawn before updating its flipped and held status.
+    /// </summary>
     [SerializeField] private float timeBeforeUpdateCardStateMax;
 
+    /// <summary>
+    /// Transition lerp between unselected and selected size. Use the animator to control this.
+    /// </summary>
     public float SizeTransition { get => sizeTransition; }
 
+    /// <summary>
+    /// Reference to the Card that this Display represents.
+    /// </summary>
     private Card card;
 
+    /// <summary>
+    /// Whether this display is shown flipped.
+    /// </summary>
     private bool shownFlipped;
+
+    /// <summary>
+    /// Whether this display is shown held.
+    /// </summary>
     private bool shownHeld;
 
+    /// <summary>
+    /// Whether the card's flipped/held status has been updated after being drawn.
+    /// </summary>
     private bool updatedAfterInitialDisplay;
 
+    /// <summary>
+    /// The amount of time that this card has been displayed for.
+    /// </summary>
     private float timeDisplayed;
 
+    /// <summary>
+    /// The time when the card should update its statuses.
+    /// </summary>
     private float timeBeforeUpdateCardState;
 
+
+    /// <summary>
+    /// Setup basic travel data.
+    /// </summary>
+    void Awake()
+    {
+        SetupRectTransform();
+        SetupTravelingTransformData();
+    }
+
+    /// <summary>
+    /// Sets up the visuals to display a Card.
+    /// </summary>
+    /// <param name="_card">The Card to display/</param>
+    /// <param name="visualProfile">The visual settings used for displaying the Card.</param>
+    /// <param name="startingTransform">The starting position, rotation, and scale.</param>
+    /// <param name="startFlipped">Whether the card should be started flipped.</param>
     public void DisplayCard(Card _card, CardVisualProfile visualProfile, RectTransform startingTransform, bool startFlipped)
     {
         card = _card;
@@ -55,18 +133,24 @@ public class CardDisplay : TravelingDisplay
         animator.SetTrigger("FlipInstant");
     }
 
+    /// <summary>
+    /// Updates the graphics on the display to show the current Card, driven by the data in the visual profile.
+    /// </summary>
+    /// <param name="visualProfile">The settings that drive how the card should look.</param>
     public void ApplyCardVisualProfile(CardVisualProfile visualProfile)
     {
         Sprite[] suitSprites = visualProfile.SuitSprites;
         Color[] suitSpriteColors = visualProfile.SuitSpriteColors;
         TMP_ColorGradient[] suitTextColors = visualProfile.SuitTextColors;
 
+        // Show Card Value in text
         foreach (TextMeshProUGUI text in valueDisplays)
         {
             text.text = Card.CARD_VALUE_STRINGS[(int)card.Value];
             text.colorGradientPreset = suitTextColors[(int)card.Suit];
         }
 
+        // Show Card Suit in the images
         foreach (Image image in suitDisplays)
         {
             image.sprite = suitSprites[(int)card.Suit];
@@ -78,6 +162,7 @@ public class CardDisplay : TravelingDisplay
         kingCorner.gameObject.SetActive(false);
         faceCustomImage.gameObject.SetActive(false);
 
+        // Set face card specific sprites.
         switch (card.Value)
         {
             case CardValue.Jack:
@@ -124,11 +209,18 @@ public class CardDisplay : TravelingDisplay
         }
     }
 
-    public void SelectCard()
+    /// <summary>
+    /// Function to call when the player submits (clicks) this card.
+    /// </summary>
+    public void SubmitCard()
     {
         viewManager.CardSubmitted(card);
     }
 
+    /// <summary>
+    /// Updates the card's visuals to show whether its held or not.
+    /// </summary>
+    /// <param name="forceUpdate">Force the animation to play even if it doesn't need to update.</param>
     public void UpdateHeld(bool forceUpdate = false)
     {
         if (shownHeld != card.Held || forceUpdate)
@@ -139,6 +231,11 @@ public class CardDisplay : TravelingDisplay
         }
     }
 
+
+    /// <summary>
+    /// Updates the card's visuals to show whether its flipped or not.
+    /// </summary>
+    /// <param name="forceUpdate">Force the animation to play even if it doesn't need to update.</param>
     public void UpdateFlip(bool forceUpdate = false)
     {
         if (shownFlipped != card.Flipped || forceUpdate)
@@ -149,6 +246,10 @@ public class CardDisplay : TravelingDisplay
         }
     }
 
+    /// <summary>
+    /// Flip the card even if the Card its displaying isnt actually flipped.
+    /// </summary>
+    /// <param name="overrideFlip">Whether the card should show flipped or not.</param>
     public void FlipOverride(bool overrideFlip)
     {
         shownFlipped = overrideFlip;
@@ -156,18 +257,9 @@ public class CardDisplay : TravelingDisplay
         animator.SetTrigger("Flip");
     }
 
-    void Awake()
-    {
-        SetupRectTransform();
-        SetupTravelingTransformData();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
+    /// <summary>
+    /// Update the traveling data of the card display.
+    /// </summary>
     void Update()
     {
         UpdateTravel();
