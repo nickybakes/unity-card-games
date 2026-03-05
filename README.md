@@ -45,7 +45,7 @@ The Frontend (Game View Manager) parses that Game State data in order to control
 
 The Backend does not care about how a Card moves on screen, it just knows specific Cards were drawn from specific Decks to specific Hands. The Frontend never tries to calculate score or directly change game data, it only cares about making sure the objects on screen match the state the Backend gave it, and that they look as cool as the artist intended. 
 
-The two sides just need to be setup in the scene so that they can talk to eachother. When the player clicks the "Hit" button in Blackjack, the Frontend knows a button has been clicked, but doesn't know what its supposed to do, it just tells the Backend that the player clicked a button with a specific index identifier. The Backend can then understand that and draw a card, check if the player busted, etc, and the Frontend will then display those changes.
+The two sides just need to be set up in the scene so that they can talk to eachother. When the player clicks the "Hit" button in Blackjack, the Frontend knows a button has been clicked, but doesn't know what its supposed to do, it just tells the Backend that the player clicked a button with a specific index identifier. The Backend can then understand that and draw a card, check if the player busted, etc, and the Frontend will then display those changes.
 
 If you put the Backend on a remote server to ensure no player tampers/cheats, then the Frontend would just display the game and never try to change data.
 
