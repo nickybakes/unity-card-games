@@ -57,7 +57,7 @@ Because of this separation of powers, the system is very modular. You can see th
 
 Singletons
 -
-I use the singleton pattern for objects in the game that are global for the entire program. The yare set to not be auto-destroyed by Unity. For this project, there are three:
+I use the singleton pattern for objects in the game that are global for the entire program. They are set to not be auto-destroyed by Unity when the scene changes. For this project, there are three:
 
 - AppManager: the first object loaded and handles the state of the App, including scene management.
 - UserManager: handles User data such as their balance, selected bet, and market/location info. This would be where logging into a User's account and retrieving that data would be done.
