@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Forces the game to load the App Init scene. Useful in the editor if you launch the game from the wrong scene, 
-/// this will automatically put you in the right one.
+/// Forces the game to load the App Init scene. Useful in the editor if the game is launched from the wrong scene, 
+/// this will automatically switch to the right one.
 /// </summary>
 public class ForceAppInit : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (AppManager.app == null)

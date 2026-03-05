@@ -1,3 +1,6 @@
+/// <summary>
+/// The Value of a Card, such as 2-10, Jack, Queen, King, or Ace.
+/// </summary>
 public enum CardValue
 {
     Two,
@@ -15,6 +18,9 @@ public enum CardValue
     Ace
 }
 
+/// <summary>
+/// The suit of the card, such as Spade, Heart, Club, or Diamond.
+/// </summary>
 public enum CardSuit
 {
     Spade,
@@ -23,20 +29,9 @@ public enum CardSuit
     Diamond
 }
 
-public enum HandComponent
-{
-    MatchingValues,
-    MatchingSuits,
-    ConsecutiveValues,
-}
-
-public enum HandAfterRuleOperation
-{
-    None,
-    TrimScoringCards,
-    TrimNonscoringCards
-}
-
+/// <summary>
+/// Any special properties of the card, such as if its Wild or not. Can be expanded upon.
+/// </summary>
 public enum CardSpecial
 {
     None,

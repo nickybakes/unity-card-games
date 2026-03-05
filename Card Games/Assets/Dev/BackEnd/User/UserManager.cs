@@ -3,23 +3,44 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
+/// <summary>
+/// The User Manager handles setting, storing, and retrieving of the User's data such as market data, financial data, etc.
+/// </summary>
 public class UserManager : MonoBehaviour
 {
     /// <summary>
-    /// The current User's info.
+    /// Singleton reference of the current User session.
     /// </summary>
     public static UserManager user;
 
+    /// <summary>
+    /// The info of the Market the User is in.
+    /// </summary>
     [SerializeField] private MarketInfo marketInfo;
 
+    /// <summary>
+    /// The stored balance of the current User.
+    /// </summary>
     private float balance;
 
+    /// <summary>
+    /// The index of the User's selected bet.
+    /// </summary>
     private int currentSelectedBetIndex;
 
+    /// <summary>
+    /// The most recent amount of money won by the User.
+    /// </summary>
     private float winnings;
 
+    /// <summary>
+    /// The Culture info of the User's Market. Useful for parsing numbers as currency strings.
+    /// </summary>
     private CultureInfo culture;
 
+    /// <summary>
+    /// The index of the User's selected bet.
+    /// </summary>
     public int CurrentSelectedBetIndex
     {
         get
@@ -28,6 +49,9 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The User's selected bet.
+    /// </summary>
     public float CurrentBet
     {
         get
@@ -36,6 +60,9 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The number of possible bets the User can pick from.
+    /// </summary>
     public int NumberPossibleBets
     {
         get
@@ -44,6 +71,9 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Getter for the balance of the current User.
+    /// </summary>
     public float Balance
     {
         get
@@ -52,6 +82,9 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The most recent amount of money won by the User.
+    /// </summary>
     public float Winnings
     {
         get
@@ -60,6 +93,9 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The Culture info of the User's Market. Useful for parsing numbers as currency strings.
+    /// </summary>
     public CultureInfo Culture
     {
         get
@@ -68,6 +104,10 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Awake sets up the singleton and makes sure there is only one.
+    /// It also retrieves the Market Info of the User.
+    /// </summary>
     void Awake()
     {
         if (user != null && user != this)
@@ -95,17 +135,30 @@ public class UserManager : MonoBehaviour
         culture = CultureInfo.CreateSpecificCulture(marketInfo.CultureCode);
     }
 
+    /// <summary>
+    /// Get the value of a bet at an index.
+    /// </summary>
+    /// <param name="index">The index of the bet.</param>
+    /// <returns>The bet value.</returns>
     public float GetPossibleBet(int index)
     {
         return marketInfo.PossibleBets[index];
     }
 
+    /// <summary>
+    /// Adds winnings to the User's balance and stores the most recent winnings.
+    /// </summary>
+    /// <param name="_winnings">The winnings to add.</param>
     public void AwardWinnings(float _winnings)
     {
         winnings = _winnings;
         balance += winnings;
     }
 
+    /// <summary>
+    /// Adds an amount of money to the User's balance.
+    /// </summary>
+    /// <param name="amount">The amount to add.</param>
     public void DepositAmount(float amount)
     {
         balance += amount;
@@ -152,16 +205,28 @@ public class UserManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Checks if a bet is too high for the current balance.
+    /// </summary>
+    /// <returns>True if the bet is too high, false otherwise.</returns>
     public bool IsBalanceHighEnoughToBet()
     {
         return balance >= CurrentBet;
     }
 
+    /// <summary>
+    /// Checks if the current selected bet index is the highest it can go.
+    /// </summary>
+    /// <returns>True if the selected bet index is at its maximum.</returns>
     public bool IsSelectedBetIndexAtMax()
     {
         return currentSelectedBetIndex >= marketInfo.PossibleBets.Count - 1;
     }
 
+    /// <summary>
+    /// Checks if the current selected bet index is the lowest it can go.
+    /// </summary>
+    /// <returns>True if the selected bet index is at its minimum.</returns>
     public bool IsSelectedBetIndexAtMin()
     {
         return currentSelectedBetIndex <= 0;

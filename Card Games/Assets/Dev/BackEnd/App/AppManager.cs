@@ -71,64 +71,44 @@ public class AppManager : MonoBehaviour
 #endif
     }
 
-
     #region Scene Switching
     /// <summary>
     /// Starts the process for loading a chosen scene and unloading the current one.
     /// </summary>
     /// <param name="sceneIndex">The index of the scene to be loaded.</param>
-    /// <param name="callback">Optional callback function to call when</param>
+    /// <param name="callback">Optional callback function to call when the scene is finished loading.</param>
     public void SwitchToScene(SceneIndex sceneIndex, Action callback = null)
     {
         currentCallback = callback;
         SceneManager.sceneLoaded += WhenSceneDoneLoading;
-        StartCoroutine(StartLoadProcess(sceneIndex));
+        LoadScene(sceneIndex);
 
         previousScene = currentScene;
         currentScene = sceneIndex;
     }
 
-    private IEnumerator StartLoadProcess(SceneIndex s)
+    /// <summary>
+    /// Tells Unity to load a chosen scene asynchronously.
+    /// </summary>
+    /// <param name="sceneIndex">The index of the scene to load.</param>
+    private void LoadScene(SceneIndex sceneIndex)
     {
-        float time = 1f;
-        if (currentScene == SceneIndex.AppInit)
-            time = 0;
-        yield return new WaitForSecondsRealtime(time);
-        LoadScene(s);
+        SceneManager.LoadSceneAsync((int)sceneIndex, LoadSceneMode.Single);
     }
 
-    private void LoadScene(SceneIndex s)
-    {
-        CheckIfLoadingDone(SceneManager.LoadSceneAsync((int)s, LoadSceneMode.Single));
-    }
-
+    /// <summary>
+    /// Function that gets called when the scene is done loading. Calls the callback and resets it back to null.
+    /// </summary>
+    /// <param name="scene">The scene that Unity loaded.</param>
+    /// <param name="mode">The Load Scene Mode for loading this scene.</param>
     private void WhenSceneDoneLoading(Scene scene, LoadSceneMode mode)
     {
-        // UnloadScene(previousScene);
         if (currentCallback != null)
         {
             currentCallback.Invoke();
         }
         currentCallback = null;
         SceneManager.sceneLoaded -= WhenSceneDoneLoading;
-    }
-
-    public void UnloadScene(SceneIndex s)
-    {
-        SceneManager.UnloadSceneAsync((int)s);
-    }
-
-    private IEnumerator CheckIfLoadingDone(AsyncOperation operation)
-    {
-        if (!operation.isDone)
-        {
-            yield return null;
-        }
-    }
-
-    public SceneIndex GetCurrentScene()
-    {
-        return currentScene;
     }
 
     #endregion

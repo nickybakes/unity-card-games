@@ -47,15 +47,15 @@ public class GameViewManager : MonoBehaviour
         DisablePlayerInteractions();
     }
 
-    public void ButtonSelected(int index)
+    public void ButtonSubmitted(int index)
     {
         EventSystem.current.SetSelectedGameObject(null);
-        gameManager.PlayerSelectButton(index);
+        gameManager.PlayerSubmitButton(index);
     }
 
-    public void CardSelected(Card card)
+    public void CardSubmitted(Card card)
     {
-        gameManager.PlayerSelectCard(card);
+        gameManager.PlayerSubmitCard(card);
     }
 
     public void CaptureAndDisplayGameChanges(List<GameStateChange> changes)

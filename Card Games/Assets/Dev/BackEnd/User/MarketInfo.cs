@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable Object containing settings for the Market Info of the user.
+/// </summary>
 [CreateAssetMenu(fileName = "MarketInfo", menuName = "Scriptable Objects/Market Info")]
 public class MarketInfo : ScriptableObject
 {

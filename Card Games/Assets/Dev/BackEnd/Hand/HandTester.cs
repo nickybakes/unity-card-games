@@ -2,20 +2,56 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// Debug script for testing what Poker Hands on in various hands.
+/// The application will automatically exit once the test is complete.
+/// </summary>
 public class HandTester : MonoBehaviour
 {
-
+    /// <summary>
+    /// The Poker Hands to check for.
+    /// </summary>
     [SerializeField] private List<PokerHand> pokerHands;
 
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand01;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand02;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand03;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand04;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand05;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand06;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand07;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand08;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand09;
+    /// <summary>
+    /// A hand to check if it contains Poker Hands.
+    /// </summary>
     [SerializeField] private List<Card> hand10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,6 +60,9 @@ public class HandTester : MonoBehaviour
         TestHands();
     }
 
+    /// <summary>
+    /// Tests all the hands to see what Poker Hands each one contains.
+    /// </summary>
     public void TestHands()
     {
         List<List<Card>> handsToTest = new List<List<Card>>()

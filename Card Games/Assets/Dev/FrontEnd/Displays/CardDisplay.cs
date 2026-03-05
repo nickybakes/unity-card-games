@@ -126,7 +126,7 @@ public class CardDisplay : TravelingDisplay
 
     public void SelectCard()
     {
-        viewManager.CardSelected(card);
+        viewManager.CardSubmitted(card);
     }
 
     public void UpdateHeld(bool forceUpdate = false)

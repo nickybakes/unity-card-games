@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd25957f4bdf81459dd1da270ca7879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerPoker
-  finishTurnEvent:
+  submitChangesEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 901487978}
@@ -2251,7 +2251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9126110177679285336, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: submitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ButtonSelected
+      value: ButtonSubmitted
       objectReference: {fileID: 0}
     - target: {fileID: 9126110177679285336, guid: 77f0e0108e4ed1d46b92bef954daba12, type: 3}
       propertyPath: submitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

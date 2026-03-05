@@ -1,10 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A Deck has a list of cards that can be shuffled and drawn from.
+/// </summary>
 public class Deck
 {
+    /// <summary>
+    /// The cards currently in this Deck.
+    /// </summary>
     private List<Card> cards;
 
+    /// <summary>
+    /// Deck constructor. Resets the list of cards, then adds cards to it based on the provided Deck Data.
+    /// </summary>
+    /// <param name="deckData">The rules for what kind of cards this Deck should have.</param>
     public Deck(DeckData deckData)
     {
         cards = new List<Card>();
@@ -32,6 +42,9 @@ public class Deck
         }
     }
 
+    /// <summary>
+    /// Randomizes the positions of all cards in the Deck.
+    /// </summary>
     public void ShuffleDeck()
     {
         List<Card> shuffledCards = new List<Card>(cards.Capacity);
@@ -47,6 +60,10 @@ public class Deck
         cards = shuffledCards;
     }
 
+    /// <summary>
+    /// Removes the top-most card from the list and returns it.
+    /// </summary>
+    /// <returns>The top-most card in the Deck.</returns>
     public Card DrawCard()
     {
         Card card = cards[cards.Count - 1];
@@ -54,6 +71,10 @@ public class Deck
         return card;
     }
 
+    /// <summary>
+    /// Gets the number of undrawn cards left in the deck.
+    /// </summary>
+    /// <returns>The number of undrawn cards left in the deck.</returns>
     public int NumberOfCardsLeft()
     {
         return cards.Count;
