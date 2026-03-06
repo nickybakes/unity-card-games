@@ -55,6 +55,28 @@ Modularity
 -
 Because of this separation of powers, the system is very modular. You can see this in the first second that you open the game: the Intro Animation is not hand animated, but rather is just drawing some cards and sending that data to the Game View Manager, which then displays them the same way as in a normal game.
 
+The Frontend elements are also designed to be easily customized by artists. Most things are driven by artist defined animations, shader materials, or editable values.
+
+The timings and movement of Cards on screen can be customized with a simple Animation Curve. In this project I made the Cards slightly overshoot their goal, which I thought felt pretty good. But that can be very easily changed.
+
+<img width="573" height="439" alt="image" src="https://github.com/user-attachments/assets/0185f8b3-a5d4-4150-9d2f-feb4dd39ae13" />
+
+
+When Cards are positioned in a Hand, they sit along a customizable spline track in the Hand Display. Card spacing values can also be adjusted in the inspector for the Hand Display.
+
+<img width="936" height="390" alt="image" src="https://github.com/user-attachments/assets/90a5d4bc-bd22-4eae-b247-ccc1c366a325" />
+
+
+Even the individual elements on a Card can be customized per Suit by using a Card Visual Profile scriptable object.
+
+<img width="542" height="439" alt="image" src="https://github.com/user-attachments/assets/232e367f-9389-433a-85cd-24b62e697b8c" />
+
+
+I also develop my shaders to be extremely customizable. This is the material for the Scrolling Suits that you see in the backgrounds and on the UI buttons.
+
+<img width="393" height="889" alt="image" src="https://github.com/user-attachments/assets/45026595-3b08-4624-a98b-d2c5e44fb4d1" />
+
+
 Singletons
 -
 I use the singleton pattern for objects in the game that are global for the entire program. They are set to not be auto-destroyed by Unity when the scene changes. For this project, there are three:
